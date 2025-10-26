@@ -4,11 +4,12 @@ A high-performance, scalable multi-site news network platform built with React, 
 
 ## Project Overview
 
-**Status**: Development Complete ✅  
+**Status**: Production Ready ✅  
 **Version**: 1.0.0  
 **Stack**: React + Vite + Express + TypeScript  
 **Content**: Markdown-based CMS  
-**Deployment**: Portable to VPS with wildcard DNS
+**Deployment**: Portable to VPS with wildcard DNS  
+**Last Updated**: October 26, 2025
 
 ## Architecture
 
@@ -289,8 +290,31 @@ Potential features for future versions:
 - Images from Unsplash
 - Indonesian language articles
 
+## Recent Bug Fixes (October 26, 2025)
+
+### SEO Component Memory Leak Fix ✅
+- **Issue**: Meta tags were accumulating on navigation, causing memory leaks
+- **Fix**: Added cleanup function in useEffect to remove article-specific tags
+- **Impact**: SEO meta tags now update properly without duplicates
+
+### Channel Detection Enhancement ✅
+- **Issue**: App showed "Channel Tidak Ditemukan" in Replit dev environment
+- **Fix**: Enhanced channel detection to handle:
+  - Localhost (localhost, 127.0.0.1)
+  - Replit environments (*.replit.dev, *.repl.co)
+  - Production subdomain routing (channel.domainutama.com)
+  - Fallback to 'ambal' channel for any unrecognized environment
+- **Impact**: Application now works reliably in all environments
+
+### Testing Status ✅
+- E2E testing completed successfully
+- All API endpoints verified (200 OK responses)
+- Homepage, article pages, and category filtering working correctly
+- SEO meta tags updating dynamically without leaks
+- Minor React validation warning noted (non-blocking)
+
 ---
 
-**Project Status:** ✅ Ready for deployment  
-**Last Updated:** January 26, 2024  
+**Project Status:** ✅ Production Ready - Ready for VPS Deployment  
+**Last Updated:** October 26, 2025  
 **Maintained by:** Development Team
