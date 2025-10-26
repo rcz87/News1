@@ -1,0 +1,40 @@
+# PROJECT: High-Performance Multi-Site News Network (10 Subdomains)
+
+## GOAL (Objective):
+Automate the deployment configuration for a high-availability, low-latency multi-site news network consisting of **10 unique news channels** running on a single Unmanaged Linux VPS, utilizing a single primary domain via subdomains. The core requirement is **centralized management** and **optimal resource isolation/efficiency**.
+
+## TECH STACK & ARCHITECTURE:
+1.  **Server OS:** Ubuntu 22.04 LTS (Default).
+2.  **Web Server:** NGINX (LEMP Stack for performance).
+3.  **CMS:** WordPress Multisite (WP-MS) configured for **Subdomain Installation**.
+4.  **Database:** MariaDB/MySQL.
+5.  **DNS Requirement:** Wildcard A Record (`*.domainutama.com` pointing to VPS IP) is assumed to be configured externally.
+6.  **Security:** Full HTTPS via Let's Encrypt Wildcard Certificate.
+
+## CORE TASKS FOR AI AGENT:
+
+### TASK 1: NGINX & Wildcard Virtual Host Configuration
+Generate the complete NGINX configuration file (e.g., `/etc/nginx/sites-available/newsnetwork.conf`).
+* **Listener:** Port 80 and 443 (HTTP/S).
+* **Server Name:** Must use a Wildcard alias (`*.domainutama.com` and `domainutama.com`). **Note:** Replace `domainutama.com` with a placeholder (e.g., `YOUR_DOMAIN.COM`).
+* **Root Directory:** Point to the main WordPress installation directory (e.g., `/var/www/html/news-network/`).
+* **WP-MS Compatibility:** Include necessary NGINX rewrite rules specifically for WordPress Multisite Subdomain structure.
+* **SSL:** Include configurations to serve files via HTTPS (port 443) after the certificate is provisioned. **Do not generate the SSL files, only the configuration stub for them.**
+
+### TASK 2: WordPress Multisite Setup Script (Bash/WP-CLI)
+Generate a sequence of BASH commands or a WP-CLI script that will:
+1.  Install the latest version of WordPress into the specified root directory.
+2.  Set necessary file permissions (`chown` and `chmod`).
+3.  Generate the base `wp-config.php` file.
+4.  Add the mandatory line `define('WP_ALLOW_MULTISITE', true);` into `wp-config.php` *above* the happy blogging line.
+5.  **STOP HERE.** The rest of the Multisite activation (`Network Setup`) is done manually via the WP dashboard.
+
+### TASK 3: Essential VPS Optimization Snippets
+Provide the minimal, most crucial command line instructions (Bash) for performance and security setup:
+1.  Installation command for NGINX, MariaDB, and PHP (PHP 8.2+ with FPM and necessary modules like `mysqli`, `curl`, `gd`).
+2.  Command to create the initial database and user for WordPress.
+3.  Command to enable the NGINX configuration file and restart the NGINX service.
+4.  Command to install Certbot and provision a **Wildcard SSL** for `*.YOUR_DOMAIN.COM` (including the required DNS authentication method prompt).
+
+## DELIVERABLE FORMAT:
+Present the output as three distinct code blocks, corresponding to TASK 1 (NGINX), TASK 2 (WP-CLI/Bash), and TASK 3 (Optimization/Installation commands). Use placeholders like `YOUR_DOMAIN.COM` and `DB_PASSWORD` where necessary.
