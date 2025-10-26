@@ -50,9 +50,20 @@ export const categorySchema = z.object({
 
 export type Category = z.infer<typeof categorySchema>;
 
+// User schema (for future authentication)
+export const userSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  password: z.string(),
+});
+
+export type User = z.infer<typeof userSchema>;
+
 // Simplified insert schemas for API
 export const insertArticleSchema = articleSchema.omit({ slug: true });
 export const insertCategorySchema = categorySchema.omit({ id: true });
+export const insertUserSchema = userSchema.omit({ id: true });
 
 export type InsertArticle = z.infer<typeof insertArticleSchema>;
 export type InsertCategory = z.infer<typeof insertCategorySchema>;
+export type InsertUser = z.infer<typeof insertUserSchema>;
