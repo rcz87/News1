@@ -1,6 +1,49 @@
+# Dependencies
 node_modules
+package-lock.json
+
+# Build outputs
 dist
-.DS_Store
+build
 server/public
-vite.config.ts.*
 *.tar.gz
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Replit specific
+.replit
+replit.nix
+.config
+.upm
+.breakpoints
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/tmp
+
+# Vite
+vite.config.ts.*
+
+# Testing
+coverage
+.nyc_output
