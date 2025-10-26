@@ -30,20 +30,32 @@ function App() {
   useEffect(() => {
     const detectChannel = () => {
       const hostname = window.location.hostname;
+      let detectedChannel: ChannelConfig | null = null;
       
+      // Development: localhost or 127.0.0.1
       if (hostname === 'localhost' || hostname === '127.0.0.1') {
-        const subdomain = 'ambal';
-        const detected = getChannelBySubdomain(subdomain);
-        setChannel(detected);
-      } else {
+        detectedChannel = getChannelBySubdomain('ambal');
+      } 
+      // Replit dev environment or other non-subdomain environments
+      else if (hostname.includes('replit.dev') || hostname.includes('repl.co') || !hostname.includes('.')) {
+        // Default to 'ambal' for development/staging
+        detectedChannel = getChannelBySubdomain('ambal');
+      }
+      // Production: subdomain-based routing (e.g., ambal.domainutama.com)
+      else {
         const parts = hostname.split('.');
         if (parts.length >= 2) {
           const subdomain = parts[0];
-          const detected = getChannelBySubdomain(subdomain);
-          setChannel(detected);
+          detectedChannel = getChannelBySubdomain(subdomain);
         }
       }
       
+      // Fallback to 'ambal' if no channel detected
+      if (!detectedChannel) {
+        detectedChannel = getChannelBySubdomain('ambal');
+      }
+      
+      setChannel(detectedChannel);
       setLoading(false);
     };
 

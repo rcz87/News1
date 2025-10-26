@@ -5,12 +5,13 @@ import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
 import { useChannel } from "@/lib/channel-context";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SEO } from "@/components/SEO";
 
 export default function HomePage() {
   const { channel } = useChannel();
 
-  const { data: articles, isLoading } = useQuery<Article[]>({
-    queryKey: ['/api/articles', channel?.id],
+  const { data: articles, isLoading } = useQuery<Omit<Article, 'content'>[]>({
+    queryKey: [`/api/channels/${channel?.id}/articles`],
     enabled: !!channel,
   });
 
@@ -26,6 +27,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO />
       <Header />
       
       <main className="flex-1">

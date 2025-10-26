@@ -5,20 +5,27 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useChannel } from "@/lib/channel-context";
+import { SEO } from "@/components/SEO";
 
 export default function CategoryPage() {
   const [, params] = useRoute("/category/:category");
   const category = params?.category;
+  const { channel } = useChannel();
 
-  const { data: articles, isLoading } = useQuery<Article[]>({
-    queryKey: ['/api/articles/category', category],
-    enabled: !!category,
+  const { data: articles, isLoading } = useQuery<Omit<Article, 'content'>[]>({
+    queryKey: [`/api/channels/${channel?.id}/categories/${category}/articles`],
+    enabled: !!category && !!channel,
   });
 
   const categoryName = category?.charAt(0).toUpperCase() + category?.slice(1);
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={`Berita ${categoryName}`}
+        description={`Berita terkini seputar ${categoryName?.toLowerCase()}`}
+      />
       <Header />
       
       <main className="flex-1 max-w-7xl mx-auto px-4 md:px-6 py-12">

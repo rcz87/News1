@@ -8,19 +8,25 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, User, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useChannel } from "@/lib/channel-context";
+import { SEO } from "@/components/SEO";
+import "highlight.js/styles/github-dark.css";
+
+type ArticleWithHTML = Article & { htmlContent: string };
 
 export default function ArticlePage() {
   const [, params] = useRoute("/article/:slug");
   const slug = params?.slug;
+  const { channel } = useChannel();
 
-  const { data: article, isLoading } = useQuery<Article>({
-    queryKey: ['/api/articles', slug],
-    enabled: !!slug,
+  const { data: article, isLoading } = useQuery<ArticleWithHTML>({
+    queryKey: [`/api/channels/${channel?.id}/articles/${slug}`],
+    enabled: !!slug && !!channel,
   });
 
-  const { data: relatedArticles } = useQuery<Article[]>({
-    queryKey: ['/api/articles/related', article?.category],
-    enabled: !!article,
+  const { data: relatedArticles } = useQuery<Omit<Article, 'content'>[]>({
+    queryKey: [`/api/channels/${channel?.id}/categories/${article?.category}/articles`],
+    enabled: !!article && !!channel,
   });
 
   if (isLoading) {
@@ -66,6 +72,15 @@ export default function ArticlePage() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO
+        title={article.title}
+        description={article.excerpt}
+        image={article.image}
+        type="article"
+        publishedTime={article.publishedAt}
+        author={article.author}
+        tags={article.tags}
+      />
       <Header />
       
       <main className="flex-1">
@@ -107,13 +122,13 @@ export default function ArticlePage() {
 
         {/* Article Content */}
         <article className="max-w-3xl mx-auto px-4 md:px-6 py-12">
-          <div className="prose prose-lg max-w-none">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
             <p className="text-xl leading-relaxed text-muted-foreground mb-8">
               {article.excerpt}
             </p>
             <div 
-              className="space-y-4 text-foreground leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: article.content }}
+              className="article-content"
+              dangerouslySetInnerHTML={{ __html: article.htmlContent }}
               data-testid="article-content"
             />
           </div>
