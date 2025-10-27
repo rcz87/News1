@@ -1,21 +1,86 @@
 import express, { type Request, Response, NextFunction } from "express";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import cors from "cors";
+import dotenv from "dotenv";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
-const app = express();
+// Load environment variables
+dotenv.config();
 
+const app = express();
+const isProduction = process.env.NODE_ENV === "production";
+
+// Security Headers - Helmet
+app.use(helmet({
+  contentSecurityPolicy: isProduction ? undefined : false, // Disable in dev for Vite HMR
+  crossOriginEmbedderPolicy: false, // Allow external images
+}));
+
+// CORS Configuration
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000'];
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (isProduction) {
+      // In production, check against allowed origins
+      const isAllowed = allowedOrigins.some(allowed => {
+        if (allowed.includes('*')) {
+          // Support wildcard domains like *.domain.com
+          const pattern = allowed.replace('*.', '');
+          return origin.endsWith(pattern);
+        }
+        return origin === allowed;
+      });
+      
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    } else {
+      // In development, allow all origins
+      callback(null, true);
+    }
+  },
+  credentials: true,
+}));
+
+// Rate Limiting - Prevent DDoS
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: isProduction ? 100 : 1000, // Limit each IP to 100 requests per windowMs in production
+  message: 'Terlalu banyak request dari IP ini, silakan coba lagi nanti.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiting to API routes only
+app.use('/api/', limiter);
+
+// Body parser middleware
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown
   }
 }
+
 app.use(express.json({
+  limit: '10mb', // Limit body size
   verify: (req, _res, buf) => {
     req.rawBody = buf;
   }
 }));
-app.use(express.urlencoded({ extended: false }));
 
+app.use(express.urlencoded({ 
+  extended: false,
+  limit: '10mb' 
+}));
+
+// Request logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -31,7 +96,9 @@ app.use((req, res, next) => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
-      if (capturedJsonResponse) {
+      
+      // Only log response in development
+      if (!isProduction && capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
 
@@ -49,33 +116,67 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
+  // Error handling middleware - Enhanced for security
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+    
+    // In production, don't expose internal error details
+    const message = isProduction 
+      ? (status === 500 ? "Internal Server Error" : err.message)
+      : err.message || "Internal Server Error";
 
-    res.status(status).json({ message });
-    throw err;
+    // Log the full error details server-side
+    if (isProduction) {
+      console.error('Error:', {
+        status,
+        message: err.message,
+        stack: err.stack,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    res.status(status).json({ 
+      error: message,
+      ...(isProduction ? {} : { stack: err.stack })
+    });
+    
+    // Don't throw in production to prevent server crash
+    if (!isProduction) {
+      throw err;
+    }
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
+  // Setup Vite in development or serve static files in production
   if (app.get("env") === "development") {
     await setupVite(app, server);
   } else {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
+  // Start server
   const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
+  const host = process.env.HOST || "0.0.0.0";
+  
+  server.listen(port, host, () => {
+    log(`🚀 Server running on ${host}:${port}`);
+    log(`🔒 Security: ${isProduction ? 'Production Mode' : 'Development Mode'}`);
+    log(`🛡️  Rate limiting: ${isProduction ? '100 req/15min' : '1000 req/15min'}`);
+  });
+
+  // Graceful shutdown
+  process.on('SIGTERM', () => {
+    log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+      log('HTTP server closed');
+      process.exit(0);
+    });
+  });
+
+  process.on('SIGINT', () => {
+    log('SIGINT signal received: closing HTTP server');
+    server.close(() => {
+      log('HTTP server closed');
+      process.exit(0);
+    });
   });
 })();
