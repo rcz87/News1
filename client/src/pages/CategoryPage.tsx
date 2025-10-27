@@ -55,8 +55,18 @@ export default function CategoryPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">Belum ada artikel dalam kategori ini.</p>
+          <div className="text-center py-16 bg-gradient-to-b from-background to-muted/20 rounded-lg">
+            <div className="max-w-md mx-auto px-4">
+              <div className="text-6xl mb-4">🔄</div>
+              <h2 className="text-2xl font-bold mb-2">Dalam Pembaruan</h2>
+              <p className="text-muted-foreground mb-6">
+                Konten kategori {categoryName?.toLowerCase()} sedang dalam proses pembaruan. 
+                Silakan kembali lagi nanti untuk artikel terbaru.
+              </p>
+              <a href={`/${channel?.id}`} className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+                ← Kembali ke Beranda
+              </a>
+            </div>
           </div>
         )}
       </main>

@@ -14,7 +14,15 @@ const isProduction = process.env.NODE_ENV === "production";
 
 // Security Headers - Helmet
 app.use(helmet({
-  contentSecurityPolicy: isProduction ? undefined : false, // Disable in dev for Vite HMR
+  contentSecurityPolicy: isProduction ? {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts for admin panel
+      styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles
+      imgSrc: ["'self'", "data:", "https:"], // Allow external images
+      connectSrc: ["'self'"], // Allow same-origin API calls
+    }
+  } : false, // Disable in dev for Vite HMR
   crossOriginEmbedderPolicy: false, // Allow external images
 }));
 
@@ -60,6 +68,9 @@ const limiter = rateLimit({
 
 // Apply rate limiting to API routes only
 app.use('/api/', limiter);
+
+// Serve uploaded files statically
+app.use('/uploads', express.static('uploads'));
 
 // Body parser middleware
 declare module 'http' {

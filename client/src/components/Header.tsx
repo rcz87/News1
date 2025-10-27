@@ -28,7 +28,7 @@ export function Header() {
         {/* Top Bar */}
         <div className="flex items-center justify-between px-4 md:px-6 h-16 md:h-20">
           {/* Logo */}
-          <Link href="/">
+          <Link href={`/${channel.id}`}>
             <a className="flex flex-col hover-elevate active-elevate-2 rounded-md px-2 py-1 -ml-2" data-testid="link-home">
               <span className="text-xl md:text-2xl font-bold text-foreground">
                 {channel.name}
@@ -42,7 +42,7 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             {categories.map((cat) => (
-              <Link key={cat} href={`/category/${cat.toLowerCase()}`}>
+              <Link key={cat} href={`/${channel.id}/category/${cat.toLowerCase()}`}>
                 <a 
                   className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors hover-elevate px-3 py-2 rounded-md"
                   data-testid={`link-category-${cat.toLowerCase()}`}
@@ -74,16 +74,17 @@ export function Header() {
               <DropdownMenuContent align="end" className="w-56">
                 {allChannels.map((ch) => (
                   <DropdownMenuItem key={ch.id} asChild>
-                    <a 
-                      href={`http://${ch.subdomain}.localhost:5000`}
-                      className="cursor-pointer"
-                      data-testid={`link-channel-${ch.id}`}
-                    >
-                      <div className="flex flex-col">
-                        <span className="font-medium">{ch.name}</span>
-                        <span className="text-xs text-muted-foreground">{ch.tagline}</span>
-                      </div>
-                    </a>
+                    <Link href={`/${ch.id}`}>
+                      <a 
+                        className="cursor-pointer w-full"
+                        data-testid={`link-channel-${ch.id}`}
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium">{ch.name}</span>
+                          <span className="text-xs text-muted-foreground">{ch.tagline}</span>
+                        </div>
+                      </a>
+                    </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -120,7 +121,7 @@ export function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden border-t px-4 py-4 space-y-2">
             {categories.map((cat) => (
-              <Link key={cat} href={`/category/${cat.toLowerCase()}`}>
+              <Link key={cat} href={`/${channel.id}/category/${cat.toLowerCase()}`}>
                 <a 
                   className="block px-3 py-2 text-sm font-medium text-foreground/80 hover:text-foreground hover-elevate rounded-md"
                   onClick={() => setMobileMenuOpen(false)}
@@ -133,15 +134,16 @@ export function Header() {
             <div className="pt-2 border-t">
               <p className="text-xs text-muted-foreground px-3 py-2">Kanal Lainnya</p>
               {allChannels.map((ch) => (
-                <a
-                  key={ch.id}
-                  href={`http://${ch.subdomain}.localhost:5000`}
-                  className="block px-3 py-2 text-sm hover-elevate rounded-md"
-                  data-testid={`link-mobile-channel-${ch.id}`}
-                >
-                  <div className="font-medium">{ch.name}</div>
-                  <div className="text-xs text-muted-foreground">{ch.tagline}</div>
-                </a>
+                <Link key={ch.id} href={`/${ch.id}`}>
+                  <a
+                    className="block px-3 py-2 text-sm hover-elevate rounded-md"
+                    onClick={() => setMobileMenuOpen(false)}
+                    data-testid={`link-mobile-channel-${ch.id}`}
+                  >
+                    <div className="font-medium">{ch.name}</div>
+                    <div className="text-xs text-muted-foreground">{ch.tagline}</div>
+                  </a>
+                </Link>
               ))}
             </div>
           </div>

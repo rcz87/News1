@@ -5,6 +5,7 @@ import { contentService } from "./content-service";
 import { marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
+import adminRoutes from "./admin-routes";
 
 // Configure marked with syntax highlighting
 marked.use(
@@ -18,6 +19,9 @@ marked.use(
 );
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin routes
+  app.use("/api/admin", adminRoutes);
+
   /**
    * Get all articles for a specific channel
    * GET /api/channels/:channelId/articles

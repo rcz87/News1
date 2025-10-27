@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Calendar, User } from "lucide-react";
 import { Article } from "@shared/schema";
 import { Badge } from "@/components/ui/badge";
+import { useChannel } from "@/lib/channel-context";
 
 interface ArticleCardProps {
   article: Article;
@@ -9,6 +10,9 @@ interface ArticleCardProps {
 }
 
 export function ArticleCard({ article, variant = "default" }: ArticleCardProps) {
+  const { channel } = useChannel();
+  
+  if (!channel) return null;
   const formattedDate = new Date(article.publishedAt).toLocaleDateString('id-ID', {
     year: 'numeric',
     month: 'long',
@@ -17,7 +21,7 @@ export function ArticleCard({ article, variant = "default" }: ArticleCardProps) 
 
   if (variant === "featured") {
     return (
-      <Link href={`/article/${article.slug}`}>
+      <Link href={`/${channel.id}/article/${article.slug}`}>
         <a className="group block relative overflow-hidden rounded-md min-h-[500px] md:min-h-[600px]" data-testid={`card-article-featured-${article.slug}`}>
           <div 
             className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
@@ -52,7 +56,7 @@ export function ArticleCard({ article, variant = "default" }: ArticleCardProps) 
 
   if (variant === "compact") {
     return (
-      <Link href={`/article/${article.slug}`}>
+      <Link href={`/${channel.id}/article/${article.slug}`}>
         <a className="group flex gap-4 hover-elevate active-elevate-2 p-2 rounded-md -m-2" data-testid={`card-article-compact-${article.slug}`}>
           <div className="flex-shrink-0 w-24 h-24 rounded-md overflow-hidden bg-muted">
             <img 
@@ -76,7 +80,7 @@ export function ArticleCard({ article, variant = "default" }: ArticleCardProps) 
   }
 
   return (
-    <Link href={`/article/${article.slug}`}>
+    <Link href={`/${channel.id}/article/${article.slug}`}>
       <a className="group block hover-elevate active-elevate-2 rounded-md overflow-hidden -m-2 p-2" data-testid={`card-article-${article.slug}`}>
         <div className="aspect-video rounded-md overflow-hidden bg-muted mb-4">
           <img 

@@ -143,6 +143,12 @@ export const getChannelBySubdomain = (subdomain: string): ChannelConfig | null =
   return CHANNELS[subdomain] || null;
 };
 
+export const getChannelByPath = (path: string): ChannelConfig | null => {
+  // Extract channel from path like /ambal/article or /ambal
+  const channelId = path.split('/')[1];
+  return CHANNELS[channelId] || null;
+};
+
 export const getAllChannels = (): ChannelConfig[] => {
   return Object.values(CHANNELS);
 };

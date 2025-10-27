@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News1 Admin Panel</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 { color: #333; margin-bottom: 10px; font-size: 32px; }
+        .login-box, .admin-panel { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        input, textarea, select { 
+            width: 100%; 
+            padding: 14px; 
+            margin: 10px 0; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button { 
+            padding: 14px 28px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 15px; 
+            font-weight: 600;
+            margin: 5px; 
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        button.danger { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        button.success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .article-list { margin-top: 30px; }
+        .article-item { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 10px; 
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .article-item:hover {
+            transform: translateX(5px);
+        }
+        .article-item h3 { color: #333; margin-bottom: 8px; font-size: 20px; }
+        .article-item p { color: #666; font-size: 14px; margin-bottom: 10px; }
+        .article-item small { color: #888; font-size: 13px; }
+        .editor-form { 
+            display: none; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-top: 20px; 
+            border: 3px solid #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        .success-msg { 
+            color: #28a745; 
+            background: #d4edda; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        .error-msg { 
+            color: #dc3545; 
+            background: #f8d7da; 
+            padding: 12px; 
+            border-radius: 8px; 
+            margin: 10px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .user-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 18px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header, .login-box, .admin-panel { padding: 20px; }
+            h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗞️ News1 Admin Panel</h1>
+            <p id="user-info"></p>
+        </div>
+
+        <!-- Login Section -->
+        <div id="login-section" class="login-box">
+            <h2 style="margin-bottom: 20px; color: #667eea;">Login Admin</h2>
+            <input type="text" id="username" placeholder="Username" value="admin">
+            <input type="password" id="password" placeholder="Password" value="admin123">
+            <button id="loginBtn" style="width: 100%;">🔐 Login</button>
+            <div id="login-message"></div>
+        </div>
+
+        <!-- Admin Panel -->
+        <div id="admin-section" class="admin-panel" style="display:none;">
+            <h2 style="margin-bottom: 20px; color: #667eea;">Kelola Artikel</h2>
+            
+            <div class="controls">
+                <select id="channel" style="flex: 1; min-width: 200px;">
+                    <option value="ambal">📰 Ambal News</option>
+                    <option value="beritaangin">🌪️ Berita Angin</option>
+                    <option value="dendelesinfo">📱 Dendeles Info</option>
+                    <option value="beritadesa">🏘️ Berita Desa</option>
+                    <option value="kresnanusantara">🏛️ Kresna Nusantara</option>
+                    <option value="inforurutsewu">📡 Info Urut Sewu</option>
+                    <option value="duniatengah">🌍 Dunia Tengah</option>
+                    <option value="voliinfo">🏐 Voli Info</option>
+                    <option value="beritalaut">🌊 Berita Laut</option>
+                    <option value="berasbalap">🏎️ Beras Balap</option>
+                </select>
+                <select id="category-filter" style="flex: 1; min-width: 180px;">
+                    <option value="">🗂️ Semua Kategori</option>
+                    <option value="Politik">🏛️ Politik</option>
+                    <option value="Ekonomi">💰 Ekonomi</option>
+                    <option value="Olahraga">⚽ Olahraga</option>
+                    <option value="Teknologi">💻 Teknologi</option>
+                    <option value="Lifestyle">✨ Lifestyle</option>
+                    <option value="Berita">📰 Berita</option>
+                </select>
+                <button id="loadArticlesBtn" class="success">📋 Tampilkan Artikel</button>
+                <button id="createNewBtn">➕ Buat Artikel Baru</button>
+                <button id="guideBtn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" type="button">📖 Panduan Penulisan</button>
+                <button id="logoutBtn" class="danger">🚪 Logout</button>
+            </div>
+
+            <!-- Writing Guide Section -->
+            <div id="writing-guide" style="display: none; background: white; padding: 30px; border-radius: 12px; margin-top: 20px; border: 3px solid #f093fb; box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="color: #f5576c; font-size: 24px;">📖 Panduan Penulisan Artikel</h3>
+                    <button id="closeGuideBtn" style="background: #dc3545; padding: 8px 16px;">❌ Tutup</button>
+                </div>
+                
+                <div style="max-height: 600px; overflow-y: auto; padding-right: 10px;">
+                    <!-- Judul & Slug -->
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">📝 1. Judul & Slug</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li><strong>Judul:</strong> Gunakan huruf besar di awal setiap kata penting (Title Case)</li>
+                            <li>Contoh: <code>"Puskesmas Ambal Kini Buka 24 Jam"</code></li>
+                            <li><strong>Slug:</strong> Huruf kecil semua, pisah dengan tanda hubung (-)</li>
+                            <li>Contoh: <code>"puskesmas-ambal-layanan-24-jam"</code></li>
+                            <li>❌ Hindari: spasi, huruf besar, karakter khusus (!@#$%)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Format Penulisan -->
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #28a745;">
+                        <h4 style="color: #28a745; margin-bottom: 10px;">✍️ 2. Format Penulisan Artikel</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li><strong>Paragraf Pembuka:</strong> Gunakan huruf besar di awal kalimat saja</li>
+                            <li><strong>Kalimat:</strong> Huruf besar hanya untuk nama orang, tempat, instansi</li>
+                            <li>Contoh: "Budi Santoso mengatakan bahwa Puskesmas Ambal..."</li>
+                            <li><strong>Singkatan:</strong> Huruf besar semua (UMKM, SMA, PKK)</li>
+                            <li><strong>Panjang Artikel:</strong> Minimal 300 kata, ideal 500-800 kata</li>
+                        </ul>
+                    </div>
+
+                    <!-- Foto Requirements -->
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                        <h4 style="color: #f57c00; margin-bottom: 10px;">📸 3. Persyaratan Foto (PENTING!)</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li><strong>Orientasi:</strong> ⭐ LANDSCAPE (Horizontal) - WAJIB!</li>
+                            <li><strong>Ratio:</strong> 16:9 atau 4:3 (landscape)</li>
+                            <li><strong>Ukuran Ideal:</strong> 1200x675px atau 1920x1080px</li>
+                            <li><strong>File Size:</strong> Maksimal 5MB</li>
+                            <li><strong>Format:</strong> JPG, PNG, atau WebP</li>
+                            <li>❌ <strong>Hindari:</strong> Foto portrait/berdiri (akan terpotong!)</li>
+                            <li>✅ <strong>Tips:</strong> Crop foto portrait jadi landscape sebelum upload</li>
+                        </ul>
+                        <div style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                            <p style="margin: 0; color: #d32f2f; font-weight: 600;">⚠️ PERHATIAN: Foto PORTRAIT akan tampil terpotong di website!</p>
+                            <p style="margin: 10px 0 0 0; color: #666;">Gunakan foto LANDSCAPE agar tampilan sempurna di semua device.</p>
+                        </div>
+                    </div>
+
+                    <!-- Kategori -->
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #dc3545;">
+                        <h4 style="color: #dc3545; margin-bottom: 10px;">🗂️ 4. Kategori Artikel</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li><strong>Politik:</strong> Berita pemerintahan, kebijakan, pemilu</li>
+                            <li><strong>Ekonomi:</strong> Bisnis, UMKM, pasar, keuangan</li>
+                            <li><strong>Olahraga:</strong> Pertandingan, atlet, event olahraga</li>
+                            <li><strong>Teknologi:</strong> Digital, gadget, inovasi, internet</li>
+                            <li><strong>Lifestyle:</strong> Kuliner, wisata, gaya hidup, hiburan</li>
+                            <li><strong>Berita:</strong> Umum/lain-lain yang tidak masuk kategori di atas</li>
+                        </ul>
+                    </div>
+
+                    <!-- Markdown Tips -->
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6f42c1;">
+                        <h4 style="color: #6f42c1; margin-bottom: 10px;">📑 5. Format Markdown (Opsional)</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li><strong>Heading:</strong> <code>## Judul Section</code></li>
+                            <li><strong>Bold:</strong> <code>**teks tebal**</code></li>
+                            <li><strong>Italic:</strong> <code>*teks miring*</code></li>
+                            <li><strong>List:</strong> <code>- Item 1</code></li>
+                            <li><strong>Quote:</strong> <code>> Kutipan</code></li>
+                            <li><strong>Link:</strong> <code>[teks](url)</code></li>
+                        </ul>
+                    </div>
+
+                    <!-- Best Practices -->
+                    <div style="background: #d4edda; padding: 20px; border-radius: 8px; border-left: 4px solid #28a745;">
+                        <h4 style="color: #28a745; margin-bottom: 10px;">✅ 6. Best Practices</h4>
+                        <ul style="line-height: 1.8; color: #555;">
+                            <li>✅ Cek ejaan & tata bahasa sebelum publish</li>
+                            <li>✅ Gunakan kalimat aktif, bukan pasif</li>
+                            <li>✅ Tambahkan sumber berita (nama narasumber)</li>
+                            <li>✅ Gunakan paragraf pendek (3-4 kalimat)</li>
+                            <li>✅ Preview foto setelah upload</li>
+                            <li>✅ Baca ulang artikel sebelum save</li>
+                            <li>❌ Hindari typo dan kata-kata informal</li>
+                            <li>❌ Hindari clickbait atau judul menyesatkan</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Example -->
+                    <div style="background: #e7f3ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0dcaf0;">
+                        <h4 style="color: #0dcaf0; margin-bottom: 10px;">💡 7. Contoh Artikel Baik</h4>
+                        <div style="background: white; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 14px; line-height: 1.6;">
+                            <strong>Judul:</strong> Puskesmas Ambal Kini Buka 24 Jam<br>
+                            <strong>Slug:</strong> puskesmas-ambal-layanan-24-jam<br>
+                            <strong>Kategori:</strong> Berita<br>
+                            <strong>Ringkasan:</strong> Puskesmas Ambal resmi membuka layanan 24 jam untuk memberikan akses kesehatan lebih baik...<br><br>
+                            <strong>Isi:</strong><br>
+                            Puskesmas Ambal resmi membuka layanan kesehatan 24 jam sejak Senin (10/1/2024). Langkah ini diambil untuk memberikan akses layanan kesehatan yang lebih baik kepada masyarakat.<br><br>
+                            "Kami berkomitmen melayani masyarakat kapan saja dibutuhkan," ujar dr. Rini Handayani, kepala Puskesmas Ambal.<br><br>
+                            Layanan 24 jam ini mencakup pemeriksaan umum, UGD, dan apotek. Masyarakat dapat datang tanpa perlu membuat janji terlebih dahulu.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="article-list" class="article-list"></div>
+
+            <!-- Editor Form -->
+            <div id="editor-form" class="editor-form">
+                <h3 id="editor-title" style="margin-bottom: 20px; color: #667eea;">Buat Artikel Baru</h3>
+                <input type="text" id="article-slug" placeholder="slug (contoh: berita-terbaru-hari-ini)">
+                <input type="text" id="article-title" placeholder="Judul Artikel">
+                <textarea id="article-excerpt" placeholder="Ringkasan singkat artikel" rows="3"></textarea>
+                <textarea id="article-content" placeholder="Isi artikel lengkap (Markdown supported)" rows="12"></textarea>
+                <input type="text" id="article-category" placeholder="Kategori (Politik, Ekonomi, Olahraga, dll)" value="Berita">
+                <input type="text" id="article-author" placeholder="Nama Penulis" value="Admin">
+                
+                <label style="display: block; margin: 15px 0 5px; font-weight: 600; color: #667eea;">📸 Upload Foto Artikel:</label>
+                <input type="file" id="article-photo" accept="image/*" style="padding: 10px;">
+                <button type="button" id="uploadPhotoBtn" class="success" style="margin: 10px 0;">📤 Upload Foto</button>
+                <div id="upload-status" style="margin: 10px 0;"></div>
+                <div id="photo-preview" style="display: none; margin: 15px 0;">
+                    <img id="preview-img" src="" alt="Preview" style="max-width: 100%; max-height: 300px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                </div>
+                
+                <label style="display: block; margin: 15px 0 5px; font-weight: 600; color: #888;">Atau gunakan URL Gambar:</label>
+                <input type="text" id="article-image" placeholder="URL Gambar (https://...)">
+                
+                <div style="margin-top: 20px;">
+                    <button id="saveArticleBtn" class="success">💾 Simpan Artikel</button>
+                    <button id="cancelEditBtn" class="danger">❌ Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
