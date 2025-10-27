@@ -177,7 +177,7 @@
                 </select>
                 <button id="loadArticlesBtn" class="success">📋 Tampilkan Artikel</button>
                 <button id="createNewBtn">➕ Buat Artikel Baru</button>
-                <a href="#guide" onclick="document.getElementById('writing-guide').style.display='block'; document.getElementById('writing-guide').scrollIntoView({behavior:'smooth'}); return false;" style="display: inline-block; padding: 14px 28px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600; margin: 5px; cursor: pointer; pointer-events: auto; z-index: 100; position: relative; transition: transform 0.2s;">📖 Panduan Penulisan</a>
+                <button id="guideBtn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">📖 Panduan Penulisan</button>
                 <button id="logoutBtn" class="danger">🚪 Logout</button>
             </div>
 
@@ -185,7 +185,7 @@
             <div id="writing-guide" style="display: none; background: white; padding: 30px; border-radius: 12px; margin-top: 20px; border: 3px solid #f093fb; box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h3 style="color: #f5576c; font-size: 24px;">📖 Panduan Penulisan Artikel</h3>
-                    <a href="#top" onclick="document.getElementById('writing-guide').style.display='none'; window.scrollTo({top:0,behavior:'smooth'}); return false;" style="display: inline-block; background: #dc3545; color: white; padding: 8px 16px; text-decoration: none; border-radius: 8px; cursor: pointer; font-weight: 600;">❌ Tutup</a>
+                    <button id="closeGuideBtn" class="danger" style="padding: 8px 16px;">❌ Tutup</button>
                 </div>
                 
                 <div style="max-height: 600px; overflow-y: auto; padding-right: 10px;">
