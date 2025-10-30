@@ -18,7 +18,7 @@ export function CardStackLayout({ articles, isLoading }: CardStackLayoutProps) {
     <main className="flex-1 bg-gradient-to-br from-background to-muted/30">
       {/* Stacked Cards Hero */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Berita Utama</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center animate-fade-in-down">Berita Utama</h2>
 
         {isLoading ? (
           <div className="flex justify-center">
@@ -53,7 +53,8 @@ export function CardStackLayout({ articles, isLoading }: CardStackLayoutProps) {
             {/* Active Card */}
             {stackArticles[activeIndex] && (
               <article
-                className="relative w-full max-w-4xl bg-background rounded-2xl shadow-2xl overflow-hidden hover-elevate"
+                key={activeIndex}
+                className="relative w-full max-w-4xl bg-background rounded-2xl shadow-2xl overflow-hidden hover-elevate animate-scale-in"
                 style={{ zIndex: 100 }}
               >
                 <div className="h-2 bg-gradient-to-r from-primary to-primary/50" />

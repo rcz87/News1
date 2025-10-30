@@ -47,27 +47,29 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
             {heroArticles.map((article, index) => (
               <div
                 key={article.slug}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  index === currentSlide ? 'opacity-100' : 'opacity-0'
+                className={`absolute inset-0 transition-all duration-1000 ${
+                  index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
                 }`}
               >
                 <img
                   src={article.image}
                   alt={article.imageAlt || article.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-1000"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 max-w-7xl mx-auto">
-                  <Badge variant="secondary" className="mb-4 text-lg px-4 py-2">
+                <div className={`absolute bottom-0 left-0 right-0 p-8 md:p-16 max-w-7xl mx-auto transition-all duration-700 ${
+                  index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                }`}>
+                  <Badge variant="secondary" className="mb-4 text-lg px-4 py-2 animate-fade-in-down">
                     {article.category}
                   </Badge>
-                  <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl">
+                  <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
                     {article.title}
                   </h1>
-                  <p className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl">
+                  <p className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                     {article.excerpt}
                   </p>
-                  <div className="flex items-center gap-4 text-white/80">
+                  <div className="flex items-center gap-4 text-white/80 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
                     <span>{article.author}</span>
                     <span>•</span>
                     <span>{new Date(article.publishedAt).toLocaleDateString('id-ID')}</span>

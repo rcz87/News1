@@ -15,25 +15,25 @@ export function MagazineLayout({ articles, isLoading }: MagazineLayoutProps) {
     <main className="flex-1">
       {/* Hero Section - Full Width */}
       {isLoading ? (
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 animate-fade-in">
           <Skeleton className="w-full h-[500px] md:h-[600px] rounded-md" />
         </div>
       ) : featuredArticle ? (
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8 animate-fade-in-up">
           <ArticleCard article={featuredArticle} variant="featured" />
         </div>
       ) : null}
 
       {/* Grid 4 Columns */}
       <section className="max-w-7xl mx-auto px-4 md:px-6 py-12">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 animate-fade-in-left">
           <h2 className="text-2xl md:text-3xl font-bold">Berita Terkini</h2>
         </div>
 
         {isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="space-y-4">
+              <div key={i} className="space-y-4 animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
                 <Skeleton className="w-full aspect-video rounded-md" />
                 <Skeleton className="h-4 w-20" />
                 <Skeleton className="h-6 w-full" />
@@ -44,8 +44,14 @@ export function MagazineLayout({ articles, isLoading }: MagazineLayoutProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {topStories.map((article) => (
-              <ArticleCard key={article.slug} article={article} />
+            {topStories.map((article, index) => (
+              <div
+                key={article.slug}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'both' }}
+              >
+                <ArticleCard article={article} />
+              </div>
             ))}
           </div>
         )}
