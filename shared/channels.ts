@@ -43,7 +43,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       facebook: "https://facebook.com/dendelesinfo",
     },
-    layoutType: "magazine" as const,
+    layoutType: "grid" as const,
   },
   beritadesa: {
     id: "beritadesa",
@@ -72,7 +72,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       instagram: "https://instagram.com/kresnanusantara",
       facebook: "https://facebook.com/kresnanusantara",
     },
-    layoutType: "minimalist" as const,
+    layoutType: "sidebar" as const,
   },
   inforurutsewu: {
     id: "inforurutsewu",
@@ -86,7 +86,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       twitter: "https://twitter.com/inforurutsewu",
     },
-    layoutType: "magazine" as const,
+    layoutType: "carousel" as const,
   },
   duniatengah: {
     id: "duniatengah",
@@ -101,7 +101,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       facebook: "https://facebook.com/duniatengah",
       instagram: "https://instagram.com/duniatengah",
     },
-    layoutType: "minimalist" as const,
+    layoutType: "timeline" as const,
   },
   voliinfo: {
     id: "voliinfo",
@@ -130,7 +130,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/beritalaut",
       facebook: "https://facebook.com/beritalaut",
     },
-    layoutType: "masonry" as const,
+    layoutType: "splitscreen" as const,
   },
   berasbalap: {
     id: "berasbalap",
@@ -145,7 +145,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/berasbalap",
       instagram: "https://instagram.com/berasbalap",
     },
-    layoutType: "sports" as const,
+    layoutType: "cardstack" as const,
   },
 };
 
