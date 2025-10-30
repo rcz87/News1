@@ -14,6 +14,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/ambalnews",
       facebook: "https://facebook.com/ambalnews",
     },
+    layoutType: "magazine" as const,
   },
   beritaangin: {
     id: "beritaangin",
@@ -28,6 +29,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/beritaangin",
       instagram: "https://instagram.com/beritaangin",
     },
+    layoutType: "masonry" as const,
   },
   dendelesinfo: {
     id: "dendelesinfo",
@@ -41,6 +43,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       facebook: "https://facebook.com/dendelesinfo",
     },
+    layoutType: "magazine" as const,
   },
   beritadesa: {
     id: "beritadesa",
@@ -54,6 +57,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       twitter: "https://twitter.com/beritadesa",
     },
+    layoutType: "minimalist" as const,
   },
   kresnanusantara: {
     id: "kresnanusantara",
@@ -68,6 +72,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       instagram: "https://instagram.com/kresnanusantara",
       facebook: "https://facebook.com/kresnanusantara",
     },
+    layoutType: "minimalist" as const,
   },
   inforurutsewu: {
     id: "inforurutsewu",
@@ -81,6 +86,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       twitter: "https://twitter.com/inforurutsewu",
     },
+    layoutType: "magazine" as const,
   },
   duniatengah: {
     id: "duniatengah",
@@ -95,6 +101,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       facebook: "https://facebook.com/duniatengah",
       instagram: "https://instagram.com/duniatengah",
     },
+    layoutType: "minimalist" as const,
   },
   voliinfo: {
     id: "voliinfo",
@@ -108,6 +115,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
     socialLinks: {
       instagram: "https://instagram.com/voliinfo",
     },
+    layoutType: "sports" as const,
   },
   beritalaut: {
     id: "beritalaut",
@@ -122,6 +130,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/beritalaut",
       facebook: "https://facebook.com/beritalaut",
     },
+    layoutType: "masonry" as const,
   },
   berasbalap: {
     id: "berasbalap",
@@ -136,6 +145,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       twitter: "https://twitter.com/berasbalap",
       instagram: "https://instagram.com/berasbalap",
     },
+    layoutType: "sports" as const,
   },
 };
 

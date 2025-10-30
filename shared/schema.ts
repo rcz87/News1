@@ -16,6 +16,7 @@ export const channelConfigSchema = z.object({
     facebook: z.string().optional(),
     instagram: z.string().optional(),
   }).optional(),
+  layoutType: z.enum(["magazine", "sports", "masonry", "minimalist"]).default("magazine"),
 });
 
 export type ChannelConfig = z.infer<typeof channelConfigSchema>;
