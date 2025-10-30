@@ -111,8 +111,20 @@ async function loadArticles() {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
+        // Check if response is OK
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || 'Failed to load articles');
+        }
+
         let articles = await res.json();
-        
+
+        // Validate that articles is an array
+        if (!Array.isArray(articles)) {
+            console.error('Response is not an array:', articles);
+            throw new Error('Invalid response format from server');
+        }
+
         // Filter by category if selected
         if (categoryFilter) {
             articles = articles.filter(article => {
@@ -120,10 +132,10 @@ async function loadArticles() {
                 return articleCategory === categoryFilter;
             });
         }
-        
+
         if (articles.length === 0) {
-            const filterMsg = categoryFilter 
-                ? `📭 Belum ada artikel kategori ${categoryFilter} di channel ini` 
+            const filterMsg = categoryFilter
+                ? `📭 Belum ada artikel kategori ${categoryFilter} di channel ini`
                 : '📭 Belum ada artikel di channel ini';
             list.innerHTML = `<div class="error-msg">${filterMsg}</div>`;
             return;
@@ -135,12 +147,12 @@ async function loadArticles() {
         articles.forEach(article => {
             const div = document.createElement('div');
             div.className = 'article-item';
-            
+
             const title = article.title.replace(/"/g, '');
             const excerpt = article.excerpt ? article.excerpt.replace(/"/g, '') : 'Tidak ada ringkasan';
             const category = article.category.replace(/"/g, '');
             const author = article.author.replace(/"/g, '');
-            
+
             div.innerHTML = `
                 <h3>${title}</h3>
                 <p>${excerpt}</p>
@@ -166,7 +178,8 @@ async function loadArticles() {
             });
         });
     } catch (error) {
-        list.innerHTML = '<div class="error-msg">❌ Gagal memuat artikel: ' + error.message + '</div>';
+        console.error('Error loading articles:', error);
+        list.innerHTML = '<div class="error-msg">❌ Gagal memuat artikel: ' + error.message + '<br><small>Pastikan channel memiliki folder content dan file artikel.</small></div>';
     }
 }
 
