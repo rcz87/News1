@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 Layout Baru - Visual Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .layout-container {
+            min-height: 600px;
+            border: 2px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-7xl mx-auto space-y-16">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                6 Layout Baru
+            </h1>
+            <p class="text-xl text-gray-600">Total sekarang: <span class="font-bold text-2xl text-blue-600">10 LAYOUT BERBEDA!</span></p>
+        </div>
+
+        <!-- LAYOUT 5: GRID NEWS -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-green-600 mb-2">5. Grid News Style</h2>
+                <p class="text-gray-600">Layout padat dengan banyak artikel kecil</p>
+                <p class="text-sm text-gray-500">2 Featured besar di atas + Grid 5 kolom untuk banyak konten</p>
+            </div>
+
+            <div class="layout-container bg-gray-50 rounded-lg overflow-hidden p-6">
+                <!-- 2 Featured Cards -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg p-6 text-white h-64 flex flex-col justify-end">
+                        <div class="bg-white text-green-600 px-3 py-1 rounded text-xs w-fit mb-2 font-bold">FEATURED</div>
+                        <h3 class="text-2xl font-bold mb-2">Berita Featured Pertama</h3>
+                        <p class="text-sm opacity-90">Deskripsi singkat berita...</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg p-6 text-white h-64 flex flex-col justify-end">
+                        <div class="bg-white text-blue-600 px-3 py-1 rounded text-xs w-fit mb-2 font-bold">FEATURED</div>
+                        <h3 class="text-2xl font-bold mb-2">Berita Featured Kedua</h3>
+                        <p class="text-sm opacity-90">Deskripsi singkat berita...</p>
+                    </div>
+                </div>
+
+                <!-- Dense 5-Column Grid -->
+                <h3 class="font-bold text-lg mb-4">Semua Berita</h3>
+                <div class="grid grid-cols-5 gap-3">
+                    {[...Array(10)].map((_, i) => (
+                        <div class="bg-white rounded-lg overflow-hidden shadow">
+                            <div class="bg-gray-300 h-24"></div>
+                            <div class="p-2">
+                                <div class="text-xs text-green-600 font-bold mb-1">KATEGORI</div>
+                                <div class="text-xs font-bold line-clamp-2">Judul Artikel Kecil</div>
+                                <div class="text-xs text-gray-500 mt-1">1 jam lalu</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYOUT 6: HERO CAROUSEL -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-purple-600 mb-2">6. Hero Carousel Style</h2>
+                <p class="text-gray-600">Auto-sliding carousel untuk highlight berita</p>
+                <p class="text-sm text-gray-500">Full-screen hero dengan auto-slide + navigation + grid di bawah</p>
+            </div>
+
+            <div class="layout-container bg-gray-900 rounded-lg overflow-hidden relative">
+                <!-- Hero Carousel -->
+                <div class="relative h-96 bg-gradient-to-r from-purple-600 to-pink-600 flex items-end p-8 text-white">
+                    <div class="max-w-3xl">
+                        <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded w-fit mb-4">Politik</div>
+                        <h1 class="text-4xl font-bold mb-4">Headline Berita Utama yang Menarik Perhatian</h1>
+                        <p class="text-lg opacity-90 mb-4">Excerpt artikel yang menjelaskan inti dari berita dengan detail...</p>
+                        <div class="text-sm opacity-80">Penulis • 2 jam lalu</div>
+                    </div>
+
+                    <!-- Navigation Arrows -->
+                    <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full p-3 text-white">
+                        ←
+                    </button>
+                    <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full p-3 text-white">
+                        →
+                    </button>
+
+                    <!-- Dots -->
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        <div class="w-8 h-2 bg-white rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+                        <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Grid Below -->
+                <div class="bg-white p-6">
+                    <h3 class="font-bold text-xl mb-4">Berita Pilihan</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-gray-200 h-48 rounded-lg"></div>
+                        <div class="bg-gray-200 h-48 rounded-lg"></div>
+                        <div class="bg-gray-200 h-48 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYOUT 7: TIMELINE -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-indigo-600 mb-2">7. Timeline Style</h2>
+                <p class="text-gray-600">Berita disusun kronologis seperti feed</p>
+                <p class="text-sm text-gray-500">Timeline vertikal dengan tanggal + waktu + visual timeline dot</p>
+            </div>
+
+            <div class="layout-container bg-white rounded-lg overflow-hidden p-6">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-6 h-6 text-indigo-600">🕐</div>
+                    <h3 class="text-2xl font-bold">Timeline Berita</h3>
+                </div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-6">
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-28 text-right">
+                            <div class="bg-indigo-600 text-white px-3 py-2 rounded font-bold text-center">
+                                15<br/><span class="text-xs font-normal">Jan 2025</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 border-l-2 border-indigo-300 pl-6 pb-6">
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-2 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white"></div>
+                                <div class="text-sm text-gray-500 mb-2">14:30</div>
+                                <div class="bg-gray-100 text-indigo-600 px-3 py-1 rounded text-xs w-fit mb-2 font-bold">POLITIK</div>
+                                <h4 class="text-xl font-bold mb-2">Judul Berita Timeline</h4>
+                                <p class="text-gray-600 mb-3">Deskripsi lengkap dari berita ini...</p>
+                                <div class="bg-gray-300 h-32 rounded-lg"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-6">
+                        <div class="flex-shrink-0 w-28 text-right">
+                            <div class="text-sm font-medium text-gray-500">12:15</div>
+                        </div>
+                        <div class="flex-1 border-l-2 border-indigo-300 pl-6 pb-6">
+                            <div class="relative">
+                                <div class="absolute -left-[29px] top-2 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white"></div>
+                                <div class="bg-gray-100 text-indigo-600 px-3 py-1 rounded text-xs w-fit mb-2 font-bold">EKONOMI</div>
+                                <h4 class="text-xl font-bold mb-2">Berita Selanjutnya</h4>
+                                <p class="text-gray-600 mb-3">Konten berita...</p>
+                                <div class="bg-gray-300 h-32 rounded-lg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYOUT 8: SPLIT SCREEN -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-orange-600 mb-2">8. Split Screen Style</h2>
+                <p class="text-gray-600">Pembagian layar 50-50 yang balanced</p>
+                <p class="text-sm text-gray-500">Hero split (1 besar + 2 medium) + 2 kolom konten (Trending vs Recent)</p>
+            </div>
+
+            <div class="layout-container bg-white rounded-lg overflow-hidden">
+                <!-- Split Hero -->
+                <div class="grid grid-cols-2 h-96">
+                    <div class="bg-gradient-to-br from-orange-500 to-red-600 p-6 text-white flex flex-col justify-end">
+                        <div class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded text-xs w-fit mb-2">FEATURED</div>
+                        <h3 class="text-3xl font-bold mb-2">Berita Utama Besar</h3>
+                        <p class="opacity-90">Deskripsi berita...</p>
+                    </div>
+                    <div class="grid grid-rows-2 gap-0">
+                        <div class="bg-gradient-to-br from-yellow-500 to-orange-500 p-4 text-white flex flex-col justify-end border-b border-l">
+                            <h4 class="text-xl font-bold mb-1">Berita Medium 1</h4>
+                            <p class="text-sm opacity-90">Deskripsi...</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-pink-500 to-purple-500 p-4 text-white flex flex-col justify-end border-l">
+                            <h4 class="text-xl font-bold mb-1">Berita Medium 2</h4>
+                            <p class="text-sm opacity-90">Deskripsi...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Columns -->
+                <div class="grid grid-cols-2 gap-6 p-6">
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">📈</span>
+                            <h4 class="font-bold text-lg">Trending</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-gray-100 p-3 rounded">Artikel Trending 1</div>
+                            <div class="bg-gray-100 p-3 rounded">Artikel Trending 2</div>
+                            <div class="bg-gray-100 p-3 rounded">Artikel Trending 3</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-2xl">🕐</span>
+                            <h4 class="font-bold text-lg">Terbaru</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-gray-100 p-3 rounded">Artikel Terbaru 1</div>
+                            <div class="bg-gray-100 p-3 rounded">Artikel Terbaru 2</div>
+                            <div class="bg-gray-100 p-3 rounded">Artikel Terbaru 3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYOUT 9: CARD STACK -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-teal-600 mb-2">9. Card Stack Style</h2>
+                <p class="text-gray-600">Kartu yang bertumpuk dengan efek 3D</p>
+                <p class="text-sm text-gray-500">Hero cards yang overlap + navigasi interaktif + grid di bawah</p>
+            </div>
+
+            <div class="layout-container bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg overflow-hidden p-6">
+                <h3 class="text-3xl font-bold mb-12 text-center">Berita Utama</h3>
+
+                <!-- Stacked Effect -->
+                <div class="relative flex justify-center" style="height: 400px;">
+                    <div class="absolute top-0 w-full max-w-3xl bg-white rounded-xl shadow-lg" style="transform: translateY(20px) scale(0.95); opacity: 0.7;"></div>
+                    <div class="absolute top-0 w-full max-w-3xl bg-white rounded-xl shadow-lg" style="transform: translateY(10px) scale(0.975); opacity: 0.85;"></div>
+
+                    <!-- Active Card -->
+                    <div class="absolute top-0 w-full max-w-3xl bg-white rounded-xl shadow-2xl overflow-hidden" style="z-index: 10;">
+                        <div class="h-1 bg-gradient-to-r from-teal-500 to-cyan-500"></div>
+                        <div class="grid grid-cols-2">
+                            <div class="bg-gradient-to-br from-teal-400 to-cyan-500 h-64"></div>
+                            <div class="p-8 flex flex-col justify-between">
+                                <div>
+                                    <div class="text-xs text-gray-500 mb-2">15 Januari 2025</div>
+                                    <h4 class="text-2xl font-bold mb-4">Headline Berita yang Menarik</h4>
+                                    <p class="text-gray-600">Deskripsi lengkap dari berita ini...</p>
+                                </div>
+                                <button class="text-teal-600 font-bold flex items-center gap-2">
+                                    Berita Selanjutnya →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dots -->
+                <div class="flex justify-center gap-3 mt-8">
+                    <div class="w-12 h-3 bg-teal-600 rounded-full"></div>
+                    <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                    <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAYOUT 10: FEATURED SIDEBAR -->
+        <section class="bg-white rounded-lg shadow-lg p-8">
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-rose-600 mb-2">10. Featured Sidebar Style</h2>
+                <p class="text-gray-600">Layout klasik dengan sidebar trending</p>
+                <p class="text-sm text-gray-500">Main content 2/3 lebar + Sidebar 1/3 dengan ranking & stats</p>
+            </div>
+
+            <div class="layout-container bg-white rounded-lg overflow-hidden p-6">
+                <div class="grid grid-cols-3 gap-6">
+                    <!-- Left Main Content (2 cols) -->
+                    <div class="col-span-2 space-y-6">
+                        <!-- Hero -->
+                        <div class="bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg p-8 text-white h-96 flex flex-col justify-end">
+                            <div class="flex gap-2 mb-3">
+                                <span class="bg-yellow-500 text-black px-3 py-1 rounded text-xs font-bold">⭐ FEATURED</span>
+                                <span class="bg-white/20 backdrop-blur-sm px-3 py-1 rounded text-xs">Politik</span>
+                            </div>
+                            <h3 class="text-3xl font-bold mb-3">Berita Featured Utama</h3>
+                            <p class="opacity-90 mb-3">Deskripsi lengkap berita...</p>
+                            <div class="text-sm opacity-80">Penulis • 15 Januari 2025</div>
+                        </div>
+
+                        <!-- Grid 2x2 -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gray-200 h-48 rounded-lg"></div>
+                            <div class="bg-gray-200 h-48 rounded-lg"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar (1 col) -->
+                    <div class="bg-gray-50 rounded-lg p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <span class="text-2xl">🔥</span>
+                            <h4 class="font-bold text-lg">Trending</h4>
+                        </div>
+
+                        <div class="space-y-4">
+                            {[1,2,3,4,5].map(num => (
+                                <div class="flex gap-3">
+                                    <div class={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                                        num === 1 ? 'bg-yellow-500 text-black' :
+                                        num === 2 ? 'bg-gray-400 text-white' :
+                                        num === 3 ? 'bg-orange-600 text-white' :
+                                        'bg-gray-200'
+                                    }`}>
+                                        {num}
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="text-xs text-rose-600 font-bold mb-1">KATEGORI</div>
+                                        <div class="text-sm font-bold line-clamp-2">Judul Artikel Trending</div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="mt-6 pt-6 border-t space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Total Artikel</span>
+                                <span class="font-bold">156</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Hari Ini</span>
+                                <span class="bg-rose-100 text-rose-600 px-2 py-1 rounded font-bold text-xs">12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-lg shadow-lg p-12">
+            <h2 class="text-4xl font-bold mb-8 text-center">🎉 Total 10 Layout Berbeda!</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-8">
+                <div class="text-center">
+                    <div class="text-3xl mb-2">📰</div>
+                    <div class="font-bold mb-1">Magazine</div>
+                    <div class="text-xs opacity-75">Hero + Grid 4 kolom</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">⚽</div>
+                    <div class="font-bold mb-1">Sports</div>
+                    <div class="text-xs opacity-75">Split + Sidebar Live</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">📌</div>
+                    <div class="font-bold mb-1">Masonry</div>
+                    <div class="text-xs opacity-75">Pinterest-style</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">✨</div>
+                    <div class="font-bold mb-1">Minimalist</div>
+                    <div class="text-xs opacity-75">Clean Typography</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <div class="font-bold mb-1">Grid News</div>
+                    <div class="text-xs opacity-75">Dense 5 columns</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">🎠</div>
+                    <div class="font-bold mb-1">Carousel</div>
+                    <div class="text-xs opacity-75">Auto-sliding hero</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">📅</div>
+                    <div class="font-bold mb-1">Timeline</div>
+                    <div class="text-xs opacity-75">Kronologis feed</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">⚡</div>
+                    <div class="font-bold mb-1">Split Screen</div>
+                    <div class="text-xs opacity-75">50-50 balanced</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">🃏</div>
+                    <div class="font-bold mb-1">Card Stack</div>
+                    <div class="text-xs opacity-75">3D overlapping</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl mb-2">📊</div>
+                    <div class="font-bold mb-1">Sidebar</div>
+                    <div class="text-xs opacity-75">Classic + Trending</div>
+                </div>
+            </div>
+
+            <div class="text-center text-lg opacity-90">
+                <p>🚀 Setiap channel bisa punya tampilan yang UNIK dan BERBEDA!</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
