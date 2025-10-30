@@ -5,6 +5,7 @@ export const channelConfigSchema = z.object({
   id: z.string(),
   name: z.string(),
   subdomain: z.string(),
+  domain: z.string().optional(),
   tagline: z.string(),
   primaryColor: z.string(),
   secondaryColor: z.string(),

@@ -6,6 +6,7 @@ import { marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import adminRoutes from "./admin-routes";
+import { getAllChannels } from "../shared/channels";
 
 // Configure marked with syntax highlighting
 marked.use(
@@ -21,6 +22,27 @@ marked.use(
 export async function registerRoutes(app: Express): Promise<Server> {
   // Admin routes
   app.use("/api/admin", adminRoutes);
+
+  // Get all available channels
+  app.get("/api/channels", async (req, res) => {
+    try {
+      const channels = getAllChannels();
+      res.json(channels);
+    } catch (error) {
+      console.error("Error fetching channels:", error);
+      res.status(500).json({ error: "Failed to fetch channels" });
+    }
+  });
+
+  // Admin panel route - serve admin.html (must be before static routes)
+  app.get("/admin", (req, res) => {
+    res.sendFile("admin.html", { root: "client/public" });
+  });
+
+  // Admin panel route with .html extension
+  app.get("/admin.html", (req, res) => {
+    res.sendFile("admin.html", { root: "client/public" });
+  });
 
   /**
    * Get all articles for a specific channel

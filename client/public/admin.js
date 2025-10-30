@@ -1,9 +1,145 @@
 // News1 Admin Panel JavaScript
 let token = localStorage.getItem('admin_token');
 let currentSlug = null;
+let deferredPrompt = null;
+
+// Mobile detection and optimizations
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+// PWA Installation
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('📱 Install prompt detected');
+    e.preventDefault();
+    deferredPrompt = e;
+    showInstallButton();
+});
+
+// Register Service Worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+                console.log('✅ Service Worker registered:', registration);
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    console.log('🔄 New service worker found');
+                    
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showUpdateButton();
+                        }
+                    });
+                });
+            })
+            .catch((error) => {
+                console.error('❌ Service Worker registration failed:', error);
+            });
+    });
+}
+
+// Show install button
+function showInstallButton() {
+    const installBtn = document.createElement('button');
+    installBtn.innerHTML = '📱 Install App';
+    installBtn.className = 'install-btn';
+    installBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        transition: transform 0.2s;
+    `;
+    
+    installBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('📱 Install outcome:', outcome);
+            deferredPrompt = null;
+            installBtn.remove();
+        }
+    });
+    
+    installBtn.addEventListener('mouseenter', () => {
+        installBtn.style.transform = 'translateY(-2px)';
+    });
+    
+    installBtn.addEventListener('mouseleave', () => {
+        installBtn.style.transform = 'translateY(0)';
+    });
+    
+    document.body.appendChild(installBtn);
+}
+
+// Show update button
+function showUpdateButton() {
+    const updateBtn = document.createElement('button');
+    updateBtn.innerHTML = '🔄 Update Available';
+    updateBtn.className = 'update-btn';
+    updateBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+        animation: pulse 2s infinite;
+    `;
+    
+    updateBtn.addEventListener('click', () => {
+        window.location.reload();
+    });
+    
+    document.body.appendChild(updateBtn);
+}
 
 // Check if already logged in
 document.addEventListener('DOMContentLoaded', function() {
+    // Add mobile-specific optimizations
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+        console.log('📱 Mobile device detected, applying optimizations');
+        
+        // Prevent zoom on input focus (common mobile issue)
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+            });
+            
+            input.addEventListener('blur', function() {
+                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0');
+            });
+        });
+        
+        // Improve touch feedback
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    }
     if (token) {
         document.getElementById('login-section').style.display = 'none';
         document.getElementById('admin-section').style.display = 'block';
@@ -259,6 +395,12 @@ async function saveArticle() {
 async function deleteArticle(slug, channel) {
     if (!confirm('⚠️ Yakin ingin menghapus artikel ini?')) return;
 
+    // Show loading state on the delete button
+    const deleteBtn = document.querySelector(`.delete-btn[data-slug="${slug}"]`);
+    const originalText = deleteBtn.innerHTML;
+    deleteBtn.innerHTML = '⏳ Menghapus...';
+    deleteBtn.disabled = true;
+
     try {
         const res = await fetch(`/api/admin/articles/${slug}?channel=${channel}`, {
             method: 'DELETE',
@@ -266,10 +408,57 @@ async function deleteArticle(slug, channel) {
         });
 
         const data = await res.json();
-        alert('✅ ' + data.message);
-        loadArticles();
+        
+        if (res.ok) {
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-msg';
+            successMsg.innerHTML = '✅ ' + data.message;
+            successMsg.style.position = 'fixed';
+            successMsg.style.top = '20px';
+            successMsg.style.right = '20px';
+            successMsg.style.zIndex = '9999';
+            successMsg.style.padding = '15px 20px';
+            successMsg.style.borderRadius = '8px';
+            successMsg.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            document.body.appendChild(successMsg);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                if (successMsg.parentNode) {
+                    successMsg.parentNode.removeChild(successMsg);
+                }
+            }, 3000);
+            
+            // Refresh the article list
+            await loadArticles();
+        } else {
+            throw new Error(data.error || 'Delete failed');
+        }
     } catch (error) {
-        alert('❌ Gagal menghapus artikel: ' + error.message);
+        // Restore button state
+        deleteBtn.innerHTML = originalText;
+        deleteBtn.disabled = false;
+        
+        // Show error message
+        const errorMsg = document.createElement('div');
+        errorMsg.className = 'error-msg';
+        errorMsg.innerHTML = '❌ Gagal menghapus artikel: ' + error.message;
+        errorMsg.style.position = 'fixed';
+        errorMsg.style.top = '20px';
+        errorMsg.style.right = '20px';
+        errorMsg.style.zIndex = '9999';
+        errorMsg.style.padding = '15px 20px';
+        errorMsg.style.borderRadius = '8px';
+        errorMsg.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+        document.body.appendChild(errorMsg);
+        
+        // Remove error message after 5 seconds
+        setTimeout(() => {
+            if (errorMsg.parentNode) {
+                errorMsg.parentNode.removeChild(errorMsg);
+            }
+        }, 5000);
     }
 }
 
@@ -315,9 +504,9 @@ async function uploadPhoto() {
     
     const file = fileInput.files[0];
     
-    // Validate file size (5MB)
-    if (file.size > 5 * 1024 * 1024) {
-        statusDiv.innerHTML = '<div class="error-msg">❌ Ukuran file terlalu besar! Maksimal 5MB</div>';
+    // Validate file size (20MB - updated untuk support mobile photos)
+    if (file.size > 20 * 1024 * 1024) {
+        statusDiv.innerHTML = '<div class="error-msg">❌ Ukuran file terlalu besar! Maksimal 20MB</div>';
         return;
     }
     
@@ -327,8 +516,9 @@ async function uploadPhoto() {
         return;
     }
     
-    // Show uploading status
-    statusDiv.innerHTML = '<div class="loading">⏳ Mengupload foto...</div>';
+    // Show uploading status dengan compression info
+    const originalSizeMB = (file.size / 1024 / 1024).toFixed(2);
+    statusDiv.innerHTML = `<div class="loading">⏳ Mengupload foto (${originalSizeMB} MB) dan mengompres...</div>`;
     
     try {
         const formData = new FormData();
@@ -345,8 +535,22 @@ async function uploadPhoto() {
         const data = await res.json();
         
         if (data.success) {
-            // Show success message
-            statusDiv.innerHTML = `<div class="success-msg">✅ Foto berhasil diupload! (${(data.size / 1024).toFixed(2)} KB)</div>`;
+            // Show success message dengan compression info
+            let successMessage = `✅ Foto berhasil diupload!`;
+            
+            if (data.compressionRatio) {
+                const originalMB = (data.originalSize / 1024 / 1024).toFixed(2);
+                const compressedMB = (data.compressedSize / 1024 / 1024).toFixed(2);
+                successMessage += `<br>📊 Kompresi: ${originalMB}MB → ${compressedMB}MB (${data.compressionRatio}% lebih kecil)`;
+                
+                if (data.dimensions) {
+                    successMessage += `<br>📐 Ukuran: ${data.dimensions.width}×${data.dimensions.height}px`;
+                }
+            } else if (data.size) {
+                successMessage += ` (${(data.size / 1024).toFixed(2)} KB)`;
+            }
+            
+            statusDiv.innerHTML = `<div class="success-msg">${successMessage}</div>`;
             
             // Set the image URL in the input
             imageInput.value = data.url;

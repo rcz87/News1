@@ -2,8 +2,26 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>News1 Admin Panel</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="News1 Admin">
+    <meta name="application-name" content="News1 Admin">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM4NC45NTQzIDQ4IDc2IDU2Ljk1NDMgNzYgNjhWODRINjhDNTYuOTU0MyA4NCA0OCA5Mi45NTQzIDQ4IDEwNFYxMjRDNDggMTM1LjA0NiA1Ni45NTQzIDE0NCA2OCAxNDRIODRWMTI0SDEwOFYxNDRIMTI0QzEzNS4wNDYgMTQ0IDE0NCAxMzUuMDQ2IDE0NCAxMjRWMTA0QzE0NCA5Mi45NTQzIDEzNS4wNDYgODQgMTI0IDg0SDExNlY2OEMxMTYgNTYuOTU0MyAxMDcuMDQ2IDQ4IDk2IDQ4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTg0IDY4SDEwOFY4NEg4NFY2OFoiIGZpbGw9IiM2NjdlZWEiLz4KPHBhdGggZD0iTTg0IDk2SDEwOFYxMTJIODRWOTZaIiBmaWxsPSIjNjY3ZWVhIi8+CjxwYXRoIGQ9Ik84NCAxMjRIMTA4VjE0MEg4NFYxMjRaIiBmaWxsPSIjNjY3ZWVhIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxOTIiIHkyPSIxOTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0iIzY2N2VlYSIvPgo8cGF0aCBkPSJNMTYgOEMxNC40MDYgOCAxMyA5LjQwNiAxMyAxMVYxNEgxMUM5LjQwNiAxNCA4IDE1LjQwNiA4IDE3VjIwQzggMjIuMjA5IDkuNDA2IDI0IDExIDI0SDEzVjIwSDE1VjI0SDE3QzE4LjU5NCAyNCAyMCAyMi41OTQgMjAgMjBWMTdDMjAgMTUuNDA2IDE4LjU5NCAxNCAxNyAxNEgxNlYxMUMxNiA5LjQwNiAxNC41OTQgOCAxNiA4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTE0IDExSDE4VjE0SDE0VjExWiIgZmlsbD0iIzY2N2VhYSIvPgo8L3N2Zz4=">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
@@ -51,6 +69,8 @@
             font-weight: 600;
             margin: 5px; 
             transition: transform 0.2s, box-shadow 0.2s;
+            min-height: 48px; /* Minimum touch target size for mobile */
+            touch-action: manipulation; /* Improve touch responsiveness */
         }
         button:hover { 
             transform: translateY(-2px);
@@ -58,6 +78,16 @@
         }
         button:active {
             transform: translateY(0);
+        }
+        /* Better touch feedback for mobile */
+        @media (hover: none) {
+            button:hover {
+                transform: none;
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            }
+            button:active {
+                transform: scale(0.98);
+            }
         }
         button.danger { 
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -127,9 +157,183 @@
             font-size: 18px;
         }
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .header, .login-box, .admin-panel { padding: 20px; }
+            body { 
+                padding: 10px; 
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            }
+            .header, .login-box, .admin-panel { 
+                padding: 20px; 
+                margin-bottom: 15px;
+            }
             h1 { font-size: 24px; }
+            .controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .controls select,
+            .controls button {
+                width: 100%;
+                min-width: auto;
+                flex: none;
+                min-height: 52px; /* Larger touch targets on mobile */
+            }
+            /* Fix viewport issues on mobile */
+            .container {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            /* Better scrolling for long content */
+            #writing-guide {
+                max-height: 70vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .editor-form {
+                max-height: 80vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .article-item {
+                padding: 15px;
+                margin: 10px 0;
+            }
+            .article-item h3 {
+                font-size: 18px;
+            }
+            .article-item p {
+                font-size: 13px;
+            }
+            .article-item small {
+                font-size: 12px;
+            }
+            .article-item button {
+                font-size: 12px;
+                padding: 8px 12px;
+                margin: 2px;
+            }
+            .editor-form {
+                padding: 20px;
+            }
+            .editor-form input,
+            .editor-form textarea,
+            .editor-form select {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .editor-form button {
+                font-size: 14px;
+                padding: 12px 20px;
+                margin: 3px;
+            }
+            #writing-guide {
+                padding: 20px;
+                margin: 10px 0;
+            }
+            #writing-guide h3 {
+                font-size: 20px;
+            }
+            #writing-guide h4 {
+                font-size: 16px;
+            }
+            #writing-guide ul {
+                font-size: 13px;
+                line-height: 1.6;
+            }
+            #writing-guide code {
+                font-size: 12px;
+            }
+            .user-info {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 5px; }
+            .header, .login-box, .admin-panel { padding: 15px; }
+            h1 { font-size: 20px; }
+            h2 { font-size: 18px; }
+            .header { padding: 20px 15px; }
+            .login-box { padding: 15px; }
+            .admin-panel { padding: 15px; }
+            .controls {
+                margin: 15px 0;
+            }
+            .article-item {
+                padding: 12px;
+                margin: 8px 0;
+            }
+            .article-item h3 {
+                font-size: 16px;
+                margin-bottom: 6px;
+            }
+            .article-item p {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            .article-item small {
+                font-size: 11px;
+            }
+            .article-item button {
+                font-size: 11px;
+                padding: 6px 10px;
+                margin: 1px;
+            }
+            .editor-form {
+                padding: 15px;
+                margin: 10px 0;
+            }
+            .editor-form input,
+            .editor-form textarea,
+            .editor-form select {
+                font-size: 13px;
+                padding: 10px;
+                margin: 8px 0;
+            }
+            .editor-form button {
+                font-size: 13px;
+                padding: 10px 15px;
+                margin: 2px;
+            }
+            #writing-guide {
+                padding: 15px;
+                margin: 5px 0;
+            }
+            #writing-guide h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            #writing-guide h4 {
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+            #writing-guide ul {
+                font-size: 12px;
+                line-height: 1.5;
+                margin-bottom: 15px;
+            }
+            #writing-guide code {
+                font-size: 11px;
+                padding: 2px 4px;
+            }
+            #writing-guide > div {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            .user-info {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            .success-msg,
+            .error-msg {
+                font-size: 13px;
+                padding: 10px;
+                margin: 8px 0;
+            }
+            .loading {
+                font-size: 16px;
+                padding: 30px;
+            }
         }
     </style>
 </head>
@@ -157,6 +361,8 @@
                 <select id="channel" style="flex: 1; min-width: 200px;">
                     <option value="ambal">📰 Ambal News</option>
                     <option value="beritaangin">🌪️ Berita Angin</option>
+                    <option value="cakranews">🌾 CAKRANEWS</option>
+                    <option value="mjbnews">🧊 MJBNEWS</option>
                     <option value="dendelesinfo">📱 Dendeles Info</option>
                     <option value="beritadesa">🏘️ Berita Desa</option>
                     <option value="kresnanusantara">🏛️ Kresna Nusantara</option>
@@ -174,6 +380,7 @@
                     <option value="Teknologi">💻 Teknologi</option>
                     <option value="Lifestyle">✨ Lifestyle</option>
                     <option value="Berita">📰 Berita</option>
+                    <option value="Pertanian">🌾 Pertanian</option>
                 </select>
                 <button id="loadArticlesBtn" class="success">📋 Tampilkan Artikel</button>
                 <button id="createNewBtn">➕ Buat Artikel Baru</button>
@@ -241,6 +448,7 @@
                             <li><strong>Teknologi:</strong> Digital, gadget, inovasi, internet</li>
                             <li><strong>Lifestyle:</strong> Kuliner, wisata, gaya hidup, hiburan</li>
                             <li><strong>Berita:</strong> Umum/lain-lain yang tidak masuk kategori di atas</li>
+                            <li><strong>Pertanian:</strong> Berita pertanian, petani, panen, pertanian modern</li>
                         </ul>
                     </div>
 

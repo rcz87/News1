@@ -13,18 +13,18 @@ export default function CategoryPage() {
   const category = params?.category;
   const { channel } = useChannel();
 
-  const { data: articles, isLoading } = useQuery<Omit<Article, 'content'>[]>({
+  const { data: articles, isLoading } = useQuery<Article[]>({
     queryKey: [`/api/channels/${channel?.id}/categories/${category}/articles`],
     enabled: !!category && !!channel,
   });
 
-  const categoryName = category?.charAt(0).toUpperCase() + category?.slice(1);
+  const categoryName = category ? category.charAt(0).toUpperCase() + category.slice(1) : "";
 
   return (
     <div className="min-h-screen flex flex-col">
       <SEO
         title={`Berita ${categoryName}`}
-        description={`Berita terkini seputar ${categoryName?.toLowerCase()}`}
+        description={`Berita terkini seputar ${categoryName.toLowerCase()}`}
       />
       <Header />
       
@@ -32,7 +32,7 @@ export default function CategoryPage() {
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{categoryName}</h1>
           <p className="text-lg text-muted-foreground">
-            Berita terkini seputar {categoryName?.toLowerCase()}
+            Berita terkini seputar {categoryName.toLowerCase()}
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export default function CategoryPage() {
               <div className="text-6xl mb-4">🔄</div>
               <h2 className="text-2xl font-bold mb-2">Dalam Pembaruan</h2>
               <p className="text-muted-foreground mb-6">
-                Konten kategori {categoryName?.toLowerCase()} sedang dalam proses pembaruan. 
+                Konten kategori {categoryName.toLowerCase()} sedang dalam proses pembaruan. 
                 Silakan kembali lagi nanti untuk artikel terbaru.
               </p>
               <a href={`/${channel?.id}`} className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">

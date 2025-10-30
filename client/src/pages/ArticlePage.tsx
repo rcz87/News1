@@ -15,18 +15,19 @@ import "highlight.js/styles/github-dark.css";
 type ArticleWithHTML = Article & { htmlContent: string };
 
 export default function ArticlePage() {
-  const [, params] = useRoute("/article/:slug");
+  const [, params] = useRoute("/:channelId/article/:slug");
+  const channelId = params?.channelId;
   const slug = params?.slug;
   const { channel } = useChannel();
 
   const { data: article, isLoading } = useQuery<ArticleWithHTML>({
-    queryKey: [`/api/channels/${channel?.id}/articles/${slug}`],
-    enabled: !!slug && !!channel,
+    queryKey: [`/api/channels/${channelId || channel?.id}/articles/${slug}`],
+    enabled: !!slug && !!(channelId || channel),
   });
 
-  const { data: relatedArticles } = useQuery<Omit<Article, 'content'>[]>({
-    queryKey: [`/api/channels/${channel?.id}/categories/${article?.category}/articles`],
-    enabled: !!article && !!channel,
+  const { data: relatedArticles } = useQuery<Article[]>({
+    queryKey: [`/api/channels/${channelId || channel?.id}/categories/${article?.category}/articles`],
+    enabled: !!article && !!(channelId || channel),
   });
 
   if (isLoading) {

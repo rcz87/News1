@@ -10,9 +10,10 @@ import { SEO } from "@/components/SEO";
 export default function HomePage() {
   const { channel } = useChannel();
 
-  const { data: articles, isLoading } = useQuery<Omit<Article, 'content'>[]>({
+  const { data: articles, isLoading } = useQuery<Article[]>({
     queryKey: [`/api/channels/${channel?.id}/articles`],
     enabled: !!channel,
+    refetchInterval: 30000, // Auto refresh every 30 seconds
   });
 
   if (!channel) {

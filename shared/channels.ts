@@ -137,6 +137,38 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       instagram: "https://instagram.com/berasbalap",
     },
   },
+  cakranews: {
+    id: "cakranews",
+    name: "CAKRANEWS",
+    subdomain: "cakranews",
+    domain: "cakrapamungkas.digital",
+    tagline: "Berita Terpercaya dan Terkini",
+    primaryColor: "220 85% 45%", // Blue-Indigo
+    secondaryColor: "200 75% 40%",
+    description: "Portal berita terpercaya dari CAKRANEWS",
+    keywords: ["cakranews", "berita", "terkini", "terpercaya"],
+    socialLinks: {
+      twitter: "https://twitter.com/cakranews",
+      facebook: "https://facebook.com/cakranews",
+      instagram: "https://instagram.com/cakranews",
+    },
+  },
+  mjbnews: {
+    id: "mjbnews",
+    name: "MJBNEWS",
+    subdomain: "mjbnews",
+    domain: "guardiansofthetoken.id",
+    tagline: "Berita Inovasi dan Teknologi Terkini",
+    primaryColor: "280 75% 45%", // Purple
+    secondaryColor: "260 65% 40%",
+    description: "Portal berita terpercaya dari MJBNEWS dengan fokus pada inovasi dan teknologi",
+    keywords: ["mjbnews", "berita", "teknologi", "inovasi", "terkini"],
+    socialLinks: {
+      twitter: "https://twitter.com/mjbnews",
+      facebook: "https://facebook.com/mjbnews",
+      instagram: "https://instagram.com/mjbnews",
+    },
+  },
 };
 
 export const getChannelBySubdomain = (subdomain: string): ChannelConfig | null => {

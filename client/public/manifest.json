@@ -1,0 +1,64 @@
+{
+  "name": "News1 Admin Dashboard",
+  "short_name": "News1 Admin",
+  "description": "Admin dashboard untuk mengelola artikel News1 dari perangkat mobile",
+  "start_url": "/admin.html",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8xXzEpIi8+CjxwYXRoIGQ9Ik05NiA0OEM4NC45NTQzIDQ4IDc2IDU2Ljk1NDMgNzYgNjhWODRINjhDNTYuOTU0MyA4NCA0OCA5Mi45NTQzIDQ4IDEwNFYxMjRDNDggMTM1LjA0NiA1Ni45NTQzIDE0NCA2OCAxNDRIODRWMTI0SDEwOFYxNDRIMTI0QzEzNS4wNDYgMTQ0IDE0NCAxMzUuMDQ2IDE0NCAxMjRWMTA0QzE0NCA5Mi45NTQzIDEzNS4wNDYgODQgMTI0IDg0SDExNlY2OEMxMTYgNTYuOTU0MyAxMDcuMDQ2IDQ4IDk2IDQ4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTg0IDY4SDEwOFY4NEg4NFY2OFoiIGZpbGw9IiM2NjdlZWEiLz4KPHBhdGggZD0iTTg0IDk2SDEwOFYxMTJIODRWOTZaIiBmaWxsPSIjNjY3ZWVhIi8+CjxwYXRoIGQ9Ik04NCAxMjRIMTA4VjE0MEg4NFYxMjRaIiBmaWxsPSIjNjY3ZWVhIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfMV8xIiB4MT0iMCIgeTE9IjAiIHgyPSIxOTIiIHkyPSIxOTIiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiByeD0iNjQiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8yXzIpIi8+CjxwYXRoIGQ9Ik0yNTYgMTI4QzIyNy43OSAxMjggMjA0IDE1MS43OSAyMDQgMTgwVjIyNEgxODBDMTUxLjc5IDIyNCAxMjggMjQ3Ljc5IDEyOCAyNzZWMzMyQzEyOCAzNjAuMjEgMTUxLjc5IDM4NCAxODAgMzg0SDIyNFYzMjJIMjg4VjM4NEgzMzJDMzYwLjIxIDM4NCAzODQgMzYwLjIxIDM4NCAzMzJWMjc2QzM4NCAyNDcuNzkgMzYwLjIxIDIyNCAzMzIgMjI0SDMwOFYxODBDMzA4IDE1MS43OSAyODQuMjEgMTI4IDI1NiAxMjhaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMjI0IDE4MEgyODhWMjI0SDIyNFYxODBaIiBmaWxsPSIjNjY3ZWVhIi8+CjxwYXRoIGQ9Ik0yMjQgMjU2SDI4OFYzMDBIMjI0VjI1NloiIGZpbGw9IiM2NjdlZWEiLz4KPHBhdGggZD0iTTIyNCAzMzJIMjg4VjM3NkgyMjRWMzMyWiIgZmlsbD0iIzY2N2VhYSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfbGluZWFyXzJfMiIgeDE9IjAiIHkxPSIwIiB4Mj0iNTEyIiB5Mj0iNTEyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM2NjdlZWEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0YmEyIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "business", "news"],
+  "lang": "id",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjU2OCIgdmlld0JveD0iMCAwIDMyMCA1NjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iNTY4IiBmaWxsPSIjZjVmNWY3Ii8+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iODAiIGZpbGw9IndoaXRlIi8+Cjx0ZXh0IHg9IjE2MCIgeT0iNDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZm9udC13ZWlnaHQ9ImJvbGQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMzMzMzMzMiPuJ9pbiBOb3dzMSBBZG1pbiBQYW5lbDwvdGV4dD4KPHJlY3QgeD0iMjAiIHk9IjEwMCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI0MDAiIHJ4PSIxMiIgZmlsbD0id2hpdGUiLz4KPHJlY3QgeD0iNDAiIHk9IjEyMCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIGZpbGw9IiNmMGYwZjAiLz4KPHJlY3QgeD0iNDAiIHk9IjE4MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI2MCIgcng9IjgiIGZpbGw9IiNmNWY3ZmEiLz4KPHJlY3QgeD0iNDAiIHk9IjI2MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI2MCIgcng9IjgiIGZpbGw9IiNmNWY3ZmEiLz4KPHJlY3QgeD0iNDAiIHk9IjM0MCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI2MCIgcng9IjgiIGZpbGw9IiNmNWY3ZmEiLz4KPHJlY3QgeD0iNDAiIHk9IjQyMCIgd2lkdGg9IjI0MCIgaGVpZ2h0PSI0MCIgcng9IjgiIGZpbGw9IiNmMGYwZjAiLz4KPC9zdmc+",
+      "sizes": "320x568",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "Admin dashboard mobile view"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Buat Artikel",
+      "short_name": "Buat",
+      "description": "Buat artikel baru",
+      "url": "/admin.html?action=create",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl8zXzMpIi8+CjxwYXRoIGQ9Ik00OCAyNEM0My41ODE3IDI0IDQwIDI3LjU4MTcgNDAgMzJWNDQSDMyQzI3LjU4MTcgNDQgMjQgNDcuNTgxNyAyNCA1MlY2NEMyNCA2OC40MTgzIDI3LjU4MTcgNzIgMzIgNzJINjRDNjguNDE4MyA3MiA3MiA2OC40MTgzIDcyIDY0VjUyQzcyIDQ3LjU4MTcgNjguNDE4MyA0NCA2NCA0NEg1NlYzMkM1NiAyNy41ODE3IDUyLjQxODMgMjQgNDggMjRaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNDAgNDhINTRWNTZINDBWNDhaIiBmaWxsPSIjNjY3ZWVhIi8+CjxkZWZzPgo8bGluZWFyR3JhZGllbnQgaWQ9ImdyYWRpZW50MF9saW5lYXJfM18zIiB4MT0iMCIgeTE9IjAiIHgyPSI5NiIgeTI9Ijk2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM2NjdlZWEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0YmEyIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Daftar Artikel",
+      "short_name": "Daftar",
+      "description": "Lihat daftar artikel",
+      "url": "/admin.html?action=list",
+      "icons": [
+        {
+          "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHZpZXdCb3g9IjAgMCA5NiA5NiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9Ijk2IiBoZWlnaHQ9Ijk2IiByeD0iMTIiIGZpbGw9InVybCgjZ3JhZGllbnQwX2xpbmVhcl80XzQpIi8+CjxwYXRoIGQ9Ik0yNCAyNEg3MlYzMkgyNFYyNFpNMjQgNDBINzJWNDhIMjRWNDBaTTI0IDU2SDcyVjY0SDI0VjU2WiIgZmlsbD0id2hpdGUiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwX2xpbmVhcl80XzQiIHgxPSIwIiB5MT0iMCIgeDI9Ijk2IiB5Mj0iOTYiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N2VlYSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRiYTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4=",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

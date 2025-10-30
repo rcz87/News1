@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { readdir, readFile, writeFile, unlink } from 'fs/promises';
+import { readdir, readFile, writeFile, unlink, stat, rename } from 'fs/promises';
 import { join } from 'path';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
+import sharp from 'sharp';
 import type { Request, Response, NextFunction } from 'express';
 
 const router = Router();
@@ -23,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB limit
+    fileSize: 20 * 1024 * 1024 // 20MB limit untuk accept semua mobile photos
   },
   fileFilter: function (req, file, cb) {
     // Accept images only
@@ -50,6 +51,9 @@ async function initPasswordHash() {
   }
 }
 
+// Initialize password hash on module load
+initPasswordHash();
+
 // Authentication middleware
 function authenticateAdmin(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.replace('Bearer ', '');
@@ -74,17 +78,19 @@ router.post('/login', async (req: Request, res: Response) => {
 
     console.log('Login attempt:', username);
     console.log('Expected username:', ADMIN_USERNAME);
-    console.log('Expected password:', ADMIN_PASSWORD);
-    console.log('Received password:', password);
-    console.log('Password match:', password === ADMIN_PASSWORD);
 
     if (username !== ADMIN_USERNAME) {
       console.log('Invalid username');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Simple password comparison for now (in production, use bcrypt)
-    if (password !== ADMIN_PASSWORD) {
+    // Ensure password hash is initialized
+    await initPasswordHash();
+
+    // Compare password with hash
+    const passwordMatch = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
+    
+    if (!passwordMatch) {
       console.log('Invalid password - mismatch');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -297,23 +303,75 @@ router.delete('/articles/:slug', authenticateAdmin, async (req: Request, res: Re
   }
 });
 
-// Upload photo
+// Upload photo dengan auto-compression
 router.post('/upload-photo', authenticateAdmin, upload.single('photo'), async (req: Request, res: Response) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, error: 'No file uploaded' });
     }
 
-    // Return the URL path to the uploaded file
-    const url = `/uploads/articles/${req.file.filename}`;
+    const originalSize = req.file.size;
+    const originalPath = req.file.path;
+    const filename = req.file.filename;
     
-    res.json({ 
-      success: true, 
-      url,
-      filename: req.file.filename,
-      size: req.file.size
-    });
+    // Generate compressed filename
+    const compressedFilename = filename.replace(/\.[^/.]+$/, '_compressed.jpg');
+    const compressedPath = originalPath.replace(req.file.filename, compressedFilename);
+    
+    try {
+      // Compress image menggunakan Sharp
+      await sharp(originalPath)
+        .resize(1920, 1080, { 
+          fit: 'inside', 
+          withoutEnlargement: true 
+        })
+        .jpeg({ 
+          quality: 80,
+          progressive: true
+        })
+        .toFile(compressedPath);
+      
+      // Get compressed file stats
+      const compressedStats = await sharp(compressedPath).metadata();
+      const compressedSize = (await stat(compressedPath)).size;
+      
+      // Delete original file
+      await unlink(originalPath);
+      
+      // Rename compressed file to original filename
+      await rename(compressedPath, originalPath);
+      
+      const compressionRatio = ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
+      
+      console.log(`Image compressed: ${(originalSize / 1024 / 1024).toFixed(2)}MB → ${(compressedSize / 1024 / 1024).toFixed(2)}MB (${compressionRatio}% reduction)`);
+      
+      res.json({ 
+        success: true, 
+        url: `/uploads/articles/${filename}`,
+        filename: filename,
+        originalSize: originalSize,
+        compressedSize: compressedSize,
+        compressionRatio: compressionRatio,
+        dimensions: {
+          width: compressedStats.width,
+          height: compressedStats.height
+        }
+      });
+      
+    } catch (compressionError: any) {
+      console.error('Compression failed, using original file:', compressionError);
+      // Jika compression gagal, gunakan file original
+      res.json({ 
+        success: true, 
+        url: `/uploads/articles/${filename}`,
+        filename: filename,
+        size: originalSize,
+        compression: 'failed',
+        error: compressionError.message
+      });
+    }
   } catch (error: any) {
+    console.error('Upload error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });

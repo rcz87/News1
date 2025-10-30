@@ -12,6 +12,15 @@ dotenv.config();
 const app = express();
 const isProduction = process.env.NODE_ENV === "production";
 
+// Admin panel route - serve admin.html (must be before all other middleware)
+app.get("/admin", (req, res) => {
+  res.sendFile("admin.html", { root: "client/public" });
+});
+
+app.get("/admin.html", (req, res) => {
+  res.sendFile("admin.html", { root: "client/public" });
+});
+
 // Security Headers - Helmet
 app.use(helmet({
   contentSecurityPolicy: isProduction ? {
@@ -26,11 +35,11 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false, // Allow external images
 }));
 
-// CORS Configuration
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000'];
+// CORS Configuration - Enhanced for mobile support
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:5000', 'http://127.0.0.1:5000'];
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, etc.)
+    // Allow requests with no origin (mobile apps, curl, Postman, etc.)
     if (!origin) return callback(null, true);
     
     if (isProduction) {
@@ -47,14 +56,18 @@ app.use(cors({
       if (isAllowed) {
         callback(null, true);
       } else {
+        console.log('CORS blocked origin:', origin);
         callback(new Error('Not allowed by CORS'));
       }
     } else {
-      // In development, allow all origins
+      // In development, allow all origins including mobile
       callback(null, true);
     }
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'X-Total-Count']
 }));
 
 // Rate Limiting - Prevent DDoS
