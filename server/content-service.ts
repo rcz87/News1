@@ -95,18 +95,25 @@ export class ContentService {
     const { data, content } = matter(fileContent);
     const slug = filename.replace('.md', '');
     
+    // Clean and normalize data from frontmatter
+    const title = typeof data.title === 'string' ? data.title.replace(/\*\*/g, '').trim() : '';
+    const excerpt = typeof data.excerpt === 'string' ? data.excerpt.replace(/\*/g, '').trim() : '';
+    const author = typeof data.author === 'string' ? data.author.trim() : 'Anonymous';
+    const category = typeof data.category === 'string' ? data.category.trim() : 'Uncategorized';
+    const image = typeof data.image === 'string' ? data.image.trim() : '';
+    
     return {
       slug,
-      title: data.title || '',
-      excerpt: data.excerpt || '',
-      author: data.author || 'Anonymous',
+      title,
+      excerpt,
+      author,
       publishedAt: data.publishedAt || new Date().toISOString(),
       updatedAt: data.updatedAt,
-      category: data.category || 'Uncategorized',
-      tags: data.tags || [],
-      featured: data.featured || false,
-      image: data.image || '',
-      imageAlt: data.imageAlt || data.title,
+      category,
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      featured: Boolean(data.featured),
+      image,
+      imageAlt: typeof data.imageAlt === 'string' ? data.imageAlt.trim() : title,
       content: content.trim(),
       channelId,
     };

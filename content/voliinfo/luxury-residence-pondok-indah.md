@@ -1,17 +1,32 @@
 ---
-title: "Residensi Mewah Terbaru di Pondok Indah Sold Out dalam Sehari"
-excerpt: "Apartemen ultra-luxury The Pinnacle Pondok Indah ludes terjual dalam sehari dengan harga mulai Rp 3 miliar."
-author: "Property Expert Diana"
-publishedAt: "2024-01-15T13:00:00Z"
-category: "Ekonomi"
-tags: ["properti", "luxury", "apartemen", "pondok indah"]
+title: "Tim Nasional Voli Indonesia Raih Medali Emas di SEA Games 2023"
+excerpt: "Tim nasional voli putra Indonesia berhasil meraih medali emas setelah mengalahkan Thailand di final SEA Games 2023 Kamboja."
+author: "Sports Reporter Ahmad Fauzi"
+publishedAt: "2023-05-15T20:00:00Z"
+category: "Olahraga"
+tags: ["voli", "tim nasional", "SEA Games", "medali emas", "indonesia"]
 featured: true
-image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&h=675&fit=crop"
-imageAlt: "Luxury apartment di Pondok Indah"
+image: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=1200&h=675&fit=crop"
+imageAlt: "Tim nasional voli Indonesia merayakan kemenangan"
 ---
 
-The Pinnacle Pondok Indah, apartemen ultra-luxury terbaru dengan 200 unit, sold out dalam waktu 24 jam sejak soft launching. Harga unit berkisar Rp 3-15 miliar untuk tipe 2-4 bedroom.
+Tim nasional voli putra Indonesia berhasil mencatat sejarah dengan meraih medali emas SEA Games 2023 setelah mengalahkan Thailand dengan skor 3-1 di final yang berlangsung di Phnom Penh, Kamboja.
 
-Developer PT Pondok Indah Properti menyatakan bahwa demand sangat tinggi dari pembeli lokal dan expatriate yang mencari hunian premium di lokasi strategis.
+Ini adalah medali emas pertama Indonesia dalam cabang olahraga voli putra sejak SEA Games 2011.
 
-Fasilitas world-class meliputi infinity pool, sky lounge, private cinema, wine cellar, dan concierge 24 jam.
+## Perjalanan Menuju Final
+
+Indonesia menunjukkan penampilan konsisten sepanjang turnamen:
+- Babak grup: Menang melawan Malaysia, Filipina, dan Myanmar
+- Semifinal: Mengalahkan Vietnam dengan skor 3-0
+- Final: Menang atas Thailand 3-1 (25-23, 21-25, 25-22, 25-20)
+
+## Bintang Pertandingan
+
+Rivan Nurmulki menjadi pemain terbaik turnamen dengan rata-rata 25 poin per pertandingan. Sementara itu, Dio Dimaz sebagai libero menunjukkan performa luar biasa dalam pertahanan.
+
+Pelatih kepala timnas, Coach Li Qiu, mengatakan bahwa kemenangan ini adalah hasil dari kerja keras selama 4 tahun terakhir.
+
+"Kami mempersiapkan tim ini dengan sangat serius. Pemain-pemain muda berbakat dikombinasikan dengan pemain senior berpengalaman menciptakan tim yang solid," kata Coach Li Qiu.
+
+Kemenangan ini diharapkan dapat mengangkat popularitas olahraga voli di Indonesia dan menginspirasi generasi muda untuk berprestasi di cabang olahraga ini.

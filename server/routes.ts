@@ -20,6 +20,15 @@ marked.use(
 );
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin panel route - serve admin.html (must be before all other routes)
+  app.get("/admin", (req, res) => {
+    res.sendFile("admin.html", { root: "client/public" });
+  });
+
+  app.get("/admin.html", (req, res) => {
+    res.sendFile("admin.html", { root: "client/public" });
+  });
+
   // Admin routes
   app.use("/api/admin", adminRoutes);
 
@@ -32,16 +41,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching channels:", error);
       res.status(500).json({ error: "Failed to fetch channels" });
     }
-  });
-
-  // Admin panel route - serve admin.html (must be before static routes)
-  app.get("/admin", (req, res) => {
-    res.sendFile("admin.html", { root: "client/public" });
-  });
-
-  // Admin panel route with .html extension
-  app.get("/admin.html", (req, res) => {
-    res.sendFile("admin.html", { root: "client/public" });
   });
 
   /**

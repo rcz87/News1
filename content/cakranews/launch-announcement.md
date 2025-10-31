@@ -5,7 +5,7 @@ author: "Admin CAKRA"
 publishedDate: "2025-10-29T00:00:00.000Z"
 category: "Teknologi"
 featured: true
-image: "/uploads/articles/article-1761704726765-77553511.jpg"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=675&fit=crop"
 tags: ["launch", "digital", "teknologi", "cakrapamungkas"]
 ---
 

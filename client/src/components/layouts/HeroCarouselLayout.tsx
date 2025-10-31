@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface HeroCarouselLayoutProps {
-  articles?: Omit<Article, 'content'>[];
+  articles?: Article[];
   isLoading: boolean;
 }
 
@@ -38,43 +38,53 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
   return (
     <main className="flex-1">
       {/* Hero Carousel */}
-      <section className="relative w-full h-[600px] overflow-hidden">
+      <section className="relative w-full">
         {isLoading ? (
-          <Skeleton className="w-full h-full" />
+          <Skeleton className="w-full h-[400px] md:h-[600px]" />
         ) : (
-          <>
+          <div className="relative">
             {/* Slides */}
             {heroArticles.map((article, index) => (
               <div
                 key={article.slug}
-                className={`absolute inset-0 transition-all duration-1000 ${
-                  index === currentSlide ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                className={`transition-all duration-1000 ${
+                  index === currentSlide ? 'block' : 'hidden'
                 }`}
               >
-                <img
-                  src={article.image}
-                  alt={article.imageAlt || article.title}
-                  className="w-full h-full object-cover transition-transform duration-1000"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                <div className={`absolute bottom-0 left-0 right-0 p-8 md:p-16 max-w-7xl mx-auto transition-all duration-700 ${
-                  index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                }`}>
-                  <Badge variant="secondary" className="mb-4 text-lg px-4 py-2 animate-fade-in-down">
-                    {article.category}
-                  </Badge>
-                  <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 max-w-4xl animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-                    {article.title}
-                  </h1>
-                  <p className="text-lg md:text-xl text-white/90 mb-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-white/80 animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-                    <span>{article.author}</span>
-                    <span>•</span>
-                    <span>{new Date(article.publishedAt).toLocaleDateString('id-ID')}</span>
+                <a
+                  href={`/${article.channelId}/article/${article.slug}`}
+                  className="block"
+                >
+                  {/* Title and metadata above image */}
+                  <div className={`p-6 md:p-16 max-w-7xl mx-auto transition-all duration-700 ${
+                    index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                  }`}>
+                    <Badge variant="secondary" className="mb-4 text-lg px-4 py-2 animate-fade-in-down">
+                      {article.category}
+                    </Badge>
+                    <h1 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 max-w-4xl animate-fade-in-up hover:text-primary transition-colors" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+                      {article.title}
+                    </h1>
+                    <p className="text-sm md:text-xl text-muted-foreground mb-4 md:mb-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+                      {article.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+                      <span>{article.author}</span>
+                      <span>•</span>
+                      <span>{new Date(article.publishedAt).toLocaleDateString('id-ID')}</span>
+                    </div>
                   </div>
-                </div>
+                  
+                  {/* Image below title */}
+                  <div className="w-full h-[400px] md:h-[600px] overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.imageAlt || article.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-1000 hover:scale-105"
+                      style={{ objectPosition: 'center 25%' }}
+                    />
+                  </div>
+                </a>
               </div>
             ))}
 
@@ -108,7 +118,7 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
                 />
               ))}
             </div>
-          </>
+          </div>
         )}
       </section>
 

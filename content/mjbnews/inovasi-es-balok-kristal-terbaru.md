@@ -1,11 +1,11 @@
 ---
-title: Inovasi Terbaru: Teknologi Pembuatan Es Balok dan Kristal yang Revolusioner
+title: Inovasi Terbaru Teknologi Pembuatan Es Balok dan Kristal yang Revolusioner
 slug: inovasi-es-balok-kristal-terbaru
 excerpt: Teknologi modern dalam pembuatan es balok dan kristal telah mengalami revolusi besar dengan metode freezing yang lebih efisien dan hasil berkualitas premium untuk berbagai kebutuhan industri dan konsumsi.
 category: Teknologi
 author: Tim Teknologi MJBNEWS
 publishedAt: 2025-10-29T08:59:59.482Z
-image: /uploads/articles/article-1761655554018-551552186.jpg
+image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=675&fit=crop
 tags: []
 featured: false
 ---

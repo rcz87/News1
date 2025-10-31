@@ -10,6 +10,7 @@ import { MasonryGridLayout } from "@/components/layouts/MasonryGridLayout";
 import { ModernMinimalistLayout } from "@/components/layouts/ModernMinimalistLayout";
 import { GridNewsLayout } from "@/components/layouts/GridNewsLayout";
 import { HeroCarouselLayout } from "@/components/layouts/HeroCarouselLayout";
+import { SimpleHeroLayout } from "@/components/layouts/SimpleHeroLayout";
 import { TimelineLayout } from "@/components/layouts/TimelineLayout";
 import { SplitScreenLayout } from "@/components/layouts/SplitScreenLayout";
 import { CardStackLayout } from "@/components/layouts/CardStackLayout";
@@ -18,10 +19,17 @@ import { FeaturedSidebarLayout } from "@/components/layouts/FeaturedSidebarLayou
 export default function HomePage() {
   const { channel } = useChannel();
 
-  const { data: articles, isLoading } = useQuery<Article[]>({
+  const { data: articles = [], isLoading } = useQuery<Article[]>({
     queryKey: [`/api/channels/${channel?.id}/articles`],
     enabled: !!channel,
     refetchInterval: 30000, // Auto refresh every 30 seconds
+  });
+
+  console.log('HomePage Debug:', {
+    channel: channel?.id,
+    isLoading,
+    articlesCount: articles.length,
+    firstArticle: articles[0]?.title
   });
 
   if (!channel) {
@@ -44,7 +52,8 @@ export default function HomePage() {
       case "grid":
         return <GridNewsLayout articles={articles} isLoading={isLoading} />;
       case "carousel":
-        return <HeroCarouselLayout articles={articles} isLoading={isLoading} />;
+        // Use SimpleHeroLayout for debugging
+        return <SimpleHeroLayout articles={articles} isLoading={isLoading} />;
       case "timeline":
         return <TimelineLayout articles={articles} isLoading={isLoading} />;
       case "splitscreen":

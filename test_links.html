@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Article Links</title>
+</head>
+<body>
+    <h1>Testing Article Links</h1>
+    
+    <h2>API Test Results:</h2>
+    <ul>
+        <li>Channel API: <span id="channel-api">Testing...</span></li>
+        <li>Article API: <span id="article-api">Testing...</span></li>
+        <li>Article Page: <span id="article-page">Testing...</span></li>
+    </ul>
+    
+    <h2>Manual Test Links:</h2>
+    <ul>
+        <li><a href="http://localhost:5000/inforurutsewu" target="_blank">Channel Homepage</a></li>
+        <li><a href="http://localhost:5000/inforurutsewu/article/satlantas-polres-kebumen-sosialisasi-keterlambatan-cetak-stnk" target="_blank">Sample Article</a></li>
+    </ul>
+    
+    <script>
+        // Test API endpoints
+        async function testAPIs() {
+            try {
+                // Test channel articles API
+                const channelResponse = await fetch('http://localhost:5000/api/channels/inforurutsewu/articles');
+                const channelData = await channelResponse.json();
+                document.getElementById('channel-api').textContent = `✅ Working (${channelData.length} articles)`;
+                
+                // Test individual article API
+                const articleResponse = await fetch('http://localhost:5000/api/channels/inforurutsewu/articles/satlantas-polres-kebumen-sosialisasi-keterlambatan-cetak-stnk');
+                const articleData = await articleResponse.json();
+                document.getElementById('article-api').textContent = `✅ Working (${articleData.title})`;
+                
+                // Test article page
+                const pageResponse = await fetch('http://localhost:5000/inforurutsewu/article/satlantas-polres-kebumen-sosialisasi-keterlambatan-cetak-stnk');
+                const pageText = await pageResponse.text();
+                document.getElementById('article-page').textContent = pageText.includes('root') ? '✅ Working (SPA page)' : '❌ Failed';
+                
+            } catch (error) {
+                document.getElementById('channel-api').textContent = `❌ Error: ${error.message}`;
+                document.getElementById('article-api').textContent = `❌ Error: ${error.message}`;
+                document.getElementById('article-page').textContent = `❌ Error: ${error.message}`;
+            }
+        }
+        
+        testAPIs();
+    </script>
+</body>
+</html>

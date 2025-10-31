@@ -28,24 +28,30 @@ export function Footer() {
             <h3 className="font-bold text-sm mb-4">Navigasi</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about">
-                  <a className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-about">
-                    Tentang Kami
-                  </a>
+                <Link 
+                  href="/about"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors" 
+                  data-testid="link-footer-about"
+                >
+                  Tentang Kami
                 </Link>
               </li>
               <li>
-                <Link href="/contact">
-                  <a className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-contact">
-                    Kontak
-                  </a>
+                <Link 
+                  href="/contact"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors" 
+                  data-testid="link-footer-contact"
+                >
+                  Kontak
                 </Link>
               </li>
               <li>
-                <Link href="/privacy">
-                  <a className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-footer-privacy">
-                    Kebijakan Privasi
-                  </a>
+                <Link 
+                  href="/privacy"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors" 
+                  data-testid="link-footer-privacy"
+                >
+                  Kebijakan Privasi
                 </Link>
               </li>
             </ul>

@@ -70,6 +70,32 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // Explicitly exclude font files from service worker interception
+  // Let browser handle font requests directly to avoid CSP issues
+  if (url.hostname.includes('fonts.gstatic.com') || 
+      url.hostname.includes('fonts.googleapis.com') ||
+      url.pathname.endsWith('.woff') ||
+      url.pathname.endsWith('.woff2') ||
+      url.pathname.endsWith('.ttf') ||
+      url.pathname.endsWith('.otf') ||
+      url.pathname.endsWith('.eot')) {
+    // Don't intercept font requests - let browser handle them
+    return;
+  }
+
+  // Skip main app navigation and external resources - let browser handle them normally
+  // Only intercept admin-related requests
+  if (url.pathname.startsWith('/admin') === false && 
+      url.pathname.startsWith('/api/') === false &&
+      !STATIC_FILES.includes(url.pathname) &&
+      url.pathname !== '/admin.html' && 
+      url.pathname !== '/admin.js' &&
+      url.pathname !== '/manifest.json' &&
+      !url.hostname.includes('unsplash.com')) {
+    // Don't intercept main app navigation and external resources
+    return;
+  }
+
   // Handle API requests
   if (url.pathname.startsWith('/api/')) {
     event.respondWith(handleApiRequest(request));

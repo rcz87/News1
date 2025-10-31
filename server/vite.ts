@@ -77,6 +77,15 @@ export function serveStatic(app: Express) {
     );
   }
 
+  // Admin panel route - serve admin.html (must be before static serving)
+  app.get("/admin", (req, res) => {
+    res.sendFile("admin.html", { root: distPath });
+  });
+
+  app.get("/admin.html", (req, res) => {
+    res.sendFile("admin.html", { root: distPath });
+  });
+
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist

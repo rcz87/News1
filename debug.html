@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Info</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Debug Info for inforurutsewu</h1>
+    
+    <div class="section">
+        <h2>1. API Test</h2>
+        <div id="api-test">Testing...</div>
+    </div>
+    
+    <div class="section">
+        <h2>2. Channel Detection</h2>
+        <div id="channel-test">Testing...</div>
+    </div>
+    
+    <div class="section">
+        <h2>3. Articles Data</h2>
+        <div id="articles-test">Testing...</div>
+    </div>
+    
+    <div class="section">
+        <h2>4. Manual Links</h2>
+        <ul>
+            <li><a href="http://localhost:5000/inforurutsewu" target="_blank">Channel Homepage</a></li>
+            <li><a href="http://localhost:5000/api/channels/inforurutsewu/articles" target="_blank">API Articles</a></li>
+        </ul>
+    </div>
+
+    <script>
+        async function runTests() {
+            try {
+                // Test 1: API
+                const apiResponse = await fetch('http://localhost:5000/api/channels/inforurutsewu/articles');
+                const apiData = await apiResponse.json();
+                document.getElementById('api-test').innerHTML = 
+                    `<span class="success">✅ API Working (${apiData.length} articles)</span>`;
+                
+                // Test 2: Channel detection (simulate)
+                const path = '/inforurutsewu';
+                const channelId = path.split('/')[1];
+                document.getElementById('channel-test').innerHTML = 
+                    `<span class="success">✅ Channel detected: ${channelId}</span>`;
+                
+                // Test 3: Articles data
+                if (apiData.length > 0) {
+                    const firstArticle = apiData[0];
+                    document.getElementById('articles-test').innerHTML = 
+                        `<span class="success">✅ First article: ${firstArticle.title}</span><br>
+                        <pre>${JSON.stringify(firstArticle, null, 2)}</pre>`;
+                } else {
+                    document.getElementById('articles-test').innerHTML = 
+                        `<span class="error">❌ No articles found</span>`;
+                }
+                
+            } catch (error) {
+                document.getElementById('api-test').innerHTML = 
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+                document.getElementById('channel-test').innerHTML = 
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+                document.getElementById('articles-test').innerHTML = 
+                    `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>

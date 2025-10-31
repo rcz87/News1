@@ -12,24 +12,16 @@ dotenv.config();
 const app = express();
 const isProduction = process.env.NODE_ENV === "production";
 
-// Admin panel route - serve admin.html (must be before all other middleware)
-app.get("/admin", (req, res) => {
-  res.sendFile("admin.html", { root: "client/public" });
-});
-
-app.get("/admin.html", (req, res) => {
-  res.sendFile("admin.html", { root: "client/public" });
-});
-
 // Security Headers - Helmet
 app.use(helmet({
   contentSecurityPolicy: isProduction ? {
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts for admin panel
-      styleSrc: ["'self'", "'unsafe-inline'"], // Allow inline styles
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // Allow Google Fonts
+      fontSrc: ["'self'", "https://fonts.gstatic.com"], // Allow Google Fonts fonts
       imgSrc: ["'self'", "data:", "https:"], // Allow external images
-      connectSrc: ["'self'"], // Allow same-origin API calls
+      connectSrc: ["'self'", "https://images.unsplash.com", "https://fonts.googleapis.com", "https://fonts.gstatic.com"], // Allow Unsplash images and Google Fonts
     }
   } : false, // Disable in dev for Vite HMR
   crossOriginEmbedderPolicy: false, // Allow external images
@@ -180,6 +172,9 @@ app.use((req, res, next) => {
   // Start server
   const port = parseInt(process.env.PORT || '5000', 10);
   const host = process.env.HOST || "0.0.0.0";
+  
+  // Trust proxy for rate limiting when behind nginx
+  app.set('trust proxy', true);
   
   server.listen(port, host, () => {
     log(`🚀 Server running on ${host}:${port}`);

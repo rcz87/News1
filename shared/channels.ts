@@ -162,6 +162,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       facebook: "https://facebook.com/cakranews",
       instagram: "https://instagram.com/cakranews",
     },
+    layoutType: "magazine" as const,
   },
   mjbnews: {
     id: "mjbnews",
@@ -178,6 +179,7 @@ export const CHANNELS: Record<string, ChannelConfig> = {
       facebook: "https://facebook.com/mjbnews",
       instagram: "https://instagram.com/mjbnews",
     },
+    layoutType: "minimalist" as const,
   },
 };
 
