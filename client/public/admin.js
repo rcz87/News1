@@ -335,23 +335,48 @@ async function editArticle(slug, channel) {
     document.getElementById('editor-form').style.display = 'block';
 
     try {
+        console.log('🔍 Loading article:', slug, 'from channel:', channel);
+        
         const res = await fetch(`/api/admin/articles/${slug}?channel=${channel}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
+        console.log('📡 Response status:', res.status);
+        
+        if (!res.ok) {
+            const errorText = await res.text();
+            console.error('❌ Server response error:', errorText);
+            throw new Error(`Server error: ${res.status} - ${errorText}`);
+        }
+
         const article = await res.json();
-        document.getElementById('article-slug').value = article.slug;
-        document.getElementById('article-title').value = article.title.replace(/"/g, '');
-        document.getElementById('article-excerpt').value = article.excerpt.replace(/"/g, '');
-        document.getElementById('article-content').value = article.content;
-        document.getElementById('article-category').value = article.category.replace(/"/g, '');
-        document.getElementById('article-author').value = article.author.replace(/"/g, '');
-        document.getElementById('article-image').value = article.image.replace(/"/g, '');
+        console.log('📄 Article data received:', article);
+        
+        // Validate article data
+        if (!article || typeof article !== 'object') {
+            throw new Error('Data artikel tidak valid');
+        }
+
+        // Set form values with null checks
+        document.getElementById('article-slug').value = article.slug || slug;
+        document.getElementById('article-title').value = article.title ? article.title.replace(/"/g, '') : '';
+        document.getElementById('article-excerpt').value = article.excerpt ? article.excerpt.replace(/"/g, '') : '';
+        document.getElementById('article-content').value = article.content || '';
+        document.getElementById('article-category').value = article.category ? article.category.replace(/"/g, '') : 'Berita';
+        document.getElementById('article-author').value = article.author ? article.author.replace(/"/g, '') : 'Admin';
+        document.getElementById('article-image').value = article.image ? article.image.replace(/"/g, '') : '';
+        
+        console.log('✅ Form populated successfully');
         
         // Scroll to form
         document.getElementById('editor-form').scrollIntoView({ behavior: 'smooth' });
     } catch (error) {
+        console.error('❌ Edit article error:', error);
         alert('❌ Gagal memuat artikel: ' + error.message);
+        
+        // Hide form on error
+        document.getElementById('editor-form').style.display = 'none';
+        currentSlug = null;
     }
 }
 
