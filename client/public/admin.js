@@ -249,10 +249,17 @@ async function loadArticles() {
 
         let articles = await res.json();
         
+        // Ensure articles is an array
+        if (!Array.isArray(articles)) {
+            console.error('❌ Expected array but got:', typeof articles, articles);
+            list.innerHTML = '<div class="error-msg">❌ Format data artikel tidak valid!</div>';
+            return;
+        }
+        
         // Filter by category if selected
         if (categoryFilter) {
             articles = articles.filter(article => {
-                const articleCategory = article.category.replace(/"/g, '');
+                const articleCategory = article.category ? article.category.replace(/"/g, '') : '';
                 return articleCategory === categoryFilter;
             });
         }
