@@ -6,7 +6,7 @@ publishedAt: "2024-01-15T10:00:00Z"
 category: "Ekonomi"
 tags: ["bisnis", "mall", "retail"]
 featured: true
-image: "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1515879218367-8466d9f8b3b2?w=1200&h=675&fit=crop"
 imageAlt: "Mall modern di Kebayoran"
 ---
 
