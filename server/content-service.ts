@@ -1,29 +1,25 @@
-import fs from "fs/promises";
-import path from "path";
-import matter from "gray-matter";
-import type { Article } from "@shared/schema";
+import { db, articles, type Article } from "../db/index";
+import { eq, and, desc, or, like, sql, ilike } from "drizzle-orm";
 
-const CONTENT_DIR = path.join(process.cwd(), "content");
-
+/**
+ * Content Service - Database-backed article management
+ * Reads articles from PostgreSQL database using Drizzle ORM
+ */
 export class ContentService {
   /**
    * Get all articles for a specific channel
    */
   async getArticlesByChannel(channelId: string): Promise<Article[]> {
-    const channelDir = path.join(CONTENT_DIR, channelId);
-    
     try {
-      const files = await fs.readdir(channelDir);
-      const markdownFiles = files.filter(file => file.endsWith('.md'));
-      
-      const articles = await Promise.all(
-        markdownFiles.map(file => this.parseArticleFile(channelId, file))
-      );
-      
-      // Sort by publishedAt desc (newest first)
-      return articles.sort((a, b) => 
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-      );
+      const channelArticles = await db.query.articles.findMany({
+        where: and(
+          eq(articles.channelId, channelId),
+          eq(articles.status, "published")
+        ),
+        orderBy: [desc(articles.publishedAt)],
+      });
+
+      return channelArticles.map(this.formatArticleForAPI);
     } catch (error) {
       console.error(`Error reading articles for channel ${channelId}:`, error);
       return [];
@@ -34,12 +30,28 @@ export class ContentService {
    * Get a single article by channel and slug
    */
   async getArticle(channelId: string, slug: string): Promise<Article | null> {
-    const filePath = path.join(CONTENT_DIR, channelId, `${slug}.md`);
-    
     try {
-      await fs.access(filePath);
-      return await this.parseArticleFile(channelId, `${slug}.md`);
+      const article = await db.query.articles.findFirst({
+        where: and(
+          eq(articles.channelId, channelId),
+          eq(articles.slug, slug),
+          eq(articles.status, "published")
+        ),
+      });
+
+      if (!article) {
+        return null;
+      }
+
+      // Increment view count
+      await db
+        .update(articles)
+        .set({ viewCount: sql`${articles.viewCount} + 1` })
+        .where(eq(articles.id, article.id));
+
+      return this.formatArticleForAPI(article);
     } catch (error) {
+      console.error(`Error reading article ${channelId}/${slug}:`, error);
       return null;
     }
   }
@@ -48,99 +60,234 @@ export class ContentService {
    * Get articles by category for a specific channel
    */
   async getArticlesByCategory(channelId: string, category: string): Promise<Article[]> {
-    const allArticles = await this.getArticlesByChannel(channelId);
-    return allArticles.filter(article => 
-      article.category.toLowerCase() === category.toLowerCase()
-    );
+    try {
+      const categoryArticles = await db.query.articles.findMany({
+        where: and(
+          eq(articles.channelId, channelId),
+          eq(articles.category, category),
+          eq(articles.status, "published")
+        ),
+        orderBy: [desc(articles.publishedAt)],
+      });
+
+      return categoryArticles.map(this.formatArticleForAPI);
+    } catch (error) {
+      console.error(`Error reading articles for category ${category}:`, error);
+      return [];
+    }
   }
 
   /**
    * Get featured articles for a specific channel
    */
   async getFeaturedArticles(channelId: string): Promise<Article[]> {
-    const allArticles = await this.getArticlesByChannel(channelId);
-    return allArticles.filter(article => article.featured);
+    try {
+      const featuredArticles = await db.query.articles.findMany({
+        where: and(
+          eq(articles.channelId, channelId),
+          eq(articles.featured, true),
+          eq(articles.status, "published")
+        ),
+        orderBy: [desc(articles.publishedAt)],
+        limit: 10,
+      });
+
+      return featuredArticles.map(this.formatArticleForAPI);
+    } catch (error) {
+      console.error(`Error reading featured articles:`, error);
+      return [];
+    }
   }
 
   /**
    * Get all articles across all channels (for admin/search)
    */
   async getAllArticles(): Promise<Article[]> {
-    const channels = await fs.readdir(CONTENT_DIR);
-    const channelDirs = [];
-    
-    for (const channel of channels) {
-      const stat = await fs.stat(path.join(CONTENT_DIR, channel));
-      if (stat.isDirectory()) {
-        channelDirs.push(channel);
-      }
-    }
-    
-    const articlesByChannel = await Promise.all(
-      channelDirs.map(channel => this.getArticlesByChannel(channel))
-    );
-    
-    return articlesByChannel.flat().sort((a, b) => 
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
-  }
+    try {
+      const allArticles = await db.query.articles.findMany({
+        where: eq(articles.status, "published"),
+        orderBy: [desc(articles.publishedAt)],
+        limit: 1000, // Reasonable limit for performance
+      });
 
-  /**
-   * Parse a markdown file and extract article data
-   */
-  private async parseArticleFile(channelId: string, filename: string): Promise<Article> {
-    const filePath = path.join(CONTENT_DIR, channelId, filename);
-    const fileContent = await fs.readFile(filePath, 'utf-8');
-    
-    const { data, content } = matter(fileContent);
-    const slug = filename.replace('.md', '');
-    
-    // Clean and normalize data from frontmatter
-    const title = typeof data.title === 'string' ? data.title.replace(/\*\*/g, '').trim() : '';
-    const excerpt = typeof data.excerpt === 'string' ? data.excerpt.replace(/\*/g, '').trim() : '';
-    const author = typeof data.author === 'string' ? data.author.trim() : 'Anonymous';
-    const category = typeof data.category === 'string' ? data.category.trim() : 'Uncategorized';
-    const image = typeof data.image === 'string' ? data.image.trim() : '';
-    
-    return {
-      slug,
-      title,
-      excerpt,
-      author,
-      publishedAt: data.publishedAt || new Date().toISOString(),
-      updatedAt: data.updatedAt,
-      category,
-      tags: Array.isArray(data.tags) ? data.tags : [],
-      featured: Boolean(data.featured),
-      image,
-      imageAlt: typeof data.imageAlt === 'string' ? data.imageAlt.trim() : title,
-      content: content.trim(),
-      channelId,
-    };
+      return allArticles.map(this.formatArticleForAPI);
+    } catch (error) {
+      console.error(`Error reading all articles:`, error);
+      return [];
+    }
   }
 
   /**
    * Get unique categories for a channel
    */
   async getCategories(channelId: string): Promise<string[]> {
-    const articles = await this.getArticlesByChannel(channelId);
-    const categories = new Set(articles.map(a => a.category));
-    return Array.from(categories).sort();
+    try {
+      const result = await db
+        .selectDistinct({ category: articles.category })
+        .from(articles)
+        .where(
+          and(eq(articles.channelId, channelId), eq(articles.status, "published"))
+        )
+        .orderBy(articles.category);
+
+      return result.map((r) => r.category).filter(Boolean);
+    } catch (error) {
+      console.error(`Error reading categories:`, error);
+      return [];
+    }
   }
 
   /**
-   * Search articles by query
+   * Search articles by query (basic text search)
+   * Note: This will be replaced with full-text search in Phase 2
    */
   async searchArticles(channelId: string, query: string): Promise<Article[]> {
-    const articles = await this.getArticlesByChannel(channelId);
-    const lowercaseQuery = query.toLowerCase();
-    
-    return articles.filter(article => 
-      article.title.toLowerCase().includes(lowercaseQuery) ||
-      article.excerpt.toLowerCase().includes(lowercaseQuery) ||
-      article.content.toLowerCase().includes(lowercaseQuery) ||
-      article.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery))
-    );
+    try {
+      const lowercaseQuery = `%${query.toLowerCase()}%`;
+
+      const searchResults = await db.query.articles.findMany({
+        where: and(
+          eq(articles.channelId, channelId),
+          eq(articles.status, "published"),
+          or(
+            ilike(articles.title, lowercaseQuery),
+            ilike(articles.excerpt, lowercaseQuery),
+            ilike(articles.content, lowercaseQuery),
+            sql`EXISTS (
+              SELECT 1 FROM jsonb_array_elements_text(${articles.tags}) AS tag
+              WHERE LOWER(tag) LIKE ${lowercaseQuery}
+            )`
+          )
+        ),
+        orderBy: [desc(articles.publishedAt)],
+        limit: 100,
+      });
+
+      return searchResults.map(this.formatArticleForAPI);
+    } catch (error) {
+      console.error(`Error searching articles:`, error);
+      return [];
+    }
+  }
+
+  /**
+   * Advanced search with filters (Phase 2)
+   */
+  async searchArticlesAdvanced(params: {
+    channelId?: string;
+    query?: string;
+    category?: string;
+    author?: string;
+    startDate?: Date;
+    endDate?: Date;
+    featured?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<{ articles: Article[]; total: number }> {
+    try {
+      const conditions = [];
+
+      // Channel filter
+      if (params.channelId) {
+        conditions.push(eq(articles.channelId, params.channelId));
+      }
+
+      // Status filter (always published for public)
+      conditions.push(eq(articles.status, "published"));
+
+      // Text search
+      if (params.query) {
+        const lowercaseQuery = `%${params.query.toLowerCase()}%`;
+        conditions.push(
+          or(
+            ilike(articles.title, lowercaseQuery),
+            ilike(articles.excerpt, lowercaseQuery),
+            ilike(articles.content, lowercaseQuery)
+          )
+        );
+      }
+
+      // Category filter
+      if (params.category) {
+        conditions.push(eq(articles.category, params.category));
+      }
+
+      // Author filter
+      if (params.author) {
+        conditions.push(ilike(articles.author, `%${params.author}%`));
+      }
+
+      // Date range filter
+      if (params.startDate) {
+        conditions.push(sql`${articles.publishedAt} >= ${params.startDate}`);
+      }
+      if (params.endDate) {
+        conditions.push(sql`${articles.publishedAt} <= ${params.endDate}`);
+      }
+
+      // Featured filter
+      if (params.featured !== undefined) {
+        conditions.push(eq(articles.featured, params.featured));
+      }
+
+      // Build query
+      const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+      // Get total count
+      const totalResult = await db
+        .select({ count: sql<number>`count(*)` })
+        .from(articles)
+        .where(whereClause);
+
+      const total = Number(totalResult[0]?.count || 0);
+
+      // Get articles with pagination
+      const searchResults = await db.query.articles.findMany({
+        where: whereClause,
+        orderBy: [desc(articles.publishedAt)],
+        limit: params.limit || 50,
+        offset: params.offset || 0,
+      });
+
+      return {
+        articles: searchResults.map(this.formatArticleForAPI),
+        total,
+      };
+    } catch (error) {
+      console.error(`Error in advanced search:`, error);
+      return { articles: [], total: 0 };
+    }
+  }
+
+  /**
+   * Format article for API response
+   * Converts database article to shared Article type
+   */
+  private formatArticleForAPI(article: any): Article {
+    return {
+      id: article.id,
+      slug: article.slug,
+      title: article.title,
+      excerpt: article.excerpt,
+      content: article.content,
+      author: article.author,
+      authorId: article.authorId,
+      channelId: article.channelId,
+      category: article.category,
+      tags: article.tags || [],
+      image: article.image,
+      imageAlt: article.imageAlt || article.title,
+      status: article.status,
+      featured: article.featured,
+      publishedAt: article.publishedAt?.toISOString() || new Date().toISOString(),
+      scheduledFor: article.scheduledFor?.toISOString(),
+      createdAt: article.createdAt.toISOString(),
+      updatedAt: article.updatedAt.toISOString(),
+      metaTitle: article.metaTitle,
+      metaDescription: article.metaDescription,
+      metaKeywords: article.metaKeywords || [],
+      viewCount: article.viewCount || 0,
+    };
   }
 }
 
