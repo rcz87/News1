@@ -1,0 +1,1689 @@
+{
+  "timestamp": "2025-11-03T12:12:31.718Z",
+  "summary": {
+    "totalChannels": 12,
+    "successfulChannels": 12,
+    "failedChannels": 0,
+    "totalArticles": 63,
+    "successfulArticles": 63,
+    "failedArticles": 0,
+    "channelSuccessRate": 100,
+    "articleSuccessRate": 100
+  },
+  "channels": {
+    "ambal": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "petugas-sim-satlantas-polres-kebumen-memberikan-apresiasi-dan-reward",
+            "title": "DALAM MENINGKATKAN PELAYANAN PETUGAS SIM SATLANTAS POLRES KEBUMEN MEMBERIKAN APRESIASI DAN REWARD KEPADA PEMOHON SIM YANG TERTIB",
+            "excerpt": "AIPDA Budi memberikan himbauan sekaligus apresiasi dan reward  kepada para pemohon Surat Izin Mengemudi (SIM) yang menunjukkan sikap tertib, disiplin, dan kooperatif selama proses pelayanan berlangsung.",
+            "author": "Admin",
+            "publishedAt": "2025-11-03T01:54:14.126Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop",
+            "imageAlt": "DALAM MENINGKATKAN PELAYANAN PETUGAS SIM SATLANTAS POLRES KEBUMEN MEMBERIKAN APRESIASI DAN REWARD KEPADA PEMOHON SIM YANG TERTIB",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-beri-reward",
+            "title": "MASYARAKAT DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+            "excerpt": "Bripka Susanto memberikan reward berupa sabun kepada pemohon yang melakukan cek fisik",
+            "author": "Ambar",
+            "publishedAt": "2025-10-31T23:58:25.044Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop",
+            "imageAlt": "MASYARAKAT DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "masyarakat-kebumen-sekarang-bisa-cetak-stnk",
+            "title": "MASYARAKAT KEBUMEN YANG BELUM TERCETAK STNK PADA SAAT MELAKUKAN PROSES PEMBAYARAN PAJAK SEKARANG BISA DATANG KE SAMSAT UNTUK CETAK STNK",
+            "excerpt": "Brigadir Ade Kurnia Utami secara khusus melaksanakan sesi sosialisasi terkait warga kebumen yang sudah melakukan pembayaran pajak akan tetapi STNK belum tercetak",
+            "author": "Dicky",
+            "publishedAt": "2025-10-30T04:53:23.784Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761799884988-993849128.jpg",
+            "imageAlt": "MASYARAKAT KEBUMEN YANG BELUM TERCETAK STNK PADA SAAT MELAKUKAN PROSES PEMBAYARAN PAJAK SEKARANG BISA DATANG KE SAMSAT UNTUK CETAK STNK",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-buka-malam-hari",
+            "title": "Satlantas Polres Kebumen buka pelayanan malam hari",
+            "excerpt": "pembayaran pajak tahunan bisa dilakukan dimalam hari...",
+            "author": "Dicky",
+            "publishedAt": "2025-10-28T12:46:19.547Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761655554018-551552186.jpg",
+            "imageAlt": "Satlantas Polres Kebumen buka pelayanan malam hari",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "petani-ambal-panen-raya",
+            "title": "Panen Raya Padi di Ambal Capai Target 5000 Ton",
+            "excerpt": "Petani di Kecamatan Ambal merayakan panen raya dengan hasil mencapai 5000 ton gabah kering, melampaui target awal.",
+            "author": "Sri Wahyuni",
+            "publishedAt": "2024-01-14T10:30:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "pertanian",
+              "panen raya",
+              "ekonomi lokal"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop",
+            "imageAlt": "Panen padi di sawah Ambal",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "festival-pantai-ambal",
+            "title": "Festival Pantai Selatan Ambal Tarik 10.000 Pengunjung",
+            "excerpt": "Festival Pantai Selatan yang digelar di Pantai Logending, Ambal, berhasil menarik lebih dari 10.000 pengunjung selama tiga hari.",
+            "author": "Dewi Lestari",
+            "publishedAt": "2024-01-13T14:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "festival",
+              "wisata",
+              "pantai",
+              "budaya"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop519046904884-53103b34b206?w=1200&h=675&fit=crop",
+            "imageAlt": "Festival pantai di Ambal",
+            "channelId": "ambal"
+          },
+          {
+            "slug": "puskesmas-ambal-layanan-24-jam",
+            "title": "Puskesmas Ambal Kini Buka 24 Jam",
+            "excerpt": "Puskesmas Ambal resmi membuka layanan 24 jam untuk memberikan akses kesehatan yang lebih baik bagi masyarakat.",
+            "author": "Dr. Rini Handayani",
+            "publishedAt": "2024-01-10T07:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "kesehatan",
+              "puskesmas",
+              "layanan publik"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop519494026892-80bbd2d6fd0d?w=1200&h=675&fit=crop",
+            "imageAlt": "Puskesmas modern di Ambal",
+            "channelId": "ambal"
+          }
+        ],
+        "count": 7
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "petugas-sim-satlantas-polres-kebumen-memberikan-apresiasi-dan-reward",
+          "title": "DALAM MENINGKATKAN PELAYANAN PETUGAS SIM SATLANTAS POLRES KEBUMEN MEMBERIKAN APRESIASI DAN REWARD KEPADA PEMOHON SIM YANG TERTIB",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-beri-reward",
+          "title": "MASYARAKAT DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "masyarakat-kebumen-sekarang-bisa-cetak-stnk",
+          "title": "MASYARAKAT KEBUMEN YANG BELUM TERCETAK STNK PADA SAAT MELAKUKAN PROSES PEMBAYARAN PAJAK SEKARANG BISA DATANG KE SAMSAT UNTUK CETAK STNK",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-buka-malam-hari",
+          "title": "Satlantas Polres Kebumen buka pelayanan malam hari",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "petani-ambal-panen-raya",
+          "title": "Panen Raya Padi di Ambal Capai Target 5000 Ton",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "festival-pantai-ambal",
+          "title": "Festival Pantai Selatan Ambal Tarik 10.000 Pengunjung",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "puskesmas-ambal-layanan-24-jam",
+          "title": "Puskesmas Ambal Kini Buka 24 Jam",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 7,
+      "successfulArticles": 7,
+      "failedArticles": 0
+    },
+    "beritaangin": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "satlantas-polres-kebumen-samsat-keliling",
+            "title": "satlantas polres kebumen memberikan pelayanan Samsat keliling",
+            "excerpt": "pelayanan Samsat keliling (samkel)...",
+            "author": "Mulyono",
+            "publishedAt": "2025-10-29T02:25:36.422Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761704726765-77553511.jpg",
+            "imageAlt": "satlantas polres kebumen memberikan pelayanan Samsat keliling",
+            "channelId": "beritaangin"
+          },
+          {
+            "slug": "ibu-kota-baru-puring",
+            "title": "Warga Puring Dukung Rencana Green City Jakarta Selatan",
+            "excerpt": "Masyarakat Puring mendukung penuh program green city yang akan menjadikan Jakarta Selatan sebagai kota hijau ramah lingkungan.",
+            "author": "Linda Wijaya",
+            "publishedAt": "2024-01-15T09:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "lingkungan",
+              "jakarta",
+              "green city"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop480714378408-67cf0d13bc1b?w=1200&h=675&fit=crop",
+            "imageAlt": "Taman hijau di Puring",
+            "channelId": "beritaangin"
+          },
+          {
+            "slug": "property-market-puring",
+            "title": "Harga Properti di Puring Naik 15% di 2024",
+            "excerpt": "Kawasan Puring mencatat kenaikan harga properti tertinggi di Jakarta Selatan dengan rata-rata 15% year-on-year.",
+            "author": "Dian Kusumawati",
+            "publishedAt": "2024-01-11T13:00:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "properti",
+              "real estate",
+              "investasi",
+              "jakarta"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop560518883-ce09059eeffa?w=1200&h=675&fit=crop",
+            "imageAlt": "Properti mewah di Puring",
+            "channelId": "beritaangin"
+          }
+        ],
+        "count": 3
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "satlantas-polres-kebumen-samsat-keliling",
+          "title": "satlantas polres kebumen memberikan pelayanan Samsat keliling",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "ibu-kota-baru-puring",
+          "title": "Warga Puring Dukung Rencana Green City Jakarta Selatan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "property-market-puring",
+          "title": "Harga Properti di Puring Naik 15% di 2024",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 3,
+      "successfulArticles": 3,
+      "failedArticles": 0
+    },
+    "dendelesinfo": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "warga-mendesak-kepala-desa-pecat-oknum-pemdes",
+            "title": "WARGA DESA SEMANDING MENDESAK KEPALA DESA UNTUK PECAT OKNUM PEMDES KORUP",
+            "excerpt": "Rapat membahas oknum perangkat desa yang diduga menggelapkan uang wajib pajak warga di Balai Desa Semanding...",
+            "author": "AMR",
+            "publishedAt": "2025-11-01T04:41:56.385Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761972113296-641984063.jpg",
+            "imageAlt": "WARGA DESA SEMANDING MENDESAK KEPALA DESA UNTUK PECAT OKNUM PEMDES KORUP",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "petugas-sim-satlantas-polres-kebumen-menerapkan-5s-senyum-sapa-salam-sopan-santun",
+            "title": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+            "excerpt": "Anggota Satlantas dengan ramah memberikan arahan, bimbingan, serta pelayanan terbaik kepada masyarakat yang sedang mengurus SIM. Selain itu, para petugas juga menanamkan nilai 5S — Senyum, Sapa, Salam, Sopan, dan Santun — sebagai budaya pelayanan yang humanis di lingkungan Polri.",
+            "author": "Ijal",
+            "publishedAt": "2025-11-01T02:19:40.960Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761963530579-153207007.jpeg",
+            "imageAlt": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "satlantas-kebumen-beri-reward",
+            "title": "MASYARAKAT YANG DATANG PAGI UNTUK CEK FISIK DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+            "excerpt": "Bripka Susanto memberikan reward berupa sabun kepada pemohon yang melakukan cek fisik",
+            "author": "Ambar",
+            "publishedAt": "2025-10-31T03:24:02.187Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop",
+            "imageAlt": "MASYARAKAT YANG DATANG PAGI UNTUK CEK FISIK DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "bisnis-baru-kebayoran",
+            "title": "Mall Kebayoran Baru Dibuka dengan 200 Tenant Premium",
+            "excerpt": "Pusat perbelanjaan terbaru di Kebayoran Baru resmi beroperasi dengan menghadirkan 200 tenant lokal dan internasional.",
+            "author": "Maria Santoso",
+            "publishedAt": "2024-01-15T10:00:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "bisnis",
+              "mall",
+              "retail"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop515879218367-8466d9f8b3b2?w=1200&h=675&fit=crop",
+            "imageAlt": "Mall modern di Kebayoran",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "pendidikan-stem-kebayoran",
+            "title": "Program STEM Gratis untuk Siswa Kebayoran",
+            "excerpt": "Pemkot Jakarta Selatan meluncurkan program STEM gratis untuk 1000 siswa SMP-SMA di Kebayoran Baru.",
+            "author": "Dr. Rina Kusuma",
+            "publishedAt": "2024-01-14T11:00:00Z",
+            "category": "Teknologi",
+            "tags": [
+              "pendidikan",
+              "STEM",
+              "teknologi",
+              "gratis"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop581093588401-fbb62a02f120?w=1200&h=675&fit=crop",
+            "imageAlt": "Lab STEM di Kebayoran",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "taman-kota-kebayoran",
+            "title": "Taman Kota Kebayoran Raih Penghargaan Nasional",
+            "excerpt": "Taman Kota Kebayoran Baru dinobatkan sebagai taman kota terbaik se-Indonesia 2024 oleh Kementerian PUPR.",
+            "author": "Landscape Architect Budi",
+            "publishedAt": "2024-01-13T09:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "taman",
+              "lingkungan",
+              "penghargaan"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop515879218367-8466d9f8b3b2?w=1200&h=675&fit=crop",
+            "imageAlt": "Taman hijau di Kebayoran",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "property-new-development",
+            "title": "Apartemen Super Mewah Hadir di Kebayoran dengan Harga Fantastis",
+            "excerpt": "Developer ternama meluncurkan apartemen super mewah dengan fasilitas setara hotel bintang lima di jantung Kebayoran.",
+            "author": "Property Analyst Eko",
+            "publishedAt": "2024-01-12T10:00:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "properti",
+              "apartemen",
+              "luxury"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop545324418-cc1a3fa10c00?w=1200&h=675&fit=crop",
+            "imageAlt": "Apartemen mewah Kebayoran",
+            "channelId": "dendelesinfo"
+          },
+          {
+            "slug": "community-event",
+            "title": "Festival Komunitas Kebayoran Satukan Warga dalam Keberagaman",
+            "excerpt": "Festival tahunan komunitas Kebayoran menghadirkan berbagai kegiatan yang mempererat kebersamaan warga.",
+            "author": "Community Reporter Dewi",
+            "publishedAt": "2024-01-11T09:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "komunitas",
+              "festival",
+              "kebersamaan"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop511578314322-379afb476865?w=1200&h=675&fit=crop",
+            "imageAlt": "Community festival Kebayoran",
+            "channelId": "dendelesinfo"
+          }
+        ],
+        "count": 8
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "warga-mendesak-kepala-desa-pecat-oknum-pemdes",
+          "title": "WARGA DESA SEMANDING MENDESAK KEPALA DESA UNTUK PECAT OKNUM PEMDES KORUP",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "petugas-sim-satlantas-polres-kebumen-menerapkan-5s-senyum-sapa-salam-sopan-santun",
+          "title": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-kebumen-beri-reward",
+          "title": "MASYARAKAT YANG DATANG PAGI UNTUK CEK FISIK DAPAT REWARD DARI SAT LANTAS POLRES KEBUMEN",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "bisnis-baru-kebayoran",
+          "title": "Mall Kebayoran Baru Dibuka dengan 200 Tenant Premium",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "pendidikan-stem-kebayoran",
+          "title": "Program STEM Gratis untuk Siswa Kebayoran",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "taman-kota-kebayoran",
+          "title": "Taman Kota Kebayoran Raih Penghargaan Nasional",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "property-new-development",
+          "title": "Apartemen Super Mewah Hadir di Kebayoran dengan Harga Fantastis",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "community-event",
+          "title": "Festival Komunitas Kebayoran Satukan Warga dalam Keberagaman",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 8,
+      "successfulArticles": 8,
+      "failedArticles": 0
+    },
+    "beritadesa": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "saltalntas-polres-kebumen-petugas-menerapkan-5s-senyum-sapa-salam-sopan-santun",
+            "title": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+            "excerpt": "Anggota Satlantas dengan ramah memberikan arahan, bimbingan, serta pelayanan terbaik kepada masyarakat yang sedang mengurus SIM. Selain itu, para petugas juga menanamkan nilai 5S — Senyum, Sapa, Salam, Sopan, dan Santun",
+            "author": "Ijal",
+            "publishedAt": "2025-11-01T02:10:11.504Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761963002973-150957252.jpeg",
+            "imageAlt": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-berikan-apresiasi",
+            "title": "SAT LANTAS BERIKAN APRESIASI KEPADA PEMOHON WAJIN PAJAK TEPAT WAKTU",
+            "excerpt": "Petugas satlantas polres kebumen Aipda Sunaryanto memberikan apresiasi kepada pemohon wajib pajak kendaraan bermotor di pelayan samsat keliling.",
+            "author": "Ach Mulyono",
+            "publishedAt": "2025-11-01T00:17:04.035Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761956220785-713796745.jpg",
+            "imageAlt": "SAT LANTAS BERIKAN APRESIASI KEPADA PEMOHON WAJIN PAJAK TEPAT WAKTU",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "warga-ayah-bayar-pajak-samsat-paten",
+            "title": "WARGA AYAH SEKARANG BISA MELAKUKAN PEMBAYARAN PAJAK DI SAMSAT PATEN KECAMATAN AYAH",
+            "excerpt": "Bripka Albahrori memberikan pelayanan kepada wajib pajak kendaraan di samsat paten kecaman ayah",
+            "author": "Ambar",
+            "publishedAt": "2025-10-31T00:50:24.006Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761871802013-24158009.jpg",
+            "imageAlt": "WARGA AYAH SEKARANG BISA MELAKUKAN PEMBAYARAN PAJAK DI SAMSAT PATEN KECAMATAN AYAH",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "politik-menteng-heritage",
+            "title": "Kawasan Menteng Ditetapkan Sebagai Cagar Budaya Nasional",
+            "excerpt": "Pemerintah resmi menetapkan kawasan Menteng sebagai cagar budaya nasional untuk melestarikan arsitektur bersejarah.",
+            "author": "Arsitek Heritage Soekarno",
+            "publishedAt": "2024-01-15T08:30:00Z",
+            "category": "Politik",
+            "tags": [
+              "heritage",
+              "cagar budaya",
+              "arsitektur"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop480714378408-67cf0d13bc1b?w=1200&h=675&fit=crop",
+            "imageAlt": "Rumah heritage di Menteng",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "kuliner-fine-dining-menteng",
+            "title": "5 Restoran Fine Dining Terbaik di Menteng",
+            "excerpt": "Jelajahi pengalaman kuliner kelas dunia di lima restoran fine dining terbaik yang ada di kawasan Menteng.",
+            "author": "Food Critic Dian Sastro",
+            "publishedAt": "2024-01-14T12:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "kuliner",
+              "fine dining",
+              "restaurant"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop414235077428-338989a2e8c0?w=1200&h=675&fit=crop",
+            "imageAlt": "Fine dining di Menteng",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "classic-car-rally",
+            "title": "Menteng Classic Car Rally Hadirkan Mobil Antik Langka",
+            "excerpt": "Rally mobil klasik di Menteng memamerkan 100 mobil antik langka dari koleksi pribadi para kolektor.",
+            "author": "Auto Enthusiast Denny",
+            "publishedAt": "2024-01-12T11:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "mobil",
+              "classic car",
+              "hobby"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Classic car di Menteng",
+            "channelId": "beritadesa"
+          },
+          {
+            "slug": "book-fair-menteng",
+            "title": "Menteng Book Fair Tawarkan Diskon 50% untuk 10.000 Judul",
+            "excerpt": "Pameran buku terbesar di Jakarta Pusat hadirkan diskon hingga 50% untuk puluhan ribu judul buku.",
+            "author": "Book Reviewer Sarah",
+            "publishedAt": "2024-01-11T10:00:00Z",
+            "category": "Teknologi",
+            "tags": [
+              "buku",
+              "literasi",
+              "book fair"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop507842217343-583bb7270b66?w=1200&h=675&fit=crop",
+            "imageAlt": "Book fair di Menteng",
+            "channelId": "beritadesa"
+          }
+        ],
+        "count": 7
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "saltalntas-polres-kebumen-petugas-menerapkan-5s-senyum-sapa-salam-sopan-santun",
+          "title": "PETUGAS SIM SATLANTAS POLRES KEBUMEN MENERAPKAN 5S",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-berikan-apresiasi",
+          "title": "SAT LANTAS BERIKAN APRESIASI KEPADA PEMOHON WAJIN PAJAK TEPAT WAKTU",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "warga-ayah-bayar-pajak-samsat-paten",
+          "title": "WARGA AYAH SEKARANG BISA MELAKUKAN PEMBAYARAN PAJAK DI SAMSAT PATEN KECAMATAN AYAH",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "politik-menteng-heritage",
+          "title": "Kawasan Menteng Ditetapkan Sebagai Cagar Budaya Nasional",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "kuliner-fine-dining-menteng",
+          "title": "5 Restoran Fine Dining Terbaik di Menteng",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "classic-car-rally",
+          "title": "Menteng Classic Car Rally Hadirkan Mobil Antik Langka",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "book-fair-menteng",
+          "title": "Menteng Book Fair Tawarkan Diskon 50% untuk 10.000 Judul",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 7,
+      "successfulArticles": 7,
+      "failedArticles": 0
+    },
+    "kresnanusantara": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "stadion-gbk-renovasi",
+            "title": "Renovasi Stadion GBK untuk Piala Dunia U-20 Selesai",
+            "excerpt": "Stadion Gelora Bung Karno menyelesaikan renovasi besar-besaran sebagai persiapan menjadi venue Piala Dunia U-20.",
+            "author": "Sports Reporter Andi Wijaya",
+            "publishedAt": "2024-01-15T09:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "sepak bola",
+              "stadion",
+              "GBK",
+              "piala dunia"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Stadion GBK yang telah direnovasi",
+            "channelId": "kresnanusantara"
+          },
+          {
+            "slug": "fitness-center-senayan",
+            "title": "Mega Fitness Center Terbesar di Asia Tenggara Hadir di Senayan",
+            "excerpt": "Pusat kebugaran seluas 15.000 meter persegi dengan 500 alat fitness canggih dibuka di Senayan City.",
+            "author": "Fitness Expert Coach Bambang",
+            "publishedAt": "2024-01-14T07:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "fitness",
+              "olahraga",
+              "kesehatan",
+              "gym"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop534438327276-14e5300c3a48?w=1200&h=675&fit=crop",
+            "imageAlt": "Fitness center modern di Senayan",
+            "channelId": "kresnanusantara"
+          },
+          {
+            "slug": "article-1",
+            "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+            "excerpt": "Pembangunan venue olahraga baru di kawasan Senayan sebagai persiapan Asian Games selesai lebih cepat dari jadwal.",
+            "author": "Infrastructure Reporter Andi",
+            "publishedAt": "2024-01-12T10:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "olahraga",
+              "infrastruktur",
+              "asian games"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop461896836934-ffe607ba8211?w=1200&h=675&fit=crop",
+            "imageAlt": "Venue olahraga Senayan",
+            "channelId": "kresnanusantara"
+          },
+          {
+            "slug": "article-2",
+            "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+            "excerpt": "Pembangunan venue olahraga baru di kawasan Senayan sebagai persiapan Asian Games selesai lebih cepat dari jadwal.",
+            "author": "Infrastructure Reporter Andi",
+            "publishedAt": "2024-01-11T10:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "olahraga",
+              "infrastruktur",
+              "asian games"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop461896836934-ffe607ba8211?w=1200&h=675&fit=crop",
+            "imageAlt": "Venue olahraga Senayan",
+            "channelId": "kresnanusantara"
+          },
+          {
+            "slug": "article-3",
+            "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+            "excerpt": "Pembangunan venue olahraga baru di kawasan Senayan sebagai persiapan Asian Games selesai lebih cepat dari jadwal.",
+            "author": "Infrastructure Reporter Andi",
+            "publishedAt": "2024-01-10T10:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "olahraga",
+              "infrastruktur",
+              "asian games"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop461896836934-ffe607ba8211?w=1200&h=675&fit=crop",
+            "imageAlt": "Venue olahraga Senayan",
+            "channelId": "kresnanusantara"
+          }
+        ],
+        "count": 5
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "stadion-gbk-renovasi",
+          "title": "Renovasi Stadion GBK untuk Piala Dunia U-20 Selesai",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "fitness-center-senayan",
+          "title": "Mega Fitness Center Terbesar di Asia Tenggara Hadir di Senayan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "article-1",
+          "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "article-2",
+          "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "article-3",
+          "title": "Venue Olahraga Baru di Senayan untuk Asian Games",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 5,
+      "successfulArticles": 5,
+      "failedArticles": 0
+    },
+    "inforurutsewu": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "satlantas-polres-kebumen-berikan-apresiasi-masyarakat-taat-pajak",
+            "title": "SATLANTAS POLRES KEBUMEN BERIKAN APRESIASI KEPADA MASYARAKAT TAAT PAJAK KENDARAAN BERMOTOR",
+            "excerpt": "Aipda Sunaryanto memberikan reward berupa sabun cuci piring kepada pemohon wajib pajak kendaraan bermotor",
+            "author": "Dicky",
+            "publishedAt": "2025-11-01T00:24:55.139Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761956692738-589196243.jpg",
+            "imageAlt": "SATLANTAS POLRES KEBUMEN BERIKAN APRESIASI KEPADA MASYARAKAT TAAT PAJAK KENDARAAN BERMOTOR",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-buka-samsat-paten-kecamatan-ayah",
+            "title": "SATLANTAS BUKA PELAYANAN SAMSAT PATEN KECAMAN AYAH",
+            "excerpt": "Petugas satlantas menjelaskan keberadaan samsat paten yang berada di Kecamatan Ayah bertujuan untuk mendekatkan pelayanan kepada masyarakat",
+            "author": "Haryadi",
+            "publishedAt": "2025-11-01T00:08:16.693Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761955691103-444626926.jpg",
+            "imageAlt": "SATLANTAS BUKA PELAYANAN SAMSAT PATEN KECAMAN AYAH",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-sosialisasi-keterlambatan-cetak-stnk",
+            "title": "SAT LANTAS POLRES KEBUMEN SOSIALISASI KETERLAMBATAN PENCETAKAN STNK",
+            "excerpt": "Brigadir ade kurnia utami memberikan sosialisasi terkait Keterlambatan material STNK yang belum tercetak kepada masyarakat kebumen",
+            "author": "Dicky",
+            "publishedAt": "2025-10-30T04:34:14.975Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761798847092-265528317.jpg",
+            "imageAlt": "SAT LANTAS POLRES KEBUMEN SOSIALISASI KETERLAMBATAN PENCETAKAN STNK",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "info-urut-sewu-tambang-ilegal-dikebumen-menelan-korban-jiwa",
+            "title": "Penambang emas ilegal di Kebumen menelan satu korban jiwa",
+            "excerpt": "Aktivitas tambang emas ilegal di Kebumen tepatnya di Kawasan perbukitan telah memakan korban jiwa..",
+            "author": "Dicky",
+            "publishedAt": "2025-10-29T10:11:05.469Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761732660868-433161785.jpg",
+            "imageAlt": "Penambang emas ilegal di Kebumen menelan satu korban jiwa",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "Satlantas-polres-kebumen-edukasi",
+            "title": "Sat Lantas Polres Kebumen edukasi dan sosialisasi kepada masyarakat terkait prosedur pembayaran pajak 5 tahunan",
+            "excerpt": "Program pelayanan publik bertajuk “Polantas Menyapa” kembali digelar oleh Satuan Lalu Lintas (Satlantas) Polres Kebumen di Samsat Kebumen, Selasa (28/10/2025). Kegiatan ini menjadi sarana bagi jajaran kepolisian untuk memberikan edukasi dan sosialisasi kepada masyarakat terkait prosedur pembayaran pajak 5 tahunan.",
+            "author": "Dicky",
+            "publishedAt": "2025-10-28T12:00:11.892Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761648312448-738744792.jpg",
+            "imageAlt": "Sat Lantas Polres Kebumen edukasi dan sosialisasi kepada masyarakat terkait prosedur pembayaran pajak 5 tahunan",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "cafe-hits-cipete",
+            "title": "10 Cafe Instagram-able Terbaru di Cipete",
+            "excerpt": "Deretan cafe aesthetic dengan interior unik dan menu menarik bermunculan di kawasan Cipete yang semakin hits.",
+            "author": "Lifestyle Blogger Sarah",
+            "publishedAt": "2024-01-15T11:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "cafe",
+              "kuliner",
+              "instagram",
+              "cipete"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop501339847302-ac426a4a7cbb?w=1200&h=675&fit=crop",
+            "imageAlt": "Cafe aesthetic di Cipete",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "olahraga-basket-cipete",
+            "title": "Tim Basket Cipete Juara Jakarta Selatan Cup",
+            "excerpt": "Cipete Ballers keluar sebagai juara Jakarta Selatan Basketball Cup setelah mengalahkan Pondok Indah Warriors.",
+            "author": "Sports Journalist Reza",
+            "publishedAt": "2024-01-14T15:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "basket",
+              "basketball",
+              "turnamen",
+              "prestasi"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop546519638-68e109498ffc?w=1200&h=675&fit=crop",
+            "imageAlt": "Pertandingan basket di Cipete",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "lifestyle-1",
+            "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+            "excerpt": "Kawasan Cipete semakin ramai dengan hadirnya berbagai tempat kuliner instagramable yang digemari anak muda.",
+            "author": "Food Blogger Anita",
+            "publishedAt": "2024-01-12T12:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "kuliner",
+              "milenial",
+              "wisata"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop466978913421-dad2ebd01d17?w=1200&h=675&fit=crop",
+            "imageAlt": "Kuliner Cipete",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "lifestyle-2",
+            "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+            "excerpt": "Kawasan Cipete semakin ramai dengan hadirnya berbagai tempat kuliner instagramable yang digemari anak muda.",
+            "author": "Food Blogger Anita",
+            "publishedAt": "2024-01-11T12:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "kuliner",
+              "milenial",
+              "wisata"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop466978913421-dad2ebd01d17?w=1200&h=675&fit=crop",
+            "imageAlt": "Kuliner Cipete",
+            "channelId": "inforurutsewu"
+          },
+          {
+            "slug": "lifestyle-3",
+            "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+            "excerpt": "Kawasan Cipete semakin ramai dengan hadirnya berbagai tempat kuliner instagramable yang digemari anak muda.",
+            "author": "Food Blogger Anita",
+            "publishedAt": "2024-01-10T12:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "kuliner",
+              "milenial",
+              "wisata"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop466978913421-dad2ebd01d17?w=1200&h=675&fit=crop",
+            "imageAlt": "Kuliner Cipete",
+            "channelId": "inforurutsewu"
+          }
+        ],
+        "count": 10
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "satlantas-polres-kebumen-berikan-apresiasi-masyarakat-taat-pajak",
+          "title": "SATLANTAS POLRES KEBUMEN BERIKAN APRESIASI KEPADA MASYARAKAT TAAT PAJAK KENDARAAN BERMOTOR",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-buka-samsat-paten-kecamatan-ayah",
+          "title": "SATLANTAS BUKA PELAYANAN SAMSAT PATEN KECAMAN AYAH",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-sosialisasi-keterlambatan-cetak-stnk",
+          "title": "SAT LANTAS POLRES KEBUMEN SOSIALISASI KETERLAMBATAN PENCETAKAN STNK",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "info-urut-sewu-tambang-ilegal-dikebumen-menelan-korban-jiwa",
+          "title": "Penambang emas ilegal di Kebumen menelan satu korban jiwa",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "Satlantas-polres-kebumen-edukasi",
+          "title": "Sat Lantas Polres Kebumen edukasi dan sosialisasi kepada masyarakat terkait prosedur pembayaran pajak 5 tahunan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "cafe-hits-cipete",
+          "title": "10 Cafe Instagram-able Terbaru di Cipete",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "olahraga-basket-cipete",
+          "title": "Tim Basket Cipete Juara Jakarta Selatan Cup",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "lifestyle-1",
+          "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "lifestyle-2",
+          "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "lifestyle-3",
+          "title": "Cipete Jadi Destinasi Wisata Kuliner Favorit Milenial",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 10,
+      "successfulArticles": 10,
+      "failedArticles": 0
+    },
+    "duniatengah": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "mall-gandaria-city-anniversary",
+            "title": "Gandaria City Rayakan Anniversary ke-15 dengan Mega Sale",
+            "excerpt": "Mall terbesar di Gandaria merayakan ulang tahun ke-15 dengan berbagai promo menarik dan event spektakuler.",
+            "author": "Retail Reporter Lisa",
+            "publishedAt": "2024-01-15T10:30:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "mall",
+              "promo",
+              "retail",
+              "anniversary"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop555529902-5261145633bf?w=1200&h=675&fit=crop",
+            "imageAlt": "Gandaria City Mall",
+            "channelId": "duniatengah"
+          },
+          {
+            "slug": "startup-hub-gandaria",
+            "title": "Gandaria Startup Hub Diresmikan oleh Menteri BUMN",
+            "excerpt": "Pusat inkubasi startup terbesar di Jakarta Selatan diresmikan dengan kapasitas 100 startup early-stage.",
+            "author": "Tech Reporter Kevin",
+            "publishedAt": "2024-01-14T09:00:00Z",
+            "category": "Teknologi",
+            "tags": [
+              "startup",
+              "teknologi",
+              "inkubasi",
+              "entrepreneurship"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop497215728101-856f4ea42174?w=1200&h=675&fit=crop",
+            "imageAlt": "Startup hub di Gandaria",
+            "channelId": "duniatengah"
+          },
+          {
+            "slug": "news-1",
+            "title": "Pembangunan Infrastruktur Modern di Gandaria",
+            "excerpt": "Kawasan Gandaria mengalami transformasi dengan berbagai pembangunan infrastruktur modern untuk kenyamanan warga.",
+            "author": "City Planner Budi",
+            "publishedAt": "2024-01-12T09:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "infrastruktur",
+              "pembangunan",
+              "gandaria"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Pembangunan di Gandaria",
+            "channelId": "duniatengah"
+          },
+          {
+            "slug": "news-2",
+            "title": "Pembangunan Infrastruktur Modern di Gandaria",
+            "excerpt": "Kawasan Gandaria mengalami transformasi dengan berbagai pembangunan infrastruktur modern untuk kenyamanan warga.",
+            "author": "City Planner Budi",
+            "publishedAt": "2024-01-11T09:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "infrastruktur",
+              "pembangunan",
+              "gandaria"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Pembangunan di Gandaria",
+            "channelId": "duniatengah"
+          },
+          {
+            "slug": "news-3",
+            "title": "Pembangunan Infrastruktur Modern di Gandaria",
+            "excerpt": "Kawasan Gandaria mengalami transformasi dengan berbagai pembangunan infrastruktur modern untuk kenyamanan warga.",
+            "author": "City Planner Budi",
+            "publishedAt": "2024-01-10T09:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "infrastruktur",
+              "pembangunan",
+              "gandaria"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Pembangunan di Gandaria",
+            "channelId": "duniatengah"
+          }
+        ],
+        "count": 5
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "mall-gandaria-city-anniversary",
+          "title": "Gandaria City Rayakan Anniversary ke-15 dengan Mega Sale",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "startup-hub-gandaria",
+          "title": "Gandaria Startup Hub Diresmikan oleh Menteri BUMN",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-1",
+          "title": "Pembangunan Infrastruktur Modern di Gandaria",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-2",
+          "title": "Pembangunan Infrastruktur Modern di Gandaria",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-3",
+          "title": "Pembangunan Infrastruktur Modern di Gandaria",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 5,
+      "successfulArticles": 5,
+      "failedArticles": 0
+    },
+    "voliinfo": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "daftar-pemain-timnas-voli-sea-games-2025",
+            "title": "Daftar Pemain Timnas Voli Putra Indonesia di SEA Games 2025, Ada Rivan",
+            "excerpt": "PBVSI mengumumkan 22 pemain timnas voli putra Indonesia yang akan menjalani pemusatan latihan hingga November 2025 untuk SEA Games 2025 Thailand.",
+            "author": "National Team Reporter Andi Pratama",
+            "publishedAt": "2025-10-09T16:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "timnas voli",
+              "SEA Games 2025",
+              "daftar pemain",
+              "rivan nurmulki",
+              "jeff jiang jie"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop",
+            "imageAlt": "Timnas voli putra Indonesia bersiap untuk SEA Games 2025",
+            "channelId": "voliinfo"
+          },
+          {
+            "slug": "news-1",
+            "title": "Proliga 2024: Jakarta Pertamina Fastron Juara Musim Ini",
+            "excerpt": "Jakarta Pertamina Fastron berhasil menjadi juara Proliga 2024 setelah mengalahkan Surabaya BIN Samator di partai final.",
+            "author": "Volleyball Analyst Sarah Wijaya",
+            "publishedAt": "2024-03-20T21:30:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "proliga",
+              "voli",
+              "jakarta pertamina fastron",
+              "surabaya bin samator",
+              "final"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop",
+            "imageAlt": "Tim Jakarta Pertamina Fastron merayakan gelar juara Proliga 2024",
+            "channelId": "voliinfo"
+          },
+          {
+            "slug": "news-3",
+            "title": "Pembinaan Usia Dini: PBVSI Luncurkan Program Voli Sekolah",
+            "excerpt": "PBVSI meluncurkan program pembinaan voli usia dini di 100 sekolah di seluruh Indonesia untuk mencari bakat baru.",
+            "author": "Sports Education Reporter Maya Putri",
+            "publishedAt": "2024-02-10T14:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "pbvsi",
+              "voli sekolah",
+              "pembinaan usia dini",
+              "bakat muda",
+              "program nasional"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop571019613454-1cb2f99b2d8b?w=1200&h=675&fit=crop",
+            "imageAlt": "Anak-anak sekolah sedang berlatih voli",
+            "channelId": "voliinfo"
+          },
+          {
+            "slug": "school-international-pondok",
+            "title": "Turnamen Voli Antar Sekolah Internasional: Indonesia Juara Umum",
+            "excerpt": "Tim voli SMA Indonesia berhasil menjadi juara umum dalam turnamen voli antar sekolah internasional di Singapura.",
+            "author": "School Sports Reporter Rina Kartika",
+            "publishedAt": "2024-01-28T17:30:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "voli sekolah",
+              "turnamen internasional",
+              "juara umum",
+              "singapura",
+              "sma indonesia"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop579952363873-27d3bfad9c0d?w=1200&h=675&fit=crop",
+            "imageAlt": "Tim voli SMA Indonesia merayakan kemenangan",
+            "channelId": "voliinfo"
+          },
+          {
+            "slug": "news-2",
+            "title": "Voli Pantai Indonesia: Pasangan Ade Candra/Dwiki Setiawan Raih Emas di Asian Beach Games",
+            "excerpt": "Pasangan voli pantai Indonesia Ade Candra dan Dwiki Setiawan berhasil meraih medali emas di Asian Beach Games 2023 China.",
+            "author": "Beach Sports Reporter Budi Santoso",
+            "publishedAt": "2023-09-25T16:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "voli pantai",
+              "asian beach games",
+              "medali emas",
+              "ade candra",
+              "dwiki setiawan"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop594382486480-560085ba8922?w=1200&h=675&fit=crop",
+            "imageAlt": "Pasangan Ade Candra dan Dwiki Setiawan merayakan medali emas",
+            "channelId": "voliinfo"
+          },
+          {
+            "slug": "luxury-residence-pondok-indah",
+            "title": "Tim Nasional Voli Indonesia Raih Medali Emas di SEA Games 2023",
+            "excerpt": "Tim nasional voli putra Indonesia berhasil meraih medali emas setelah mengalahkan Thailand di final SEA Games 2023 Kamboja.",
+            "author": "Sports Reporter Ahmad Fauzi",
+            "publishedAt": "2023-05-15T20:00:00Z",
+            "category": "Olahraga",
+            "tags": [
+              "voli",
+              "tim nasional",
+              "SEA Games",
+              "medali emas",
+              "indonesia"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop612872087720-bb876e2e67d1?w=1200&h=675&fit=crop",
+            "imageAlt": "Tim nasional voli Indonesia merayakan kemenangan",
+            "channelId": "voliinfo"
+          }
+        ],
+        "count": 6
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "daftar-pemain-timnas-voli-sea-games-2025",
+          "title": "Daftar Pemain Timnas Voli Putra Indonesia di SEA Games 2025, Ada Rivan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-1",
+          "title": "Proliga 2024: Jakarta Pertamina Fastron Juara Musim Ini",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-3",
+          "title": "Pembinaan Usia Dini: PBVSI Luncurkan Program Voli Sekolah",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "school-international-pondok",
+          "title": "Turnamen Voli Antar Sekolah Internasional: Indonesia Juara Umum",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-2",
+          "title": "Voli Pantai Indonesia: Pasangan Ade Candra/Dwiki Setiawan Raih Emas di Asian Beach Games",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "luxury-residence-pondok-indah",
+          "title": "Tim Nasional Voli Indonesia Raih Medali Emas di SEA Games 2023",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 6,
+      "successfulArticles": 6,
+      "failedArticles": 0
+    },
+    "beritalaut": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "petugas-pelayanan-sim-satlantas-polres-kebumen-menerapkan-5s",
+            "title": "MENINGKATKAN KENYAMANAN DAN PELAYANAN SIM DI SATLANTAS POLRES KEBUMEN DENGAN MENERAPKAN 5S",
+            "excerpt": "Anggota Satlantas dengan ramah memberikan arahan, bimbingan, serta pelayanan terbaik kepada masyarakat yang sedang mengurus SIM. Selain itu, para petugas juga menanamkan nilai 5S — Senyum, Sapa, Salam, Sopan, dan Santun — sebagai budaya pelayanan yang humanis di lingkungan Polri.",
+            "author": "Admin",
+            "publishedAt": "2025-11-03T00:58:35.828Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1762131506102-611203089.jpeg",
+            "imageAlt": "MENINGKATKAN KENYAMANAN DAN PELAYANAN SIM DI SATLANTAS POLRES KEBUMEN DENGAN MENERAPKAN 5S",
+            "channelId": "beritalaut"
+          },
+          {
+            "slug": "satlantas-polres-kebumen-apresiasi-kepada-pomohon-sim",
+            "title": "PEMOHON SIM DAPAT REWARD DARI SATLANTAS POLRES KEBUMEN",
+            "excerpt": "Brigadir Wily Andikamemberikan imbauan sekaligus apresiasi kepada para pemohon Surat Izin Mengemudi (SIM)….",
+            "author": "Izal",
+            "publishedAt": "2025-11-01T01:52:38.137Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761961953595-526723462.jpeg",
+            "imageAlt": "PEMOHON SIM DAPAT REWARD DARI SATLANTAS POLRES KEBUMEN",
+            "channelId": "beritalaut"
+          },
+          {
+            "slug": "warga-ayah-bayar-pajak-samsat-paten-beritalaut",
+            "title": "WARGA AYAH DAN SEKITARNYA SEKARANG BAYAR PAJAK BISA DI SAMSAT PATEN KECAMAN AYAH",
+            "excerpt": "Bripka Albahrori, memberikan pelayanan wajib pajak tahun di samsat paten kecaman ayah Kabupaten Kebumen",
+            "author": "Haryadi",
+            "publishedAt": "2025-10-31T00:44:39.661Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761871473686-349676358.jpg",
+            "imageAlt": "WARGA AYAH DAN SEKITARNYA SEKARANG BAYAR PAJAK BISA DI SAMSAT PATEN KECAMAN AYAH",
+            "channelId": "beritalaut"
+          },
+          {
+            "slug": "satlantas polres kebumen-samsat keliling",
+            "title": "Satlantas Polres Kebumen memberikan layanan samsat keliling",
+            "excerpt": "Pelayanan Samsat Keliling (samkel)...",
+            "author": "Jony",
+            "publishedAt": "2025-10-29T02:24:01.759Z",
+            "category": "Berita",
+            "tags": [],
+            "featured": false,
+            "image": "/uploads/articles/article-1761704636351-321842546.jpeg",
+            "imageAlt": "Satlantas Polres Kebumen memberikan layanan samsat keliling",
+            "channelId": "beritalaut"
+          },
+          {
+            "slug": "festival-musik-tebet",
+            "title": "Tebet Music Festival Hadirkan 50 Musisi Lokal",
+            "excerpt": "Festival musik tahunan di Tebet menghadirkan 50 band dan musisi indie lokal dalam dua hari penuh hiburan gratis.",
+            "author": "Music Critic Andi",
+            "publishedAt": "2024-01-14T18:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "musik",
+              "festival",
+              "entertainment",
+              "indie"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop459749411175-04bf5292ceea?w=1200&h=675&fit=crop",
+            "imageAlt": "Music festival di Tebet",
+            "channelId": "beritalaut"
+          },
+          {
+            "slug": "news-3",
+            "title": "Pembangunan Infrastruktur Modern di Tebet",
+            "excerpt": "Kawasan Tebet mengalami transformasi dengan berbagai pembangunan infrastruktur modern untuk kenyamanan warga.",
+            "author": "City Planner Budi",
+            "publishedAt": "2024-01-10T09:00:00Z",
+            "category": "Politik",
+            "tags": [
+              "infrastruktur",
+              "pembangunan",
+              "tebet"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Pembangunan di Tebet",
+            "channelId": "beritalaut"
+          }
+        ],
+        "count": 6
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "petugas-pelayanan-sim-satlantas-polres-kebumen-menerapkan-5s",
+          "title": "MENINGKATKAN KENYAMANAN DAN PELAYANAN SIM DI SATLANTAS POLRES KEBUMEN DENGAN MENERAPKAN 5S",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas-polres-kebumen-apresiasi-kepada-pomohon-sim",
+          "title": "PEMOHON SIM DAPAT REWARD DARI SATLANTAS POLRES KEBUMEN",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "warga-ayah-bayar-pajak-samsat-paten-beritalaut",
+          "title": "WARGA AYAH DAN SEKITARNYA SEKARANG BAYAR PAJAK BISA DI SAMSAT PATEN KECAMAN AYAH",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "satlantas polres kebumen-samsat keliling",
+          "title": "Satlantas Polres Kebumen memberikan layanan samsat keliling",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "festival-musik-tebet",
+          "title": "Tebet Music Festival Hadirkan 50 Musisi Lokal",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "news-3",
+          "title": "Pembangunan Infrastruktur Modern di Tebet",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 6,
+      "successfulArticles": 6,
+      "failedArticles": 0
+    },
+    "berasbalap": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "gedung-perkantoran-kuningan",
+            "title": "Menara Kuningan: Office Tower Tertinggi di Jakarta Selatan",
+            "excerpt": "Menara Kuningan setinggi 60 lantai resmi beroperasi menjadi gedung perkantoran tertinggi di Jakarta Selatan.",
+            "author": "Architecture Reviewer Susi",
+            "publishedAt": "2024-01-15T09:30:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "properti",
+              "office",
+              "gedung",
+              "arsitektur"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop",
+            "imageAlt": "Office tower modern di Kuningan",
+            "channelId": "berasbalap"
+          },
+          {
+            "slug": "business-networking-kuningan",
+            "title": "Kuningan Business Club Luncurkan Program Mentorship",
+            "excerpt": "Komunitas pengusaha di Kuningan meluncurkan program mentorship gratis untuk startup dan UMKM.",
+            "author": "Business Columnist Rina",
+            "publishedAt": "2024-01-14T11:00:00Z",
+            "category": "Ekonomi",
+            "tags": [
+              "bisnis",
+              "networking",
+              "mentorship",
+              "startup"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop542744173-8e7e53415bb0?w=1200&h=675&fit=crop",
+            "imageAlt": "Business networking di Kuningan",
+            "channelId": "berasbalap"
+          },
+          {
+            "slug": "hotel-luxury-kuningan",
+            "title": "Hotel Bintang 6 Pertama di Indonesia Dibuka di Kuningan",
+            "excerpt": "The Royal Kuningan menjadi hotel bintang 6 pertama di Indonesia dengan standar ultra-luxury international.",
+            "author": "Hospitality Expert Maya",
+            "publishedAt": "2024-01-13T14:00:00Z",
+            "category": "Lifestyle",
+            "tags": [
+              "hotel",
+              "luxury",
+              "hospitality",
+              "tourism"
+            ],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop566073771259-6a8506099945?w=1200&h=675&fit=crop",
+            "imageAlt": "Luxury hotel di Kuningan",
+            "channelId": "berasbalap"
+          }
+        ],
+        "count": 3
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "gedung-perkantoran-kuningan",
+          "title": "Menara Kuningan: Office Tower Tertinggi di Jakarta Selatan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "business-networking-kuningan",
+          "title": "Kuningan Business Club Luncurkan Program Mentorship",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "hotel-luxury-kuningan",
+          "title": "Hotel Bintang 6 Pertama di Indonesia Dibuka di Kuningan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 3,
+      "successfulArticles": 3,
+      "failedArticles": 0
+    },
+    "cakranews": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "launch-announcement",
+            "title": "CAKRA PAMUNGKAS Digital Resmi Diluncurkan",
+            "excerpt": "Platform berita digital terbaru dengan fokus pada teknologi dan inovasi hadir untuk memberikan informasi berkualitas kepada pembaca Indonesia.",
+            "author": "Admin CAKRA",
+            "publishedAt": "2025-11-03T12:12:31.692Z",
+            "category": "Teknologi",
+            "tags": [
+              "launch",
+              "digital",
+              "teknologi",
+              "cakrapamungkas"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop677442136019-21780ecad995?w=1200&h=675&fit=crop",
+            "imageAlt": "CAKRA PAMUNGKAS Digital Resmi Diluncurkan",
+            "channelId": "cakranews"
+          }
+        ],
+        "count": 1
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "launch-announcement",
+          "title": "CAKRA PAMUNGKAS Digital Resmi Diluncurkan",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 1,
+      "successfulArticles": 1,
+      "failedArticles": 0
+    },
+    "mjbnews": {
+      "api": {
+        "success": true,
+        "articles": [
+          {
+            "slug": "pabrik-es-mjb-kebumen-buka-lowongan-kerja",
+            "title": "Pabrik Es MJB Kebumen Resmi Beroperasi, Buka 200 Lowongan Kerja untuk Warga Lokal",
+            "excerpt": "Pabrik es terbesar di Kebumen dengan kapasitas produksi 100 ton per hari resmi beroperasi di bawah kepemimpinan Erwin Yulianto, membuka peluang kerja bagi ratusan warga lokal dan mendorong pertumbuhan ekonomi regional.",
+            "author": "Tim Ekonomi MJBNEWS",
+            "publishedAt": "2025-11-03T12:12:31.703Z",
+            "category": "Ekonomi",
+            "tags": [
+              "pabrik es",
+              "MJB",
+              "Kebumen",
+              "Erwin Yulianto",
+              "lowongan kerja",
+              "investasi"
+            ],
+            "featured": true,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop677442136019-21780ecad995?w=1200&h=675&fit=crop",
+            "imageAlt": "Pabrik Es MJB Kebumen Resmi Beroperasi, Buka 200 Lowongan Kerja untuk Warga Lokal",
+            "channelId": "mjbnews"
+          },
+          {
+            "slug": "inovasi-es-balok-kristal-terbaru",
+            "title": "Inovasi Terbaru Teknologi Pembuatan Es Balok dan Kristal yang Revolusioner",
+            "excerpt": "Teknologi modern dalam pembuatan es balok dan kristal telah mengalami revolusi besar dengan metode freezing yang lebih efisien dan hasil berkualitas premium untuk berbagai kebutuhan industri dan konsumsi.",
+            "author": "Tim Teknologi MJBNEWS",
+            "publishedAt": "2025-10-29T08:59:59.482Z",
+            "category": "Teknologi",
+            "tags": [],
+            "featured": false,
+            "image": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop677442136019-21780ecad995?w=1200&h=675&fit=crop",
+            "imageAlt": "Inovasi Terbaru Teknologi Pembuatan Es Balok dan Kristal yang Revolusioner",
+            "channelId": "mjbnews"
+          }
+        ],
+        "count": 2
+      },
+      "frontend": {
+        "success": true,
+        "hasChannelName": false,
+        "hasArticleCards": false
+      },
+      "articles": [
+        {
+          "slug": "pabrik-es-mjb-kebumen-buka-lowongan-kerja",
+          "title": "Pabrik Es MJB Kebumen Resmi Beroperasi, Buka 200 Lowongan Kerja untuk Warga Lokal",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        },
+        {
+          "slug": "inovasi-es-balok-kristal-terbaru",
+          "title": "Inovasi Terbaru Teknologi Pembuatan Es Balok dan Kristal yang Revolusioner",
+          "success": true,
+          "hasContent": true,
+          "hasHtml": true
+        }
+      ],
+      "totalArticles": 2,
+      "successfulArticles": 2,
+      "failedArticles": 0
+    }
+  },
+  "errors": []
+}

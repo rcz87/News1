@@ -1,0 +1,67 @@
+{
+  "timestamp": "2025-11-03T12:24:47.313Z",
+  "baseUrl": "https://wisanggeni.cloud",
+  "summary": {
+    "adminAuth": true,
+    "uploadEndpoint": true,
+    "imageWorkflow": false,
+    "multiChannel": "4/4",
+    "successRate": 75,
+    "totalTests": 4,
+    "passedTests": 3
+  },
+  "details": {
+    "adminToken": true,
+    "uploadTest": {
+      "success": true,
+      "message": "Status: 500"
+    },
+    "workflowTest": {
+      "success": false,
+      "error": "Image URL not in page"
+    },
+    "channelTests": [
+      {
+        "channel": "ambal",
+        "success": true,
+        "article": "DALAM MENINGKATKAN PELAYANAN P...",
+        "image": "https://images.unsplash.com/photo-157494..."
+      },
+      {
+        "channel": "beritadesa",
+        "success": true,
+        "article": "PETUGAS SIM SATLANTAS POLRES K...",
+        "image": "/uploads/articles/article-1761963002973-..."
+      },
+      {
+        "channel": "mjbnews",
+        "success": true,
+        "article": "Pabrik Es MJB Kebumen Resmi Be...",
+        "image": "https://images.unsplash.com/photo-157494..."
+      },
+      {
+        "channel": "cakranews",
+        "success": true,
+        "article": "CAKRA PAMUNGKAS Digital Resmi ...",
+        "image": "https://images.unsplash.com/photo-157494..."
+      }
+    ],
+    "issues": [
+      {
+        "issue": "Default Image",
+        "status": "✅ OK",
+        "details": "Default image accessible"
+      },
+      {
+        "issue": "Upload Directory",
+        "status": "✅ OK",
+        "details": "Upload directory accessible"
+      },
+      {
+        "issue": "Articles Subdirectory",
+        "status": "✅ OK",
+        "details": "Articles directory accessible"
+      }
+    ]
+  }
+}

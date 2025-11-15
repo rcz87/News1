@@ -14,16 +14,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 // Security Headers - Helmet
 app.use(helmet({
-  contentSecurityPolicy: isProduction ? {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"], // Allow inline scripts for admin panel
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // Allow Google Fonts
-      fontSrc: ["'self'", "https://fonts.gstatic.com"], // Allow Google Fonts fonts
-      imgSrc: ["'self'", "data:", "https:"], // Allow external images
-      connectSrc: ["'self'", "https://images.unsplash.com", "https://fonts.googleapis.com", "https://fonts.gstatic.com"], // Allow Unsplash images and Google Fonts
-    }
-  } : false, // Disable in dev for Vite HMR
+  contentSecurityPolicy: false, // Disable CSP completely for now to fix loading issues
   crossOriginEmbedderPolicy: false, // Allow external images
 }));
 

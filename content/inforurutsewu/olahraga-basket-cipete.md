@@ -6,7 +6,7 @@ publishedAt: "2024-01-14T15:00:00Z"
 category: "Olahraga"
 tags: ["basket", "basketball", "turnamen", "prestasi"]
 featured: false
-image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop546519638-68e109498ffc?w=1200&h=675&fit=crop"
 imageAlt: "Pertandingan basket di Cipete"
 ---
 

@@ -34,6 +34,15 @@ export class ContentService {
    * Get a single article by channel and slug
    */
   async getArticle(channelId: string, slug: string): Promise<Article | null> {
+    // First try to find by slug in frontmatter
+    const allArticles = await this.getArticlesByChannel(channelId);
+    const article = allArticles.find(a => a.slug === slug);
+    
+    if (article) {
+      return article;
+    }
+    
+    // Fallback to filename-based lookup
     const filePath = path.join(CONTENT_DIR, channelId, `${slug}.md`);
     
     try {
@@ -93,14 +102,26 @@ export class ContentService {
     const fileContent = await fs.readFile(filePath, 'utf-8');
     
     const { data, content } = matter(fileContent);
-    const slug = filename.replace('.md', '');
+    
+    // Use slug from frontmatter if available, otherwise use filename
+    let slug = filename.replace('.md', '');
+    if (typeof data.slug === 'string' && data.slug.trim()) {
+      slug = data.slug.trim();
+    }
     
     // Clean and normalize data from frontmatter
     const title = typeof data.title === 'string' ? data.title.replace(/\*\*/g, '').trim() : '';
     const excerpt = typeof data.excerpt === 'string' ? data.excerpt.replace(/\*/g, '').trim() : '';
     const author = typeof data.author === 'string' ? data.author.trim() : 'Anonymous';
     const category = typeof data.category === 'string' ? data.category.trim() : 'Uncategorized';
-    const image = typeof data.image === 'string' ? data.image.trim() : '';
+    let image = typeof data.image === 'string' ? data.image.trim() : '';
+    
+    // Fix image URL for uploaded files
+    if (image && image.startsWith('/uploads/articles/')) {
+      image = image; // Keep as is, will be served by static middleware
+    } else if (image && !image.startsWith('http') && !image.startsWith('/')) {
+      image = `/uploads/articles/${image}`;
+    }
     
     return {
       slug,

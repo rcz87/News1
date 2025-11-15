@@ -240,16 +240,29 @@ router.post('/articles', authenticateAdmin, async (req: Request, res: Response) 
 
     const filePath = join(process.cwd(), 'content', channel, `${slug}.md`);
     
+    // Properly escape values for YAML
+    const escapeYamlValue = (value: string) => {
+      if (!value) return '';
+      // If value contains special characters, wrap in quotes
+      if (value.includes(':') || value.includes('#') || value.includes('*') || 
+          value.includes('[') || value.includes(']') || value.includes('{') || 
+          value.includes('}') || value.includes('|') || value.includes('>') ||
+          value.includes('"') || value.includes("'") || value.includes('\n')) {
+        return `"${value.replace(/"/g, '\\"')}"`;
+      }
+      return value;
+    };
+
     const frontmatter = [
       '---',
-      `title: ${title}`,
-      `slug: ${slug}`,
-      `excerpt: ${excerpt || ''}`,
-      `category: ${category || 'Berita'}`,
-      `author: ${author || 'Admin'}`,
+      `title: ${escapeYamlValue(title)}`,
+      `slug: ${escapeYamlValue(slug)}`,
+      `excerpt: ${escapeYamlValue(excerpt || '')}`,
+      `category: ${escapeYamlValue(category || 'Berita')}`,
+      `author: ${escapeYamlValue(author || 'Admin')}`,
       `publishedAt: ${new Date().toISOString()}`,
-      `image: ${image || '/images/default.jpg'}`,
-      `tags: [${tags ? tags.join(', ') : ''}]`,
+      `image: ${escapeYamlValue(image || '/images/default.jpg')}`,
+      `tags: [${tags ? tags.map((tag: string) => `"${tag}"`).join(', ') : ''}]`,
       `featured: false`,
       '---',
       '',
@@ -276,16 +289,29 @@ router.put('/articles/:slug', authenticateAdmin, async (req: Request, res: Respo
 
     const filePath = join(process.cwd(), 'content', channel, `${slug}.md`);
     
+    // Properly escape values for YAML
+    const escapeYamlValue = (value: string) => {
+      if (!value) return '';
+      // If value contains special characters, wrap in quotes
+      if (value.includes(':') || value.includes('#') || value.includes('*') || 
+          value.includes('[') || value.includes(']') || value.includes('{') || 
+          value.includes('}') || value.includes('|') || value.includes('>') ||
+          value.includes('"') || value.includes("'") || value.includes('\n')) {
+        return `"${value.replace(/"/g, '\\"')}"`;
+      }
+      return value;
+    };
+
     const frontmatter = [
       '---',
-      `title: ${title}`,
-      `slug: ${slug}`,
-      `excerpt: ${excerpt || ''}`,
-      `category: ${category || 'Berita'}`,
-      `author: ${author || 'Admin'}`,
+      `title: ${escapeYamlValue(title)}`,
+      `slug: ${escapeYamlValue(slug)}`,
+      `excerpt: ${escapeYamlValue(excerpt || '')}`,
+      `category: ${escapeYamlValue(category || 'Berita')}`,
+      `author: ${escapeYamlValue(author || 'Admin')}`,
       `publishedAt: ${new Date().toISOString()}`,
-      `image: ${image || '/images/default.jpg'}`,
-      `tags: [${tags ? tags.join(', ') : ''}]`,
+      `image: ${escapeYamlValue(image || '/images/default.jpg')}`,
+      `tags: [${tags ? tags.map((tag: string) => `"${tag}"`).join(', ') : ''}]`,
       `featured: ${featured || false}`,
       '---',
       '',

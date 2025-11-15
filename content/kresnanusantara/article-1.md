@@ -6,7 +6,7 @@ publishedAt: "2024-01-12T10:00:00Z"
 category: "Politik"
 tags: ["olahraga", "infrastruktur", "asian games"]
 featured: false
-image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop461896836934-ffe607ba8211?w=1200&h=675&fit=crop"
 imageAlt: "Venue olahraga Senayan"
 ---
 

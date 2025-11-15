@@ -6,7 +6,7 @@ publishedAt: "2024-01-14T11:00:00Z"
 category: "Teknologi"
 tags: ["pendidikan", "STEM", "teknologi", "gratis"]
 featured: false
-image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop581093588401-fbb62a02f120?w=1200&h=675&fit=crop"
 imageAlt: "Lab STEM di Kebayoran"
 ---
 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeritaDesa Article Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .debug { background-color: #fff3cd; border-color: #ffeaa7; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔍 BeritaDesa Article Debug Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: API Endpoint Test</h2>
+        <button onclick="testArticlesList()">Test Articles List</button>
+        <button onclick="testSpecificArticle()">Test Specific Article</button>
+        <div id="api-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 2: Direct Article Links</h2>
+        <p>Click these links to test article loading:</p>
+        <ul>
+            <li><a href="http://localhost:5000/beritadesa/article/saltalntas-polres-kebumen-petugas-menerapkan-5s-senyum-sapa-salam-sopan-santun" target="_blank">Article 1: 5S Implementation</a></li>
+            <li><a href="http://localhost:5000/beritadesa/article/warga-ayah-bayar-pajak-samsat-paten" target="_blank">Article 2: Samsat Paten Ayah</a></li>
+            <li><a href="http://localhost:5000/beritadesa/article/classic-car-rally" target="_blank">Article 3: Classic Car Rally</a></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>Test 3: Channel Page</h2>
+        <a href="http://localhost:5000/beritadesa" target="_blank"><button>Open BeritaDesa Channel</button></a>
+    </div>
+
+    <div class="test-section debug">
+        <h2>Debug Information</h2>
+        <p>This test page helps identify the specific issue with article loading.</p>
+        <ol>
+            <li>Test the API endpoints first - they should work</li>
+            <li>Test direct article links - check browser console for errors</li>
+            <li>If API works but direct links fail, the issue is in frontend routing</li>
+            <li>If both fail, the issue is in the backend</li>
+        </ol>
+    </div>
+
+    <script>
+        async function testArticlesList() {
+            const results = document.getElementById('api-results');
+            try {
+                const response = await fetch('http://localhost:5000/api/channels/beritadesa/articles');
+                const data = await response.json();
+                results.innerHTML = `
+                    <div class="success">
+                        <h3>✅ Articles List API Working</h3>
+                        <p>Found ${data.length} articles</p>
+                        <pre>${JSON.stringify(data.slice(0, 2), null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                results.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Articles List API Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testSpecificArticle() {
+            const results = document.getElementById('api-results');
+            try {
+                const response = await fetch('http://localhost:5000/api/channels/beritadesa/articles/saltalntas-polres-kebumen-petugas-menerapkan-5s-senyum-sapa-salam-sopan-santun');
+                const data = await response.json();
+                results.innerHTML = `
+                    <div class="success">
+                        <h3>✅ Specific Article API Working</h3>
+                        <p>Title: ${data.title}</p>
+                        <p>Slug: ${data.slug}</p>
+                        <p>Has Content: ${data.htmlContent ? 'Yes' : 'No'}</p>
+                    </div>
+                `;
+            } catch (error) {
+                results.innerHTML = `
+                    <div class="error">
+                        <h3>❌ Specific Article API Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Auto-run tests on page load
+        window.onload = function() {
+            console.log('BeritaDesa Debug Test Page Loaded');
+            console.log('Instructions:');
+            console.log('1. Test API endpoints first');
+            console.log('2. Test direct article links');
+            console.log('3. Check browser console for JavaScript errors');
+            console.log('4. Check network tab for failed requests');
+        };
+    </script>
+</body>
+</html>

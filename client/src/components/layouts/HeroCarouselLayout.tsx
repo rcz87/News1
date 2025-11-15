@@ -1,7 +1,6 @@
 import { Article } from "@shared/schema";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,40 +50,7 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
                   index === currentSlide ? 'block' : 'hidden'
                 }`}
               >
-                <a
-                  href={`/${article.channelId}/article/${article.slug}`}
-                  className="block"
-                >
-                  {/* Title and metadata above image */}
-                  <div className={`p-6 md:p-16 max-w-7xl mx-auto transition-all duration-700 ${
-                    index === currentSlide ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                  }`}>
-                    <Badge variant="secondary" className="mb-4 text-lg px-4 py-2 animate-fade-in-down">
-                      {article.category}
-                    </Badge>
-                    <h1 className="text-2xl md:text-5xl font-bold mb-4 md:mb-6 max-w-4xl animate-fade-in-up hover:text-primary transition-colors" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-                      {article.title}
-                    </h1>
-                    <p className="text-sm md:text-xl text-muted-foreground mb-4 md:mb-6 max-w-3xl animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-                      {article.excerpt}
-                    </p>
-                    <div className="flex items-center gap-4 text-muted-foreground animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-                      <span>{article.author}</span>
-                      <span>•</span>
-                      <span>{new Date(article.publishedAt).toLocaleDateString('id-ID')}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Image below title */}
-                  <div className="w-full h-[400px] md:h-[600px] overflow-hidden">
-                    <img
-                      src={article.image}
-                      alt={article.imageAlt || article.title}
-                      className="w-full h-full object-cover object-center transition-transform duration-1000 hover:scale-105"
-                      style={{ objectPosition: 'center 25%' }}
-                    />
-                  </div>
-                </a>
+                <ArticleCard article={article} variant="featured" />
               </div>
             ))}
 

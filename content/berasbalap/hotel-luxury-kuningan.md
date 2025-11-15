@@ -6,7 +6,7 @@ publishedAt: "2024-01-13T14:00:00Z"
 category: "Lifestyle"
 tags: ["hotel", "luxury", "hospitality", "tourism"]
 featured: false
-image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop566073771259-6a8506099945?w=1200&h=675&fit=crop"
 imageAlt: "Luxury hotel di Kuningan"
 ---
 

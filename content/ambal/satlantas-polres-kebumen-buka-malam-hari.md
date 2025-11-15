@@ -1,6 +1,6 @@
 ---
 title: "Satlantas Polres Kebumen buka pelayanan malam hari"
-slug: Satlantas-polres-kebumen-buka-malam-hari.html?m=1
+slug: satlantas-polres-kebumen-buka-malam-hari
 excerpt: pembayaran pajak tahunan bisa dilakukan dimalam hari...
 category: Berita
 author: Dicky
@@ -21,4 +21,4 @@ Salah satu pengunjung Samsat malam, Muhammad (37), mengaku puas dengan pelayanan
 
 “Pelayanannya samsat malam yang dibuka oleh satlantas polres kebumen petugasnya cepat dan ramah dalam pelayanan, Saya merasa sangat terbantu, apalagi bagi kami yang siang hari sibuk bekerja,” ungkap Andri Sudibyo. 
 
-Melalui kegiatan Polantas Menyapa, Satlantas Polres Kebumen berharap tingkat kesadaran masyarakat dalam tertib berlalu lintas dan kepatuhan administrasi kendaraan semakin meningkat, sejalan dengan semangat pelayanan publik yang modern dan berintegritas.(*) 
+Melalui kegiatan Polantas Menyapa, Satlantas Polres Kebumen berharap tingkat kesadaran masyarakat dalam tertib berlalu lintas dan kepatuhan administrasi kendaraan semakin meningkat, sejalan dengan semangat pelayanan publik yang modern dan berintegritas.(*)

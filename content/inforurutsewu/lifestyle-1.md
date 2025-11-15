@@ -6,7 +6,7 @@ publishedAt: "2024-01-12T12:00:00Z"
 category: "Lifestyle"
 tags: ["kuliner", "milenial", "wisata"]
 featured: false
-image: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop466978913421-dad2ebd01d17?w=1200&h=675&fit=crop"
 imageAlt: "Kuliner Cipete"
 ---
 

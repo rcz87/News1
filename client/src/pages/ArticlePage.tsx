@@ -10,29 +10,94 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useChannel } from "@/lib/channel-context";
 import { SEO } from "@/components/SEO";
+import { useState, useEffect } from "react";
 import "highlight.js/styles/github-dark.css";
 
 type ArticleWithHTML = Article & { htmlContent: string };
+
+// Normalize image URL to ensure proper loading
+const normalizeImageUrl = (url: string | null | undefined): string => {
+  if (!url) return '/images/default.jpg';
+  
+  // If it's already a full URL, return as-is
+  if (url.startsWith('http')) return url;
+  
+  // If it starts with /, it's already a relative path
+  if (url.startsWith('/')) return url;
+  
+  // Otherwise, add leading slash
+  return `/${url}`;
+};
 
 export default function ArticlePage() {
   const [, params] = useRoute("/:channelId/article/:slug");
   const channelId = params?.channelId;
   const slug = params?.slug;
   const { channel } = useChannel();
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const { data: article, isLoading } = useQuery<ArticleWithHTML>({
+  const { data: article, isLoading, error } = useQuery<ArticleWithHTML>({
     queryKey: [`/api/channels/${channelId || channel?.id}/articles/${slug}`],
-    enabled: !!slug && !!(channelId || channel),
+    enabled: !!slug && !!(channelId || channel?.id),
+  });
+
+  // Debug logging
+  console.log('ArticlePage Debug:', {
+    channelId,
+    slug,
+    channelFromContext: channel?.id,
+    queryEnabled: !!slug && !!(channelId || channel?.id),
+    articleData: article,
+    isLoading,
+    error
   });
 
   const { data: relatedArticles } = useQuery<Article[]>({
     queryKey: [`/api/channels/${channelId || channel?.id}/categories/${article?.category}/articles`],
-    enabled: !!article && !!(channelId || channel),
+    enabled: !!article && !!(channelId || channel?.id),
   });
+
+  // Reset image states when article changes
+  useEffect(() => {
+    setImageError(false);
+    setImageLoaded(false);
+  }, [article?.slug]);
+
+  // Always render SEO component to maintain hooks consistency
+  const seoProps = article ? {
+    title: article.title,
+    description: article.excerpt,
+    image: normalizeImageUrl(article.image),
+    type: 'article' as const,
+    publishedTime: article.publishedAt,
+    author: article.author,
+    tags: article.tags,
+  } : {
+    type: 'website' as const,
+  };
+
+  if (error) {
+    console.error("Error loading article:", error);
+    return (
+      <div className="min-h-screen flex flex-col">
+        <SEO {...seoProps} />
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Error Loading Article</h1>
+            <p className="text-muted-foreground">Terjadi kesalahan saat memuat artikel. Silakan coba lagi.</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEO {...seoProps} />
         <Header />
         <main className="flex-1 max-w-4xl mx-auto px-4 md:px-6 py-8 w-full">
           <Skeleton className="w-full aspect-[21/9] rounded-md mb-8" />
@@ -53,6 +118,7 @@ export default function ArticlePage() {
   if (!article) {
     return (
       <div className="min-h-screen flex flex-col">
+        <SEO {...seoProps} />
         <Header />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -71,26 +137,38 @@ export default function ArticlePage() {
     day: 'numeric'
   });
 
+  const normalizedImageUrl = normalizeImageUrl(article.image);
+  const fallbackImageUrl = '/images/default.jpg';
+
+  const handleImageError = () => {
+    console.warn('Image failed to load:', normalizedImageUrl);
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+    setImageError(false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
-      <SEO
-        title={article.title}
-        description={article.excerpt}
-        image={article.image}
-        type="article"
-        publishedTime={article.publishedAt}
-        author={article.author}
-        tags={article.tags}
-      />
+      <SEO {...seoProps} />
       <Header />
       
       <main className="flex-1">
         {/* Article Header */}
         <div className="relative w-full aspect-[21/9] bg-muted overflow-hidden">
+          {!imageLoaded && !imageError && (
+            <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+          )}
           <img 
-            src={article.image} 
+            src={imageError ? fallbackImageUrl : normalizedImageUrl} 
             alt={article.imageAlt || article.title}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+            onError={handleImageError}
+            onLoad={handleImageLoad}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-4 md:px-6 pb-12">

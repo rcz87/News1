@@ -1,0 +1,65 @@
+{
+  "timestamp": "2025-11-03T12:21:15.635Z",
+  "adminUrl": "https://wisanggeni.cloud/admin.html",
+  "summary": {
+    "adminPage": true,
+    "apiEndpoints": "4/5",
+    "functions": "3/3",
+    "mobileSupport": true,
+    "successRate": 90,
+    "totalTests": 10,
+    "passedTests": 9
+  },
+  "details": {
+    "adminPage": {
+      "success": true,
+      "contentLength": 26132
+    },
+    "apiEndpoints": {
+      "/api/admin/channels": {
+        "success": true,
+        "statusCode": 200
+      },
+      "/api/admin/articles": {
+        "success": false,
+        "error": "Status: 401",
+        "statusCode": 401
+      },
+      "/api/admin/stats": {
+        "success": true,
+        "statusCode": 200
+      },
+      "/api/channels": {
+        "success": true,
+        "statusCode": 200
+      },
+      "/api/channels/ambal/articles": {
+        "success": true,
+        "statusCode": 200
+      }
+    },
+    "functions": [
+      {
+        "name": "Get Channels",
+        "success": true,
+        "details": "12 channels"
+      },
+      {
+        "name": "Get Articles",
+        "success": true,
+        "details": "7 articles"
+      },
+      {
+        "name": "Admin JS",
+        "success": true,
+        "details": "File accessible"
+      }
+    ],
+    "mobile": {
+      "success": true,
+      "viewport": true,
+      "mobilePWA": true,
+      "manifest": true
+    }
+  }
+}

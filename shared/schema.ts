@@ -52,6 +52,9 @@ export const articleSchema = z.object({
 
 export type Article = z.infer<typeof articleSchema>;
 
+// Article type without content for list/card components
+export type ArticleListItem = Omit<Article, 'content'>;
+
 // Category schema
 export const categorySchema = z.object({
   id: z.string(),

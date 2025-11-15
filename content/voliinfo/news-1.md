@@ -6,7 +6,7 @@ publishedAt: "2024-03-20T21:30:00Z"
 category: "Olahraga"
 tags: ["proliga", "voli", "jakarta pertamina fastron", "surabaya bin samator", "final"]
 featured: false
-image: "https://images.unsplash.com/photo-1614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop"
 imageAlt: "Tim Jakarta Pertamina Fastron merayakan gelar juara Proliga 2024"
 ---
 

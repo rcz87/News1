@@ -5,7 +5,7 @@ excerpt: Teknologi modern dalam pembuatan es balok dan kristal telah mengalami r
 category: Teknologi
 author: Tim Teknologi MJBNEWS
 publishedAt: 2025-10-29T08:59:59.482Z
-image: https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=675&fit=crop
+image: https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop677442136019-21780ecad995?w=1200&h=675&fit=crop
 tags: []
 featured: false
 ---

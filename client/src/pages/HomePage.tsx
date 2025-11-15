@@ -25,12 +25,15 @@ export default function HomePage() {
     refetchInterval: 30000, // Auto refresh every 30 seconds
   });
 
-  console.log('HomePage Debug:', {
-    channel: channel?.id,
-    isLoading,
-    articlesCount: articles.length,
-    firstArticle: articles[0]?.title
-  });
+  // Only log in development or when there's an actual issue
+  if (process.env.NODE_ENV === 'development' || articles.length === 0) {
+    console.log('HomePage Debug:', {
+      channel: channel?.id,
+      isLoading,
+      articlesCount: articles.length,
+      firstArticle: articles[0]?.title
+    });
+  }
 
   if (!channel) {
     return <div className="min-h-screen flex items-center justify-center">

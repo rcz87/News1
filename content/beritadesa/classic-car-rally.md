@@ -6,7 +6,7 @@ publishedAt: "2024-01-12T11:00:00Z"
 category: "Lifestyle"
 tags: ["mobil", "classic car", "hobby"]
 featured: false
-image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop"
 imageAlt: "Classic car di Menteng"
 ---
 

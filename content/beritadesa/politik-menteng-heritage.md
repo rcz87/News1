@@ -6,7 +6,7 @@ publishedAt: "2024-01-15T08:30:00Z"
 category: "Politik"
 tags: ["heritage", "cagar budaya", "arsitektur"]
 featured: true
-image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop480714378408-67cf0d13bc1b?w=1200&h=675&fit=crop"
 imageAlt: "Rumah heritage di Menteng"
 ---
 

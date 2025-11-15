@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload Test - Browser Check</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .test-item {
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .image-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        .results {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .iframe-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Image Upload System Test - Browser Check</h1>
+    
+    <div class="test-container">
+        <h2>📋 Test Configuration</h2>
+        <div class="status info">
+            <strong>Target:</strong> https://wisanggeni.cloud<br>
+            <strong>Test Type:</strong> Browser-based image verification<br>
+            <strong>Channels to Test:</strong> ambal, beritadesa, mjbnews, cakranews
+        </div>
+        
+        <button onclick="runAllTests()">🚀 Run All Tests</button>
+        <button onclick="testDirectImages()">🔍 Test Direct Images</button>
+        <button onclick="testArticlePages()">📄 Test Article Pages</button>
+        <button onclick="clearResults()">🗑️ Clear Results</button>
+    </div>
+
+    <div class="test-container">
+        <h2>📊 Test Results</h2>
+        <div id="results" class="results">Click "Run All Tests" to start testing...</div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔍 Live Article Preview</h2>
+        <div class="iframe-container">
+            <iframe id="articleFrame" src="about:blank"></iframe>
+        </div>
+        <div>
+            <input type="text" id="articleUrl" placeholder="Enter article URL..." style="width: 70%; padding: 8px; margin: 5px;">
+            <button onclick="loadArticle()">Load Article</button>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'https://wisanggeni.cloud';
+        const channels = ['ambal', 'beritadesa', 'mjbnews', 'cakranews'];
+        
+        function log(message, type = 'info') {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning' : 'info';
+            results.innerHTML += `<span class="status ${className}">[${timestamp}] ${message}</span>\n`;
+            results.scrollTop = results.scrollHeight;
+        }
+
+        async function makeRequest(url) {
+            try {
+                const response = await fetch(url);
+                return {
+                    ok: response.ok,
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                    url: response.url
+                };
+            } catch (error) {
+                return {
+                    ok: false,
+                    error: error.message,
+                    url: url
+                };
+            }
+        }
+
+        async function testDirectImages() {
+            log('🔍 Testing Direct Image Access...');
+            
+            // Test uploaded images
+            const testImages = [
+                '/uploads/articles/article-1761799884988-993849128.jpg',
+                '/uploads/articles/article-1761655554018-551552186.jpg',
+                '/uploads/articles/article-1761571150736-803236202_compressed.jpg'
+            ];
+            
+            for (const imagePath of testImages) {
+                const result = await makeRequest(`${BASE_URL}${imagePath}`);
+                if (result.ok) {
+                    const contentType = result.headers['content-type'] || 'unknown';
+                    const size = result.headers['content-length'] || 'unknown';
+                    log(`✅ ${imagePath} - ${contentType} (${size} bytes)`, 'success');
+                } else {
+                    log(`❌ ${imagePath} - ${result.status} ${result.statusText}`, 'error');
+                }
+            }
+            
+            // Test external images
+            const externalImages = [
+                'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop'
+            ];
+            
+            for (const imageUrl of externalImages) {
+                const result = await makeRequest(imageUrl);
+                if (result.ok) {
+                    const contentType = result.headers['content-type'] || 'unknown';
+                    log(`✅ External image - ${contentType}`, 'success');
+                } else {
+                    log(`❌ External image - ${result.status} ${result.statusText}`, 'error');
+                }
+            }
+        }
+
+        async function testArticlePages() {
+            log('📄 Testing Article Pages...');
+            
+            for (const channel of channels) {
+                log(`\n📺 Testing channel: ${channel}`);
+                
+                try {
+                    // Get articles from channel
+                    const articlesResponse = await fetch(`${BASE_URL}/api/channels/${channel}/articles`);
+                    if (!articlesResponse.ok) {
+                        log(`❌ Failed to get articles for ${channel} - ${articlesResponse.status}`, 'error');
+                        continue;
+                    }
+                    
+                    const articles = await articlesResponse.json();
+                    if (articles.length === 0) {
+                        log(`⚠️  No articles found in ${channel}`, 'warning');
+                        continue;
+                    }
+                    
+                    // Test first 2 articles with images
+                    const articlesWithImages = articles.filter(article => article.image).slice(0, 2);
+                    
+                    for (const article of articlesWithImages) {
+                        log(`   📰 Testing: ${article.title.substring(0, 40)}...`);
+                        
+                        // Test image accessibility
+                        const imageUrl = article.image.startsWith('http') ? article.image : `${BASE_URL}${article.image}`;
+                        const imageResult = await makeRequest(imageUrl);
+                        
+                        if (imageResult.ok) {
+                            log(`     ✅ Image accessible: ${article.image.substring(0, 40)}...`, 'success');
+                        } else {
+                            log(`     ❌ Image failed: ${imageResult.status} ${imageResult.statusText}`, 'error');
+                        }
+                        
+                        // Test article page (this will be loaded via JavaScript)
+                        const articleUrl = `${BASE_URL}/${channel}/article/${article.slug}`;
+                        log(`     📄 Article page: ${articleUrl}`, 'info');
+                    }
+                    
+                } catch (error) {
+                    log(`❌ Error testing ${channel}: ${error.message}`, 'error');
+                }
+            }
+        }
+
+        async function testImageInDOM() {
+            log('🔍 Testing Image Display in DOM...');
+            
+            // Load an article in iframe and check for images
+            const testUrl = `${BASE_URL}/ambal/article/masyarakat-kebumen-sekarang-bisa-cetak-stnk`;
+            const iframe = document.getElementById('articleFrame');
+            
+            return new Promise((resolve) => {
+                iframe.onload = function() {
+                    try {
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        const images = iframeDoc.querySelectorAll('img');
+                        
+                        if (images.length > 0) {
+                            log(`✅ Found ${images.length} images in article page`, 'success');
+                            images.forEach((img, index) => {
+                                log(`   🖼️  Image ${index + 1}: ${img.src.substring(0, 60)}...`, 'info');
+                                
+                                // Check if image loads successfully
+                                const tempImg = new Image();
+                                tempImg.onload = () => {
+                                    log(`     ✅ Image loaded successfully (${tempImg.naturalWidth}x${tempImg.naturalHeight})`, 'success');
+                                };
+                                tempImg.onerror = () => {
+                                    log(`     ❌ Image failed to load`, 'error');
+                                };
+                                tempImg.src = img.src;
+                            });
+                        } else {
+                            log(`❌ No images found in article page`, 'error');
+                        }
+                    } catch (error) {
+                        log(`❌ Cannot access iframe content: ${error.message}`, 'error');
+                    }
+                    resolve();
+                };
+                
+                iframe.onerror = function() {
+                    log(`❌ Failed to load article page`, 'error');
+                    resolve();
+                };
+                
+                iframe.src = testUrl;
+            });
+        }
+
+        async function runAllTests() {
+            clearResults();
+            log('🚀 Starting Comprehensive Image Upload Test...');
+            log('=' .repeat(60));
+            
+            await testDirectImages();
+            await testArticlePages();
+            await testImageInDOM();
+            
+            log('\n' + '='.repeat(60));
+            log('📋 Test completed! Check results above.', 'success');
+        }
+
+        function loadArticle() {
+            const url = document.getElementById('articleUrl').value;
+            if (!url) {
+                log('❌ Please enter an article URL', 'error');
+                return;
+            }
+            
+            log(`📄 Loading article: ${url}`, 'info');
+            document.getElementById('articleFrame').src = url;
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        // Auto-load a test article on page load
+        window.onload = function() {
+            document.getElementById('articleUrl').value = `${BASE_URL}/ambal/article/masyarakat-kebumen-sekarang-bisa-cetak-stnk`;
+        };
+    </script>
+</body>
+</html>

@@ -6,7 +6,7 @@ publishedAt: "2024-01-28T17:30:00Z"
 category: "Olahraga"
 tags: ["voli sekolah", "turnamen internasional", "juara umum", "singapura", "sma indonesia"]
 featured: false
-image: "https://images.unsplash.com/photo-1579952363873-27d3bfad9c0d?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop579952363873-27d3bfad9c0d?w=1200&h=675&fit=crop"
 imageAlt: "Tim voli SMA Indonesia merayakan kemenangan"
 ---
 

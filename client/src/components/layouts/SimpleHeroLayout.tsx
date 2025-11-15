@@ -43,15 +43,8 @@ export function SimpleHeroLayout({ articles, isLoading }: SimpleHeroLayoutProps)
         
         {/* Hero Article */}
         {articles[0] && (
-          <div className="mb-8 p-6 border rounded-lg">
-            <h2 className="text-xl font-bold mb-2">{articles[0].title}</h2>
-            <p className="text-gray-600 mb-4">{articles[0].excerpt}</p>
-            <a 
-              href={`/${articles[0].channelId}/article/${articles[0].slug}`}
-              className="text-blue-600 hover:underline"
-            >
-              Baca Selengkapnya →
-            </a>
+          <div className="mb-8">
+            <ArticleCard article={articles[0]} variant="featured" />
           </div>
         )}
 

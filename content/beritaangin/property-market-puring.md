@@ -6,7 +6,7 @@ publishedAt: "2024-01-11T13:00:00Z"
 category: "Ekonomi"
 tags: ["properti", "real estate", "investasi", "jakarta"]
 featured: false
-image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop560518883-ce09059eeffa?w=1200&h=675&fit=crop"
 imageAlt: "Properti mewah di Puring"
 ---
 

@@ -6,7 +6,7 @@ publishedAt: "2025-10-09T16:00:00Z"
 category: "Olahraga"
 tags: ["timnas voli", "SEA Games 2025", "daftar pemain", "rivan nurmulki", "jeff jiang jie"]
 featured: true
-image: "https://images.unsplash.com/photo-1614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop614632537193-23e1a0f91d6b?w=1200&h=675&fit=crop"
 imageAlt: "Timnas voli putra Indonesia bersiap untuk SEA Games 2025"
 ---
 

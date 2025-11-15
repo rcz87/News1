@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual UI Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        iframe { width: 100%; height: 500px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Manual UI Test for News Channels</h1>
+    
+    <div class="test-section">
+        <h2>Channel Selector Test</h2>
+        <iframe src="http://localhost:5000/" id="channel-selector"></iframe>
+        <div id="selector-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Channel Tests</h2>
+        <div id="channel-tests"></div>
+    </div>
+
+    <script>
+        const channels = [
+            { id: 'ambal', name: 'Ambal News' },
+            { id: 'beritaangin', name: 'Berita Angin' },
+            { id: 'dendelesinfo', name: 'Dendeles Info' },
+            { id: 'beritadesa', name: 'Berita Desa' },
+            { id: 'kresnanusantara', name: 'Kresna Nusantara' },
+            { id: 'inforurutsewu', name: 'Info Urut Sewu' },
+            { id: 'duniatengah', name: 'Dunia Tengah' },
+            { id: 'voliinfo', name: 'Voli Info' },
+            { id: 'beritalaut', name: 'Berita Laut' },
+            { id: 'berasbalap', name: 'Beras Balap' },
+            { id: 'cakranews', name: 'CAKRANEWS' },
+            { id: 'mjbnews', name: 'MJBNEWS' }
+        ];
+
+        // Test channel selector
+        setTimeout(() => {
+            const selectorFrame = document.getElementById('channel-selector');
+            const selectorDoc = selectorFrame.contentDocument || selectorFrame.contentWindow.document;
+            
+            // Wait for React to load
+            setTimeout(() => {
+                const content = selectorDoc.body.innerHTML;
+                const channelsFound = channels.filter(ch => 
+                    content.includes(ch.id) && content.includes(ch.name)
+                ).length;
+                
+                const resultDiv = document.getElementById('selector-result');
+                if (channelsFound >= channels.length * 0.8) {
+                    resultDiv.innerHTML = `<div class="success">✅ Channel selector working: ${channelsFound}/${channels.length} channels found</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Channel selector issue: ${channelsFound}/${channels.length} channels found</div>`;
+                }
+            }, 3000);
+        }, 1000);
+
+        // Test individual channels
+        const channelTestsDiv = document.getElementById('channel-tests');
+        
+        channels.forEach((channel, index) => {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-section';
+            testDiv.innerHTML = `
+                <h3>${channel.name} (${channel.id})</h3>
+                <iframe src="http://localhost:5000/${channel.id}" id="frame-${channel.id}"></iframe>
+                <div id="result-${channel.id}"></div>
+            `;
+            channelTestsDiv.appendChild(testDiv);
+
+            // Test each channel after a delay
+            setTimeout(() => {
+                const frame = document.getElementById(`frame-${channel.id}`);
+                const frameDoc = frame.contentDocument || frame.contentWindow.document;
+                
+                setTimeout(() => {
+                    const content = frameDoc.body.innerHTML;
+                    const resultDiv = document.getElementById(`result-${channel.id}`);
+                    
+                    const checks = {
+                        hasChannelName: content.includes(channel.name),
+                        hasHeader: content.includes('header') || content.includes('Header'),
+                        hasFooter: content.includes('footer') || content.includes('Footer'),
+                        hasArticleCards: content.includes('article') || content.includes('ArticleCard') || content.includes('card'),
+                        hasContent: content.length > 1000
+                    };
+                    
+                    const passedChecks = Object.values(checks).filter(Boolean).length;
+                    const totalChecks = Object.keys(checks).length;
+                    
+                    let statusClass = passedChecks >= totalChecks * 0.6 ? 'success' : 'error';
+                    let statusIcon = passedChecks >= totalChecks * 0.6 ? '✅' : '❌';
+                    
+                    resultDiv.innerHTML = `
+                        <div class="${statusClass}">
+                            ${statusIcon} UI Elements: ${passedChecks}/${totalChecks} checks passed
+                            <br>Channel Name: ${checks.hasChannelName ? '✅' : '❌'}
+                            <br>Header: ${checks.hasHeader ? '✅' : '❌'}
+                            <br>Footer: ${checks.hasFooter ? '✅' : '❌'}
+                            <br>Article Cards: ${checks.hasArticleCards ? '✅' : '❌'}
+                            <br>Content Length: ${checks.hasContent ? '✅' : '❌'}
+                        </div>
+                    `;
+                }, 3000);
+            }, 2000 + (index * 500));
+        });
+
+        // Add summary after all tests
+        setTimeout(() => {
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = 'test-section';
+            summaryDiv.innerHTML = '<h2>Test Summary</h2><div id="summary-content"></div>';
+            document.body.appendChild(summaryDiv);
+            
+            const allResults = document.querySelectorAll('[id^="result-"]');
+            let passed = 0;
+            let total = allResults.length;
+            
+            allResults.forEach(result => {
+                if (result.innerHTML.includes('✅')) passed++;
+            });
+            
+            document.getElementById('summary-content').innerHTML = `
+                <div class="${passed >= total * 0.8 ? 'success' : 'error'}">
+                    Overall Results: ${passed}/${total} channels passed UI tests
+                    <br>Success Rate: ${((passed/total) * 100).toFixed(1)}%
+                </div>
+            `;
+        }, 10000);
+    </script>
+</body>
+</html>

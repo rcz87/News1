@@ -6,7 +6,7 @@ publishedAt: "2024-01-11T10:00:00Z"
 category: "Teknologi"
 tags: ["buku", "literasi", "book fair"]
 featured: false
-image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop507842217343-583bb7270b66?w=1200&h=675&fit=crop"
 imageAlt: "Book fair di Menteng"
 ---
 

@@ -6,7 +6,7 @@ publishedAt: "2024-01-14T18:00:00Z"
 category: "Lifestyle"
 tags: ["musik", "festival", "entertainment", "indie"]
 featured: false
-image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop459749411175-04bf5292ceea?w=1200&h=675&fit=crop"
 imageAlt: "Music festival di Tebet"
 ---
 

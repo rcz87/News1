@@ -6,7 +6,7 @@ publishedAt: "2024-01-10T07:00:00Z"
 category: "Politik"
 tags: ["kesehatan", "puskesmas", "layanan publik"]
 featured: false
-image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop519494026892-80bbd2d6fd0d?w=1200&h=675&fit=crop"
 imageAlt: "Puskesmas modern di Ambal"
 ---
 

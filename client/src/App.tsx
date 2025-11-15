@@ -1,4 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
+import { Link } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -39,14 +40,14 @@ function ChannelSelector() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {channels.map((channel) => (
-            <a
+            <Link
               key={channel.id}
               href={`/${channel.id}`}
               className="block p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow border border-slate-200"
             >
               <h3 className="text-xl font-semibold mb-2">{channel.name}</h3>
               <p className="text-sm text-muted-foreground">{channel.tagline}</p>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -64,9 +65,24 @@ function App() {
       const path = location;
       let detectedChannel: ChannelConfig | null = null;
       
+      console.log('App.tsx - Detecting channel from path:', path);
+      
       // Detect channel from path (e.g., /ambal, /beritaangin, etc.)
       if (path !== '/' && path !== '') {
-        detectedChannel = getChannelByPath(path);
+        // Extract channel ID from path
+        const pathParts = path.split('/').filter(Boolean);
+        const channelId = pathParts[0];
+        
+        console.log('App.tsx - Path parts:', pathParts, 'Channel ID:', channelId);
+        
+        if (channelId && CHANNELS[channelId]) {
+          detectedChannel = CHANNELS[channelId];
+          console.log('App.tsx - Detected channel:', detectedChannel.id);
+        } else {
+          console.log('App.tsx - Channel not found for ID:', channelId);
+        }
+      } else {
+        console.log('App.tsx - Root path, no channel detected');
       }
       
       setChannel(detectedChannel);

@@ -6,7 +6,7 @@ publishedAt: "2023-09-25T16:00:00Z"
 category: "Olahraga"
 tags: ["voli pantai", "asian beach games", "medali emas", "ade candra", "dwiki setiawan"]
 featured: true
-image: "https://images.unsplash.com/photo-1594382486480-560085ba8922?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop594382486480-560085ba8922?w=1200&h=675&fit=crop"
 imageAlt: "Pasangan Ade Candra dan Dwiki Setiawan merayakan medali emas"
 ---
 

@@ -6,7 +6,7 @@ publishedAt: "2024-01-15T09:00:00Z"
 category: "Olahraga"
 tags: ["sepak bola", "stadion", "GBK", "piala dunia"]
 featured: true
-image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop486406146926-c627a92ad1ab?w=1200&h=675&fit=crop"
 imageAlt: "Stadion GBK yang telah direnovasi"
 ---
 

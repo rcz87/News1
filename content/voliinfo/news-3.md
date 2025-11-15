@@ -6,7 +6,7 @@ publishedAt: "2024-02-10T14:00:00Z"
 category: "Olahraga"
 tags: ["pbvsi", "voli sekolah", "pembinaan usia dini", "bakat muda", "program nasional"]
 featured: false
-image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop571019613454-1cb2f99b2d8b?w=1200&h=675&fit=crop"
 imageAlt: "Anak-anak sekolah sedang berlatih voli"
 ---
 

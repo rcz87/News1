@@ -1,7 +1,7 @@
 ---
 title: WARGA AYAH SEKARANG BISA MELAKUKAN PEMBAYARAN PAJAK DI SAMSAT PATEN KECAMATAN AYAH 
-slug: satlantas - polres - kebumen - membuka - samsat- paten - dikecamatan - ayah 
-excerpt: * Bripka Albahrori memberikan pelayanan kepada wajib pajak kendaraan di samsat paten kecaman ayah *
+slug: warga-ayah-bayar-pajak-samsat-paten
+excerpt: "Bripka Albahrori memberikan pelayanan kepada wajib pajak kendaraan di samsat paten kecaman ayah"
 category: Berita
 author: Ambar
 publishedAt: 2025-10-31T00:50:24.006Z
@@ -12,7 +12,7 @@ featured: false
 
 
 
-BeritaDesa.com – Pelayanan samsat kebumen terus berupaya untuk selalu meningkatkan pelayanan kepada masyarakat. Salah satunya yaitu melalui kegiatan pelayan pajak kendaraan bermotor di Samsat Paten Kecamatan Ayah yang dilaksanakan pada hari Jum'at 31 Oktober 2025. 
+BeritaDesa.com – Pelayanan samsat kebumen terus berupaya untuk selalu meningkatkan pelayanan kepada masyarakat. Salah satunya yaitu melalui kegiatan pelayan pajak kendaraan bermotor di Samsat Paten Kecamatan Ayah yang dilaksanakan pada hari Jum'at 31 Oktober 2025. 
 
 Kegiatan tersebut menjadi bagian dari program pelayanan prima kepada masyarakat agar masyarakat lebih mudah dalam.melakukan pembayaran pajak kendaraan bermotor.
 

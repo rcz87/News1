@@ -6,7 +6,7 @@ publishedAt: "2024-01-14T09:00:00Z"
 category: "Teknologi"
 tags: ["startup", "teknologi", "inkubasi", "entrepreneurship"]
 featured: false
-image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1200&h=675&fit=crop"
+image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&h=675&fit=crop497215728101-856f4ea42174?w=1200&h=675&fit=crop"
 imageAlt: "Startup hub di Gandaria"
 ---
 

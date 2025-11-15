@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Routing</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Routing Issues</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: API Endpoint</h2>
+        <div id="api-test">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Channel Page Load</h2>
+        <div id="page-test">Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Article Cards Detection</h2>
+        <div id="cards-test">Testing...</div>
+    </div>
+
+    <script>
+        async function runTests() {
+            // Test 1: API Endpoint
+            try {
+                const response = await fetch('/api/channels/ambal/articles');
+                const data = await response.json();
+                document.getElementById('api-test').innerHTML = 
+                    `<span class="success">✅ API Working: Found ${data.length} articles</span>`;
+            } catch (error) {
+                document.getElementById('api-test').innerHTML = 
+                    `<span class="error">❌ API Failed: ${error.message}</span>`;
+            }
+            
+            // Test 2: Load Channel Page
+            try {
+                const response = await fetch('/ambal');
+                const text = await response.text();
+                if (text.includes('SimpleHeroLayout') || text.includes('ArticleCard')) {
+                    document.getElementById('page-test').innerHTML = 
+                        `<span class="success">✅ Page loads React components</span>`;
+                } else {
+                    document.getElementById('page-test').innerHTML = 
+                        `<span class="error">❌ Page not loading React properly</span>`;
+                }
+            } catch (error) {
+                document.getElementById('page-test').innerHTML = 
+                    `<span class="error">❌ Page load failed: ${error.message}</span>`;
+            }
+            
+            // Test 3: Check for article cards on current page
+            setTimeout(() => {
+                const cards = document.querySelectorAll('[data-testid^="card-article-"]');
+                const links = document.querySelectorAll('a[href*="/article/"]');
+                
+                document.getElementById('cards-test').innerHTML = `
+                    <div class="info">📊 Found ${cards.length} article cards</div>
+                    <div class="info">🔗 Found ${links.length} article links</div>
+                    ${cards.length > 0 ? '<span class="success">✅ Articles are rendering</span>' : '<span class="error">❌ No articles found</span>'}
+                `;
+            }, 3000);
+        }
+        
+        runTests();
+    </script>
+</body>
+</html>
