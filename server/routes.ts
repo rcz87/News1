@@ -141,25 +141,109 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   /**
-   * Search articles
+   * Search articles (basic)
    * GET /api/channels/:channelId/search?q=query
    */
   app.get("/api/channels/:channelId/search", async (req, res) => {
     try {
       const { channelId } = req.params;
       const { q } = req.query;
-      
+
       if (!q || typeof q !== 'string') {
         return res.status(400).json({ error: "Query parameter 'q' is required" });
       }
-      
+
       const articles = await contentService.searchArticles(channelId, q);
       const articlesPreview = articles.map(({ content, ...article }) => article);
-      
+
       res.json(articlesPreview);
     } catch (error) {
       console.error("Error searching articles:", error);
       res.status(500).json({ error: "Failed to search articles" });
+    }
+  });
+
+  /**
+   * Advanced search with filters
+   * GET /api/search/advanced
+   * Query params:
+   *   - channelId: string (optional)
+   *   - q: string (optional) - search query
+   *   - category: string (optional)
+   *   - author: string (optional)
+   *   - startDate: string (optional) - ISO date
+   *   - endDate: string (optional) - ISO date
+   *   - featured: boolean (optional)
+   *   - limit: number (optional) - default 50
+   *   - offset: number (optional) - default 0
+   */
+  app.get("/api/search/advanced", async (req, res) => {
+    try {
+      const {
+        channelId,
+        q,
+        category,
+        author,
+        startDate,
+        endDate,
+        featured,
+        limit,
+        offset,
+      } = req.query;
+
+      // Build search parameters
+      const searchParams: any = {};
+
+      if (channelId && typeof channelId === 'string') {
+        searchParams.channelId = channelId;
+      }
+
+      if (q && typeof q === 'string') {
+        searchParams.query = q;
+      }
+
+      if (category && typeof category === 'string') {
+        searchParams.category = category;
+      }
+
+      if (author && typeof author === 'string') {
+        searchParams.author = author;
+      }
+
+      if (startDate && typeof startDate === 'string') {
+        searchParams.startDate = new Date(startDate);
+      }
+
+      if (endDate && typeof endDate === 'string') {
+        searchParams.endDate = new Date(endDate);
+      }
+
+      if (featured !== undefined) {
+        searchParams.featured = featured === 'true';
+      }
+
+      if (limit && typeof limit === 'string') {
+        searchParams.limit = parseInt(limit, 10);
+      }
+
+      if (offset && typeof offset === 'string') {
+        searchParams.offset = parseInt(offset, 10);
+      }
+
+      const result = await contentService.searchArticlesAdvanced(searchParams);
+
+      // Remove content from articles for list view
+      const articlesPreview = result.articles.map(({ content, ...article }) => article);
+
+      res.json({
+        articles: articlesPreview,
+        total: result.total,
+        limit: searchParams.limit || 50,
+        offset: searchParams.offset || 0,
+      });
+    } catch (error) {
+      console.error("Error in advanced search:", error);
+      res.status(500).json({ error: "Failed to perform advanced search" });
     }
   });
 

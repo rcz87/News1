@@ -33,21 +33,30 @@ export const channelConfigSchema = z.object({
 
 export type ChannelConfig = z.infer<typeof channelConfigSchema>;
 
-// Article frontmatter schema
+// Article schema (database-backed)
 export const articleSchema = z.object({
+  id: z.string().optional(),
   slug: z.string(),
   title: z.string(),
   excerpt: z.string(),
+  content: z.string(),
   author: z.string(),
-  publishedAt: z.string(),
-  updatedAt: z.string().optional(),
+  authorId: z.string().optional().nullable(),
+  channelId: z.string(),
   category: z.string(),
-  tags: z.array(z.string()),
-  featured: z.boolean().default(false),
+  tags: z.array(z.string()).default([]),
   image: z.string(),
   imageAlt: z.string().optional(),
-  content: z.string(),
-  channelId: z.string(),
+  status: z.enum(["draft", "published", "scheduled", "archived"]).default("draft"),
+  featured: z.boolean().default(false),
+  publishedAt: z.string().optional(),
+  scheduledFor: z.string().optional().nullable(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  metaTitle: z.string().optional().nullable(),
+  metaDescription: z.string().optional().nullable(),
+  metaKeywords: z.array(z.string()).optional().nullable(),
+  viewCount: z.number().optional().default(0),
 });
 
 export type Article = z.infer<typeof articleSchema>;

@@ -10,6 +10,7 @@ import { ChannelConfig } from "@shared/schema";
 import HomePage from "@/pages/HomePage";
 import ArticlePage from "@/pages/ArticlePage";
 import CategoryPage from "@/pages/CategoryPage";
+import SearchPage from "@/pages/SearchPage";
 import NotFound from "@/pages/not-found";
 
 function Router({ channel }: { channel: ChannelConfig | null }) {
@@ -22,7 +23,8 @@ function Router({ channel }: { channel: ChannelConfig | null }) {
       <Route path="/:channelId" component={HomePage} />
       <Route path="/:channelId/article/:slug" component={ArticlePage} />
       <Route path="/:channelId/category/:category" component={CategoryPage} />
-      
+      <Route path="/:channelId/search" component={SearchPage} />
+
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Menu, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,13 +14,24 @@ import { getAllChannels } from "@shared/channels";
 
 export function Header() {
   const { channel } = useChannel();
+  const [, setLocation] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const allChannels = getAllChannels();
 
   if (!channel) return null;
 
   const categories = ["Politik", "Ekonomi", "Olahraga", "Teknologi", "Lifestyle"];
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      setLocation(`/${channel.id}/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -104,12 +115,17 @@ export function Header() {
         {searchOpen && (
           <div className="px-4 md:px-6 pb-4 border-t">
             <div className="max-w-2xl mx-auto pt-4">
-              <Input
-                type="search"
-                placeholder="Cari berita..."
-                className="w-full"
-                data-testid="input-search"
-              />
+              <form onSubmit={handleSearch}>
+                <Input
+                  type="search"
+                  placeholder="Cari berita..."
+                  className="w-full"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                  data-testid="input-search"
+                />
+              </form>
             </div>
           </div>
         )}
