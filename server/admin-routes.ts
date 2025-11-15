@@ -1,11 +1,13 @@
 import { Router } from 'express';
-import { readdir, readFile, writeFile, unlink, stat, rename } from 'fs/promises';
+import { writeFile, unlink, stat, rename } from 'fs/promises';
 import { join } from 'path';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
 import sharp from 'sharp';
 import type { Request, Response, NextFunction } from 'express';
+import { db, articles, users, articleVersions } from '../db/index';
+import { eq, and, desc } from 'drizzle-orm';
 
 const router = Router();
 
@@ -24,7 +26,7 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 20 * 1024 * 1024 // 20MB limit untuk accept semua mobile photos
+    fileSize: 20 * 1024 * 1024 // 20MB limit
   },
   fileFilter: function (req, file, cb) {
     // Accept images only
@@ -73,7 +75,7 @@ initPasswordHash();
 // Authentication middleware
 function authenticateAdmin(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.replace('Bearer ', '');
-  
+
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
   }
@@ -93,7 +95,6 @@ router.post('/login', async (req: Request, res: Response) => {
     const { username, password } = req.body;
 
     console.log('Login attempt:', username);
-    console.log('Expected username:', ADMIN_USERNAME);
 
     if (username !== ADMIN_USERNAME) {
       console.log('Invalid username');
@@ -105,7 +106,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
     // Compare password with hash
     const passwordMatch = await bcrypt.compare(password, ADMIN_PASSWORD_HASH);
-    
+
     if (!passwordMatch) {
       console.log('Invalid password - mismatch');
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -125,59 +126,48 @@ router.post('/login', async (req: Request, res: Response) => {
   }
 });
 
-// Get all articles for a channel
+// Get all articles for a channel (with optional status filter)
 router.get('/articles', authenticateAdmin, async (req: Request, res: Response) => {
   try {
-    const { channel } = req.query;
-    
+    const { channel, status } = req.query;
+
     if (!channel) {
       return res.status(400).json({ error: 'Channel parameter required' });
     }
 
-    const contentDir = join(process.cwd(), 'content', channel as string);
-    const files = await readdir(contentDir);
-    const markdownFiles = files.filter(f => f.endsWith('.md'));
+    const conditions = [eq(articles.channelId, channel as string)];
 
-    const articles = await Promise.all(
-      markdownFiles.map(async (file) => {
-        const content = await readFile(join(contentDir, file), 'utf-8');
-        const lines = content.split('\n');
-        
-        // Parse frontmatter
-        const frontmatter: any = {};
-        let inFrontmatter = false;
-        let contentStart = 0;
-        
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i] === '---') {
-            if (!inFrontmatter) {
-              inFrontmatter = true;
-            } else {
-              contentStart = i + 1;
-              break;
-            }
-          } else if (inFrontmatter) {
-            const match = lines[i].match(/^(\w+):\s*(.+)$/);
-            if (match) {
-              frontmatter[match[1]] = match[2];
-            }
-          }
-        }
+    // Admin can see all statuses, default to published
+    if (status) {
+      conditions.push(eq(articles.status, status as string));
+    }
 
-        const bodyContent = lines.slice(contentStart).join('\n').trim();
+    const channelArticles = await db.query.articles.findMany({
+      where: and(...conditions),
+      orderBy: [desc(articles.updatedAt)],
+    });
 
-        return {
-          slug: file.replace('.md', ''),
-          filename: file,
-          ...frontmatter,
-          content: bodyContent,
-          channel: channel as string
-        };
-      })
-    );
+    // Format for admin interface (compatible with old format)
+    const formattedArticles = channelArticles.map((article) => ({
+      slug: article.slug,
+      filename: `${article.slug}.md`, // For backwards compatibility
+      title: article.title,
+      excerpt: article.excerpt,
+      category: article.category,
+      author: article.author,
+      publishedAt: article.publishedAt?.toISOString(),
+      image: article.image,
+      tags: article.tags,
+      featured: article.featured,
+      status: article.status,
+      content: article.content,
+      channel: article.channelId,
+      viewCount: article.viewCount,
+    }));
 
-    res.json(articles);
+    res.json(formattedArticles);
   } catch (error: any) {
+    console.error('Error fetching articles:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -192,39 +182,36 @@ router.get('/articles/:slug', authenticateAdmin, async (req: Request, res: Respo
       return res.status(400).json({ error: 'Channel parameter required' });
     }
 
-    const filePath = join(process.cwd(), 'content', channel as string, `${slug}.md`);
-    const content = await readFile(filePath, 'utf-8');
-    
-    const lines = content.split('\n');
-    const frontmatter: any = {};
-    let inFrontmatter = false;
-    let contentStart = 0;
-    
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i] === '---') {
-        if (!inFrontmatter) {
-          inFrontmatter = true;
-        } else {
-          contentStart = i + 1;
-          break;
-        }
-      } else if (inFrontmatter) {
-        const match = lines[i].match(/^(\w+):\s*(.+)$/);
-        if (match) {
-          frontmatter[match[1]] = match[2];
-        }
-      }
+    const article = await db.query.articles.findFirst({
+      where: and(
+        eq(articles.channelId, channel as string),
+        eq(articles.slug, slug)
+      ),
+    });
+
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
     }
 
-    const bodyContent = lines.slice(contentStart).join('\n').trim();
-
+    // Format for admin interface
     res.json({
-      slug,
-      ...frontmatter,
-      content: bodyContent,
-      channel: channel as string
+      slug: article.slug,
+      title: article.title,
+      excerpt: article.excerpt,
+      content: article.content,
+      category: article.category,
+      author: article.author,
+      publishedAt: article.publishedAt?.toISOString(),
+      image: article.image,
+      imageAlt: article.imageAlt,
+      tags: article.tags,
+      featured: article.featured,
+      status: article.status,
+      channel: article.channelId,
+      viewCount: article.viewCount,
     });
   } catch (error: any) {
+    console.error('Error fetching article:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -232,47 +219,53 @@ router.get('/articles/:slug', authenticateAdmin, async (req: Request, res: Respo
 // Create new article
 router.post('/articles', authenticateAdmin, async (req: Request, res: Response) => {
   try {
-    const { channel, slug, title, excerpt, content, category, author, image, tags } = req.body;
+    const { channel, slug, title, excerpt, content, category, author, image, imageAlt, tags, featured, status } = req.body;
 
     if (!channel || !slug || !title || !content) {
-      return res.status(400).json({ error: 'Missing required fields' });
+      return res.status(400).json({ error: 'Missing required fields: channel, slug, title, content' });
     }
 
-    const filePath = join(process.cwd(), 'content', channel, `${slug}.md`);
-    
-    // Properly escape values for YAML
-    const escapeYamlValue = (value: string) => {
-      if (!value) return '';
-      // If value contains special characters, wrap in quotes
-      if (value.includes(':') || value.includes('#') || value.includes('*') || 
-          value.includes('[') || value.includes(']') || value.includes('{') || 
-          value.includes('}') || value.includes('|') || value.includes('>') ||
-          value.includes('"') || value.includes("'") || value.includes('\n')) {
-        return `"${value.replace(/"/g, '\\"')}"`;
-      }
-      return value;
-    };
+    // Check if article with same slug exists in channel
+    const existing = await db.query.articles.findFirst({
+      where: and(
+        eq(articles.channelId, channel),
+        eq(articles.slug, slug)
+      ),
+    });
 
-    const frontmatter = [
-      '---',
-      `title: ${escapeYamlValue(title)}`,
-      `slug: ${escapeYamlValue(slug)}`,
-      `excerpt: ${escapeYamlValue(excerpt || '')}`,
-      `category: ${escapeYamlValue(category || 'Berita')}`,
-      `author: ${escapeYamlValue(author || 'Admin')}`,
-      `publishedAt: ${new Date().toISOString()}`,
-      `image: ${escapeYamlValue(image || '/images/default.jpg')}`,
-      `tags: [${tags ? tags.map((tag: string) => `"${tag}"`).join(', ') : ''}]`,
-      `featured: false`,
-      '---',
-      '',
-      content
-    ].join('\n');
+    if (existing) {
+      return res.status(409).json({ error: 'Article with this slug already exists in this channel' });
+    }
 
-    await writeFile(filePath, frontmatter, 'utf-8');
+    // Create article in database
+    const [newArticle] = await db.insert(articles).values({
+      slug,
+      title,
+      excerpt: excerpt || '',
+      content,
+      author: author || 'Admin',
+      channelId: channel,
+      category: category || 'Berita',
+      tags: tags || [],
+      image: image || '/images/default.jpg',
+      imageAlt: imageAlt || title,
+      featured: featured || false,
+      status: status || 'published',
+      publishedAt: status === 'published' ? new Date() : null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }).returning();
 
-    res.json({ message: 'Article created successfully', slug });
+    // Also export to markdown as backup
+    await exportArticleToMarkdown(newArticle);
+
+    res.json({
+      message: 'Article created successfully',
+      slug,
+      id: newArticle.id
+    });
   } catch (error: any) {
+    console.error('Error creating article:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -281,47 +274,72 @@ router.post('/articles', authenticateAdmin, async (req: Request, res: Response) 
 router.put('/articles/:slug', authenticateAdmin, async (req: Request, res: Response) => {
   try {
     const { slug } = req.params;
-    const { channel, title, excerpt, content, category, author, image, tags, featured } = req.body;
+    const { channel, title, excerpt, content, category, author, image, imageAlt, tags, featured, status } = req.body;
 
     if (!channel) {
       return res.status(400).json({ error: 'Channel parameter required' });
     }
 
-    const filePath = join(process.cwd(), 'content', channel, `${slug}.md`);
-    
-    // Properly escape values for YAML
-    const escapeYamlValue = (value: string) => {
-      if (!value) return '';
-      // If value contains special characters, wrap in quotes
-      if (value.includes(':') || value.includes('#') || value.includes('*') || 
-          value.includes('[') || value.includes(']') || value.includes('{') || 
-          value.includes('}') || value.includes('|') || value.includes('>') ||
-          value.includes('"') || value.includes("'") || value.includes('\n')) {
-        return `"${value.replace(/"/g, '\\"')}"`;
-      }
-      return value;
+    // Find existing article
+    const existingArticle = await db.query.articles.findFirst({
+      where: and(
+        eq(articles.channelId, channel),
+        eq(articles.slug, slug)
+      ),
+    });
+
+    if (!existingArticle) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    // Create version history before updating
+    await db.insert(articleVersions).values({
+      articleId: existingArticle.id,
+      title: existingArticle.title,
+      excerpt: existingArticle.excerpt,
+      content: existingArticle.content,
+      category: existingArticle.category,
+      tags: existingArticle.tags,
+      image: existingArticle.image,
+      imageAlt: existingArticle.imageAlt,
+      versionNumber: await getNextVersionNumber(existingArticle.id),
+      changeDescription: 'Updated via admin panel',
+      createdAt: new Date(),
+    });
+
+    // Update article
+    const updateData: any = {
+      updatedAt: new Date(),
     };
 
-    const frontmatter = [
-      '---',
-      `title: ${escapeYamlValue(title)}`,
-      `slug: ${escapeYamlValue(slug)}`,
-      `excerpt: ${escapeYamlValue(excerpt || '')}`,
-      `category: ${escapeYamlValue(category || 'Berita')}`,
-      `author: ${escapeYamlValue(author || 'Admin')}`,
-      `publishedAt: ${new Date().toISOString()}`,
-      `image: ${escapeYamlValue(image || '/images/default.jpg')}`,
-      `tags: [${tags ? tags.map((tag: string) => `"${tag}"`).join(', ') : ''}]`,
-      `featured: ${featured || false}`,
-      '---',
-      '',
-      content
-    ].join('\n');
+    if (title) updateData.title = title;
+    if (excerpt !== undefined) updateData.excerpt = excerpt;
+    if (content) updateData.content = content;
+    if (category) updateData.category = category;
+    if (author) updateData.author = author;
+    if (image) updateData.image = image;
+    if (imageAlt !== undefined) updateData.imageAlt = imageAlt;
+    if (tags !== undefined) updateData.tags = tags;
+    if (featured !== undefined) updateData.featured = featured;
+    if (status) {
+      updateData.status = status;
+      if (status === 'published' && !existingArticle.publishedAt) {
+        updateData.publishedAt = new Date();
+      }
+    }
 
-    await writeFile(filePath, frontmatter, 'utf-8');
+    const [updatedArticle] = await db
+      .update(articles)
+      .set(updateData)
+      .where(eq(articles.id, existingArticle.id))
+      .returning();
 
-    res.json({ message: 'Article updated successfully' });
+    // Export to markdown as backup
+    await exportArticleToMarkdown(updatedArticle);
+
+    res.json({ message: 'Article updated successfully', slug });
   } catch (error: any) {
+    console.error('Error updating article:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -336,11 +354,32 @@ router.delete('/articles/:slug', authenticateAdmin, async (req: Request, res: Re
       return res.status(400).json({ error: 'Channel parameter required' });
     }
 
-    const filePath = join(process.cwd(), 'content', channel as string, `${slug}.md`);
-    await unlink(filePath);
+    // Find article
+    const article = await db.query.articles.findFirst({
+      where: and(
+        eq(articles.channelId, channel as string),
+        eq(articles.slug, slug)
+      ),
+    });
+
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    // Delete from database (cascade will delete versions)
+    await db.delete(articles).where(eq(articles.id, article.id));
+
+    // Delete markdown backup file (optional, fail silently)
+    try {
+      const filePath = join(process.cwd(), 'content', channel as string, `${slug}.md`);
+      await unlink(filePath);
+    } catch (e) {
+      // Markdown file might not exist, ignore
+    }
 
     res.json({ message: 'Article deleted successfully' });
   } catch (error: any) {
+    console.error('Error deleting article:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -355,40 +394,40 @@ router.post('/upload-photo', authenticateAdmin, upload.single('photo'), async (r
     const originalSize = req.file.size;
     const originalPath = req.file.path;
     const filename = req.file.filename;
-    
+
     // Generate compressed filename
     const compressedFilename = filename.replace(/\.[^/.]+$/, '_compressed.jpg');
     const compressedPath = originalPath.replace(req.file.filename, compressedFilename);
-    
+
     try {
       // Compress image menggunakan Sharp
       await sharp(originalPath)
-        .resize(1920, 1080, { 
-          fit: 'inside', 
-          withoutEnlargement: true 
+        .resize(1920, 1080, {
+          fit: 'inside',
+          withoutEnlargement: true
         })
-        .jpeg({ 
+        .jpeg({
           quality: 80,
           progressive: true
         })
         .toFile(compressedPath);
-      
+
       // Get compressed file stats
       const compressedStats = await sharp(compressedPath).metadata();
       const compressedSize = (await stat(compressedPath)).size;
-      
+
       // Delete original file
       await unlink(originalPath);
-      
+
       // Rename compressed file to original filename
       await rename(compressedPath, originalPath);
-      
+
       const compressionRatio = ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
-      
+
       console.log(`Image compressed: ${(originalSize / 1024 / 1024).toFixed(2)}MB → ${(compressedSize / 1024 / 1024).toFixed(2)}MB (${compressionRatio}% reduction)`);
-      
-      res.json({ 
-        success: true, 
+
+      res.json({
+        success: true,
         url: `/uploads/articles/${filename}`,
         filename: filename,
         originalSize: originalSize,
@@ -399,12 +438,12 @@ router.post('/upload-photo', authenticateAdmin, upload.single('photo'), async (r
           height: compressedStats.height
         }
       });
-      
+
     } catch (compressionError: any) {
       console.error('Compression failed, using original file:', compressionError);
       // Jika compression gagal, gunakan file original
-      res.json({ 
-        success: true, 
+      res.json({
+        success: true,
         url: `/uploads/articles/${filename}`,
         filename: filename,
         size: originalSize,
@@ -415,6 +454,82 @@ router.post('/upload-photo', authenticateAdmin, upload.single('photo'), async (r
   } catch (error: any) {
     console.error('Upload error:', error);
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Export article to markdown (backup functionality)
+async function exportArticleToMarkdown(article: any) {
+  try {
+    const contentDir = join(process.cwd(), 'content', article.channelId);
+    const filePath = join(contentDir, `${article.slug}.md`);
+
+    const frontmatter = [
+      '---',
+      `title: ${article.title}`,
+      `slug: ${article.slug}`,
+      `excerpt: ${article.excerpt || ''}`,
+      `category: ${article.category || 'Berita'}`,
+      `author: ${article.author || 'Admin'}`,
+      `publishedAt: ${article.publishedAt?.toISOString() || new Date().toISOString()}`,
+      `image: ${article.image || '/images/default.jpg'}`,
+      `imageAlt: ${article.imageAlt || article.title}`,
+      `tags: [${article.tags ? article.tags.join(', ') : ''}]`,
+      `featured: ${article.featured || false}`,
+      `status: ${article.status || 'published'}`,
+      '---',
+      '',
+      article.content
+    ].join('\n');
+
+    await writeFile(filePath, frontmatter, 'utf-8');
+    console.log(`✅ Exported article to markdown: ${article.channelId}/${article.slug}.md`);
+  } catch (error) {
+    console.error(`❌ Failed to export article to markdown:`, error);
+    // Don't throw - markdown export is optional backup
+  }
+}
+
+// Get next version number for article
+async function getNextVersionNumber(articleId: string): Promise<number> {
+  const versions = await db.query.articleVersions.findMany({
+    where: eq(articleVersions.articleId, articleId),
+    orderBy: [desc(articleVersions.versionNumber)],
+    limit: 1,
+  });
+
+  return versions.length > 0 ? versions[0].versionNumber + 1 : 1;
+}
+
+// Get article version history
+router.get('/articles/:slug/versions', authenticateAdmin, async (req: Request, res: Response) => {
+  try {
+    const { slug } = req.params;
+    const { channel } = req.query;
+
+    if (!channel) {
+      return res.status(400).json({ error: 'Channel parameter required' });
+    }
+
+    const article = await db.query.articles.findFirst({
+      where: and(
+        eq(articles.channelId, channel as string),
+        eq(articles.slug, slug)
+      ),
+    });
+
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    const versions = await db.query.articleVersions.findMany({
+      where: eq(articleVersions.articleId, article.id),
+      orderBy: [desc(articleVersions.createdAt)],
+    });
+
+    res.json(versions);
+  } catch (error: any) {
+    console.error('Error fetching article versions:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 

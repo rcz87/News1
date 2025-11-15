@@ -5,12 +5,19 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ChannelProvider } from "@/lib/channel-context";
+import { AuthProvider } from "@/lib/auth-context";
 import { getChannelByPath, CHANNELS } from "@shared/channels";
 import { useEffect, useState } from "react";
 import { ChannelConfig } from "@shared/schema";
 import HomePage from "@/pages/HomePage";
 import ArticlePage from "@/pages/ArticlePage";
 import CategoryPage from "@/pages/CategoryPage";
+import SearchPage from "@/pages/SearchPage";
+import AdminLogin from "@/pages/admin/AdminLogin";
+import AdminDashboard from "@/pages/admin/AdminDashboard";
+import ArticleList from "@/pages/admin/ArticleList";
+import ArticleEditor from "@/pages/admin/ArticleEditor";
+import { ProtectedRoute } from "@/components/admin/ProtectedRoute";
 import NotFound from "@/pages/not-found";
 
 function Router({ channel }: { channel: ChannelConfig | null }) {
@@ -18,12 +25,36 @@ function Router({ channel }: { channel: ChannelConfig | null }) {
     <Switch>
       {/* Root homepage - show channel selector */}
       <Route path="/" component={() => <ChannelSelector />} />
-      
+
+      {/* Admin routes */}
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard">
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/articles" component={() => (
+        <ProtectedRoute>
+          <ArticleList />
+        </ProtectedRoute>
+      )} />
+      <Route path="/admin/articles/new" component={() => (
+        <ProtectedRoute>
+          <ArticleEditor />
+        </ProtectedRoute>
+      )} />
+      <Route path="/admin/articles/:slug/edit" component={() => (
+        <ProtectedRoute>
+          <ArticleEditor />
+        </ProtectedRoute>
+      )} />
+
       {/* Channel routes - path-based */}
       <Route path="/:channelId" component={HomePage} />
       <Route path="/:channelId/article/:slug" component={ArticlePage} />
       <Route path="/:channelId/category/:category" component={CategoryPage} />
-      
+      <Route path="/:channelId/search" component={SearchPage} />
+
       <Route component={NotFound} />
     </Switch>
   );
@@ -106,19 +137,21 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <ChannelProvider initialChannel={channel}>
-          {channel && (
-            <style>{`
-              :root {
-                --primary: ${channel.primaryColor};
-                --chart-1: ${channel.primaryColor};
-                --sidebar-primary: ${channel.primaryColor};
-              }
-            `}</style>
-          )}
-          <Router channel={channel} />
-          <Toaster />
-        </ChannelProvider>
+        <AuthProvider>
+          <ChannelProvider initialChannel={channel}>
+            {channel && (
+              <style>{`
+                :root {
+                  --primary: ${channel.primaryColor};
+                  --chart-1: ${channel.primaryColor};
+                  --sidebar-primary: ${channel.primaryColor};
+                }
+              `}</style>
+            )}
+            <Router channel={channel} />
+            <Toaster />
+          </ChannelProvider>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
