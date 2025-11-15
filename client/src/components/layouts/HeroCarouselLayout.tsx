@@ -5,6 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface HeroCarouselLayoutProps {
   articles?: Article[];
@@ -12,6 +14,7 @@ interface HeroCarouselLayoutProps {
 }
 
 export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutProps) {
+  const { channel } = useChannel();
   const heroArticles = articles?.slice(0, 5) || [];
   const gridArticles = articles?.slice(5, 11) || [];
   const listArticles = articles?.slice(11) || [];
@@ -51,9 +54,9 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
                   index === currentSlide ? 'block' : 'hidden'
                 }`}
               >
-                <a
-                  href={`/${article.channelId}/article/${article.slug}`}
-                  className="block"
+                <Link
+                  href={`/${channel?.id}/article/${article.slug}`}
+                  className="block cursor-pointer"
                 >
                   {/* Title and metadata above image */}
                   <div className={`p-6 md:p-16 max-w-7xl mx-auto transition-all duration-700 ${
@@ -84,7 +87,7 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
                       style={{ objectPosition: 'center 25%' }}
                     />
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
 
