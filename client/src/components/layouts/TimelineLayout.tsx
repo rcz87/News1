@@ -2,6 +2,8 @@ import { Article } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Clock } from "lucide-react";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface TimelineLayoutProps {
   articles?: Omit<Article, 'content'>[];
@@ -9,6 +11,7 @@ interface TimelineLayoutProps {
 }
 
 export function TimelineLayout({ articles, isLoading }: TimelineLayoutProps) {
+  const { channel } = useChannel();
   const featuredArticle = articles?.find(a => a.featured);
   const timelineArticles = articles?.filter(a => !a.featured) || [];
 
@@ -38,31 +41,33 @@ export function TimelineLayout({ articles, isLoading }: TimelineLayoutProps) {
                 <Skeleton className="w-full h-96 rounded-lg" />
               </div>
             ) : (
-              <article>
-                <Badge variant="default" className="mb-4">
-                  {featuredArticle.category}
-                </Badge>
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                  {featuredArticle.title}
-                </h1>
-                <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
-                  {featuredArticle.excerpt}
-                </p>
-                <img
-                  src={featuredArticle.image}
-                  alt={featuredArticle.imageAlt || featuredArticle.title}
-                  className="w-full aspect-video object-cover rounded-lg"
-                />
-                <div className="flex items-center gap-4 mt-6 text-sm text-muted-foreground">
-                  <span className="font-medium">{featuredArticle.author}</span>
-                  <span>•</span>
-                  <span>{new Date(featuredArticle.publishedAt).toLocaleDateString('id-ID', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                  })}</span>
-                </div>
-              </article>
+              <Link href={`/${channel?.id}/article/${featuredArticle.slug}`}>
+                <article className="cursor-pointer hover:opacity-90 transition-opacity">
+                  <Badge variant="default" className="mb-4">
+                    {featuredArticle.category}
+                  </Badge>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    {featuredArticle.title}
+                  </h1>
+                  <p className="text-xl text-muted-foreground mb-6 leading-relaxed">
+                    {featuredArticle.excerpt}
+                  </p>
+                  <img
+                    src={featuredArticle.image}
+                    alt={featuredArticle.imageAlt || featuredArticle.title}
+                    className="w-full aspect-video object-cover rounded-lg"
+                  />
+                  <div className="flex items-center gap-4 mt-6 text-sm text-muted-foreground">
+                    <span className="font-medium">{featuredArticle.author}</span>
+                    <span>•</span>
+                    <span>{new Date(featuredArticle.publishedAt).toLocaleDateString('id-ID', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}</span>
+                  </div>
+                </article>
+              </Link>
             )}
           </div>
         </section>
@@ -111,62 +116,63 @@ export function TimelineLayout({ articles, isLoading }: TimelineLayoutProps) {
                                  index === articles.length - 1;
 
                   return (
-                    <article
-                      key={article.slug}
-                      className={`flex gap-8 group hover-elevate rounded-lg p-4 -ml-4 ${
-                        !isLast ? 'mb-8' : ''
-                      }`}
-                    >
-                      <div className="flex-shrink-0 w-32 text-right">
-                        <div className="text-sm font-medium text-muted-foreground">
-                          {new Date(article.publishedAt).toLocaleTimeString('id-ID', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          })}
-                        </div>
-                      </div>
-
-                      <div className={`flex-1 ${!isLast ? 'border-l-2 border-primary/30' : ''} pl-8 ${!isLast ? 'pb-8' : ''}`}>
-                        <div className="relative">
-                          {/* Timeline Dot */}
-                          <div className="absolute -left-[41px] top-2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
-
-                          <Badge variant="outline" className="mb-3">
-                            {article.category}
-                          </Badge>
-
-                          <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
-                            {article.title}
-                          </h3>
-
-                          <p className="text-muted-foreground mb-4 leading-relaxed">
-                            {article.excerpt}
-                          </p>
-
-                          <img
-                            src={article.image}
-                            alt={article.imageAlt || article.title}
-                            className="w-full aspect-video object-cover rounded-lg mb-4"
-                          />
-
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="font-medium">{article.author}</span>
-                            {article.tags && article.tags.length > 0 && (
-                              <>
-                                <span>•</span>
-                                <div className="flex gap-2">
-                                  {article.tags.slice(0, 3).map(tag => (
-                                    <Badge key={tag} variant="secondary" className="text-xs">
-                                      {tag}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </>
-                            )}
+                    <Link key={article.slug} href={`/${channel?.id}/article/${article.slug}`}>
+                      <article
+                        className={`flex gap-8 group hover-elevate rounded-lg p-4 -ml-4 cursor-pointer ${
+                          !isLast ? 'mb-8' : ''
+                        }`}
+                      >
+                        <div className="flex-shrink-0 w-32 text-right">
+                          <div className="text-sm font-medium text-muted-foreground">
+                            {new Date(article.publishedAt).toLocaleTimeString('id-ID', {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
                           </div>
                         </div>
-                      </div>
-                    </article>
+
+                        <div className={`flex-1 ${!isLast ? 'border-l-2 border-primary/30' : ''} pl-8 ${!isLast ? 'pb-8' : ''}`}>
+                          <div className="relative">
+                            {/* Timeline Dot */}
+                            <div className="absolute -left-[41px] top-2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+
+                            <Badge variant="outline" className="mb-3">
+                              {article.category}
+                            </Badge>
+
+                            <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">
+                              {article.title}
+                            </h3>
+
+                            <p className="text-muted-foreground mb-4 leading-relaxed">
+                              {article.excerpt}
+                            </p>
+
+                            <img
+                              src={article.image}
+                              alt={article.imageAlt || article.title}
+                              className="w-full aspect-video object-cover rounded-lg mb-4"
+                            />
+
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                              <span className="font-medium">{article.author}</span>
+                              {article.tags && article.tags.length > 0 && (
+                                <>
+                                  <span>•</span>
+                                  <div className="flex gap-2">
+                                    {article.tags.slice(0, 3).map(tag => (
+                                      <Badge key={tag} variant="secondary" className="text-xs">
+                                        {tag}
+                                      </Badge>
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </Link>
                   );
                 })}
               </div>

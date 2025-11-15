@@ -3,6 +3,8 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Flame, TrendingUp, Star } from "lucide-react";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface FeaturedSidebarLayoutProps {
   articles?: Omit<Article, 'content'>[];
@@ -10,6 +12,7 @@ interface FeaturedSidebarLayoutProps {
 }
 
 export function FeaturedSidebarLayout({ articles, isLoading }: FeaturedSidebarLayoutProps) {
+  const { channel } = useChannel();
   const featuredArticle = articles?.find(a => a.featured);
   const mainArticles = articles?.filter(a => !a.featured).slice(0, 4) || [];
   const sidebarTrending = articles?.slice(4, 9) || [];
@@ -25,38 +28,40 @@ export function FeaturedSidebarLayout({ articles, isLoading }: FeaturedSidebarLa
             {isLoading ? (
               <Skeleton className="w-full h-[500px] rounded-lg" />
             ) : featuredArticle ? (
-              <article className="relative rounded-lg overflow-hidden group hover-elevate">
-                <img
-                  src={featuredArticle.image}
-                  alt={featuredArticle.imageAlt || featuredArticle.title}
-                  className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
-                    <Badge variant="secondary">FEATURED</Badge>
-                    <Badge variant="outline" className="text-white border-white">
-                      {featuredArticle.category}
-                    </Badge>
+              <Link href={`/${channel?.id}/article/${featuredArticle.slug}`}>
+                <article className="relative rounded-lg overflow-hidden group hover-elevate cursor-pointer">
+                  <img
+                    src={featuredArticle.image}
+                    alt={featuredArticle.imageAlt || featuredArticle.title}
+                    className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Star className="h-5 w-5 text-yellow-500 fill-yellow-500" />
+                      <Badge variant="secondary">FEATURED</Badge>
+                      <Badge variant="outline" className="text-white border-white">
+                        {featuredArticle.category}
+                      </Badge>
+                    </div>
+                    <h1 className="text-4xl font-bold text-white mb-4 line-clamp-3">
+                      {featuredArticle.title}
+                    </h1>
+                    <p className="text-lg text-white/90 mb-4 line-clamp-2">
+                      {featuredArticle.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-white/80 text-sm">
+                      <span className="font-medium">{featuredArticle.author}</span>
+                      <span>•</span>
+                      <span>{new Date(featuredArticle.publishedAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                      })}</span>
+                    </div>
                   </div>
-                  <h1 className="text-4xl font-bold text-white mb-4 line-clamp-3">
-                    {featuredArticle.title}
-                  </h1>
-                  <p className="text-lg text-white/90 mb-4 line-clamp-2">
-                    {featuredArticle.excerpt}
-                  </p>
-                  <div className="flex items-center gap-4 text-white/80 text-sm">
-                    <span className="font-medium">{featuredArticle.author}</span>
-                    <span>•</span>
-                    <span>{new Date(featuredArticle.publishedAt).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric'
-                    })}</span>
-                  </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ) : null}
 
             {/* Main Grid - 2x2 */}

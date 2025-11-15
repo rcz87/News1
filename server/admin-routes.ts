@@ -35,10 +35,26 @@ const upload = multer({
   }
 });
 
-// Admin credentials (in production, use database)
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
+// Admin credentials - MUST be set via environment variables in production
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Validate required environment variables in production
+if (isProduction && (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD || !process.env.JWT_SECRET)) {
+  console.error('SECURITY ERROR: Admin credentials not configured!');
+  console.error('Required environment variables: ADMIN_USERNAME, ADMIN_PASSWORD, JWT_SECRET');
+  process.exit(1);
+}
+
+// Admin credentials
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || (isProduction ? '' : 'admin');
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || (isProduction ? '' : 'admin123');
+const JWT_SECRET = process.env.JWT_SECRET || (isProduction ? '' : 'dev-secret-key-change-in-production');
+
+// Additional security check
+if (isProduction && (ADMIN_PASSWORD === 'admin123' || JWT_SECRET.includes('change'))) {
+  console.error('SECURITY ERROR: Default credentials detected in production!');
+  process.exit(1);
+}
 
 // Pre-hash password for comparison
 let ADMIN_PASSWORD_HASH: string;
