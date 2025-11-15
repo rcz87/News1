@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useRoute, Link } from "wouter";
 import { Article } from "@shared/schema";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -9,7 +9,7 @@ import { useChannel } from "@/lib/channel-context";
 import { SEO } from "@/components/SEO";
 
 export default function CategoryPage() {
-  const [, params] = useRoute("/category/:category");
+  const [, params] = useRoute("/:channelId/category/:category");
   const category = params?.category;
   const { channel } = useChannel();
 
@@ -63,9 +63,11 @@ export default function CategoryPage() {
                 Konten kategori {categoryName.toLowerCase()} sedang dalam proses pembaruan. 
                 Silakan kembali lagi nanti untuk artikel terbaru.
               </p>
-              <a href={`/${channel?.id}`} className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
-                ← Kembali ke Beranda
-              </a>
+              <Link href={`/${channel?.id}`}>
+                <span className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors cursor-pointer">
+                  ← Kembali ke Beranda
+                </span>
+              </Link>
             </div>
           </div>
         )}

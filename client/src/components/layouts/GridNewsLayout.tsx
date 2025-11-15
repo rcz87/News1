@@ -2,6 +2,8 @@ import { Article } from "@shared/schema";
 import { ArticleCard } from "@/components/ArticleCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface GridNewsLayoutProps {
   articles?: Omit<Article, 'content'>[];
@@ -9,6 +11,7 @@ interface GridNewsLayoutProps {
 }
 
 export function GridNewsLayout({ articles, isLoading }: GridNewsLayoutProps) {
+  const { channel } = useChannel();
   const featuredArticles = articles?.filter(a => a.featured).slice(0, 2) || [];
   const regularArticles = articles?.filter(a => !a.featured) || [];
 
@@ -25,28 +28,30 @@ export function GridNewsLayout({ articles, isLoading }: GridNewsLayoutProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featuredArticles.length > 0 ? (
               featuredArticles.map((article) => (
-                <div key={article.slug} className="relative rounded-lg overflow-hidden group hover-elevate">
-                  <img
-                    src={article.image}
-                    alt={article.imageAlt || article.title}
-                    className="w-full h-[400px] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-                  <div className="absolute bottom-0 p-8 text-white">
-                    <Badge variant="destructive" className="mb-3">FEATURED</Badge>
-                    <h2 className="text-3xl font-bold mb-3 line-clamp-2">
-                      {article.title}
-                    </h2>
-                    <p className="text-sm opacity-90 line-clamp-2 mb-4">
-                      {article.excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs">
-                      <span>{article.category}</span>
-                      <span>•</span>
-                      <span>{article.author}</span>
+                <Link key={article.slug} href={`/${channel?.id}/article/${article.slug}`}>
+                  <div className="relative rounded-lg overflow-hidden group hover-elevate cursor-pointer">
+                    <img
+                      src={article.image}
+                      alt={article.imageAlt || article.title}
+                      className="w-full h-[400px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className="absolute bottom-0 p-8 text-white">
+                      <Badge variant="destructive" className="mb-3">FEATURED</Badge>
+                      <h2 className="text-3xl font-bold mb-3 line-clamp-2">
+                        {article.title}
+                      </h2>
+                      <p className="text-sm opacity-90 line-clamp-2 mb-4">
+                        {article.excerpt}
+                      </p>
+                      <div className="flex items-center gap-3 text-xs">
+                        <span>{article.category}</span>
+                        <span>•</span>
+                        <span>{article.author}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <div className="col-span-2 text-center py-12 text-muted-foreground">
@@ -79,33 +84,32 @@ export function GridNewsLayout({ articles, isLoading }: GridNewsLayoutProps) {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {regularArticles.map((article) => (
-              <article
-                key={article.slug}
-                className="group hover-elevate rounded-lg overflow-hidden bg-background"
-              >
-                <img
-                  src={article.image}
-                  alt={article.imageAlt || article.title}
-                  className="w-full aspect-square object-cover"
-                />
-                <div className="p-3">
-                  <Badge variant="outline" className="text-xs mb-2">
-                    {article.category}
-                  </Badge>
-                  <h3 className="font-bold text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
-                    {article.excerpt}
-                  </p>
-                  <div className="text-xs text-muted-foreground">
-                    {new Date(article.publishedAt).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'short'
-                    })}
+              <Link key={article.slug} href={`/${channel?.id}/article/${article.slug}`}>
+                <article className="group hover-elevate rounded-lg overflow-hidden bg-background cursor-pointer">
+                  <img
+                    src={article.image}
+                    alt={article.imageAlt || article.title}
+                    className="w-full aspect-square object-cover"
+                  />
+                  <div className="p-3">
+                    <Badge variant="outline" className="text-xs mb-2">
+                      {article.category}
+                    </Badge>
+                    <h3 className="font-bold text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-2">
+                      {article.excerpt}
+                    </p>
+                    <div className="text-xs text-muted-foreground">
+                      {new Date(article.publishedAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short'
+                      })}
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         )}
