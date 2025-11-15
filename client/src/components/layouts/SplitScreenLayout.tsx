@@ -3,6 +3,8 @@ import { ArticleCard } from "@/components/ArticleCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Clock } from "lucide-react";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface SplitScreenLayoutProps {
   articles?: Omit<Article, 'content'>[];
@@ -10,6 +12,7 @@ interface SplitScreenLayoutProps {
 }
 
 export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProps) {
+  const { channel } = useChannel();
   const featuredArticles = articles?.filter(a => a.featured).slice(0, 3) || [];
   const trendingArticles = articles?.filter(a => !a.featured).slice(0, 6) || [];
   const recentArticles = articles?.slice(6, 12) || [];
@@ -19,11 +22,13 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
       {/* Split Hero - Two Equal Sections */}
       <section className="grid grid-cols-1 lg:grid-cols-2 h-[600px]">
         {/* Left Side - Featured Large */}
-        <div className="relative overflow-hidden group">
-          {isLoading ? (
+        {isLoading ? (
+          <div className="relative overflow-hidden">
             <Skeleton className="w-full h-full" />
-          ) : featuredArticles[0] ? (
-            <>
+          </div>
+        ) : featuredArticles[0] ? (
+          <Link href={`/${channel?.id}/article/${featuredArticles[0].slug}`}>
+            <div className="relative overflow-hidden group cursor-pointer h-full">
               <img
                 src={featuredArticles[0].image}
                 alt={featuredArticles[0].imageAlt || featuredArticles[0].title}
@@ -46,9 +51,9 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
                   <span>{new Date(featuredArticles[0].publishedAt).toLocaleDateString('id-ID')}</span>
                 </div>
               </div>
-            </>
-          ) : null}
-        </div>
+            </div>
+          </Link>
+        ) : null}
 
         {/* Right Side - Stacked Medium Articles */}
         <div className="grid grid-rows-2">
@@ -60,46 +65,50 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
           ) : (
             <>
               {featuredArticles[1] && (
-                <div className="relative overflow-hidden group border-b lg:border-l">
-                  <img
-                    src={featuredArticles[1].image}
-                    alt={featuredArticles[1].imageAlt || featuredArticles[1].title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 p-6 text-white">
-                    <Badge variant="outline" className="mb-2 text-white border-white">
-                      {featuredArticles[1].category}
-                    </Badge>
-                    <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-2">
-                      {featuredArticles[1].title}
-                    </h3>
-                    <p className="text-sm opacity-90 line-clamp-2">
-                      {featuredArticles[1].excerpt}
-                    </p>
+                <Link href={`/${channel?.id}/article/${featuredArticles[1].slug}`}>
+                  <div className="relative overflow-hidden group border-b lg:border-l cursor-pointer h-full">
+                    <img
+                      src={featuredArticles[1].image}
+                      alt={featuredArticles[1].imageAlt || featuredArticles[1].title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 p-6 text-white">
+                      <Badge variant="outline" className="mb-2 text-white border-white">
+                        {featuredArticles[1].category}
+                      </Badge>
+                      <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-2">
+                        {featuredArticles[1].title}
+                      </h3>
+                      <p className="text-sm opacity-90 line-clamp-2">
+                        {featuredArticles[1].excerpt}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               )}
               {featuredArticles[2] && (
-                <div className="relative overflow-hidden group lg:border-l">
-                  <img
-                    src={featuredArticles[2].image}
-                    alt={featuredArticles[2].imageAlt || featuredArticles[2].title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                  <div className="absolute bottom-0 p-6 text-white">
-                    <Badge variant="outline" className="mb-2 text-white border-white">
-                      {featuredArticles[2].category}
-                    </Badge>
-                    <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-2">
-                      {featuredArticles[2].title}
-                    </h3>
-                    <p className="text-sm opacity-90 line-clamp-2">
-                      {featuredArticles[2].excerpt}
-                    </p>
+                <Link href={`/${channel?.id}/article/${featuredArticles[2].slug}`}>
+                  <div className="relative overflow-hidden group lg:border-l cursor-pointer h-full">
+                    <img
+                      src={featuredArticles[2].image}
+                      alt={featuredArticles[2].imageAlt || featuredArticles[2].title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 p-6 text-white">
+                      <Badge variant="outline" className="mb-2 text-white border-white">
+                        {featuredArticles[2].category}
+                      </Badge>
+                      <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-2">
+                        {featuredArticles[2].title}
+                      </h3>
+                      <p className="text-sm opacity-90 line-clamp-2">
+                        {featuredArticles[2].excerpt}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               )}
             </>
           )}
