@@ -3,6 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
+import { Link } from "wouter";
+import { useChannel } from "@/lib/channel-context";
 
 interface CardStackLayoutProps {
   articles?: Omit<Article, 'content'>[];
@@ -10,6 +12,7 @@ interface CardStackLayoutProps {
 }
 
 export function CardStackLayout({ articles, isLoading }: CardStackLayoutProps) {
+  const { channel } = useChannel();
   const [activeIndex, setActiveIndex] = useState(0);
   const stackArticles = articles?.slice(0, 5) || [];
   const gridArticles = articles?.slice(5) || [];
@@ -52,68 +55,74 @@ export function CardStackLayout({ articles, isLoading }: CardStackLayoutProps) {
 
             {/* Active Card */}
             {stackArticles[activeIndex] && (
-              <article
-                key={activeIndex}
-                className="relative w-full max-w-4xl bg-background rounded-2xl shadow-2xl overflow-hidden hover-elevate animate-scale-in"
-                style={{ zIndex: 100 }}
-              >
-                <div className="h-2 bg-gradient-to-r from-primary to-primary/50" />
+              <Link href={`/${channel?.id}/article/${stackArticles[activeIndex].slug}`}>
+                <article
+                  key={activeIndex}
+                  className="relative w-full max-w-4xl bg-background rounded-2xl shadow-2xl overflow-hidden hover-elevate animate-scale-in cursor-pointer"
+                  style={{ zIndex: 100 }}
+                >
+                  <div className="h-2 bg-gradient-to-r from-primary to-primary/50" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2">
-                  {/* Image Side */}
-                  <div className="relative h-64 md:h-auto">
-                    <img
-                      src={stackArticles[activeIndex].image}
-                      alt={stackArticles[activeIndex].imageAlt || stackArticles[activeIndex].title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge variant="secondary" className="text-lg px-4 py-2">
-                        {stackArticles[activeIndex].category}
-                      </Badge>
-                    </div>
-                  </div>
-
-                  {/* Content Side */}
-                  <div className="p-8 md:p-12 flex flex-col justify-between">
-                    <div>
-                      <div className="text-sm text-muted-foreground mb-3">
-                        {new Date(stackArticles[activeIndex].publishedAt).toLocaleDateString('id-ID', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </div>
-
-                      <h3 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                        {stackArticles[activeIndex].title}
-                      </h3>
-
-                      <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                        {stackArticles[activeIndex].excerpt}
-                      </p>
-
-                      <div className="flex items-center gap-3 mb-8">
-                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">
-                          {stackArticles[activeIndex].author[0]}
-                        </div>
-                        <div>
-                          <div className="font-medium">{stackArticles[activeIndex].author}</div>
-                          <div className="text-sm text-muted-foreground">Penulis</div>
-                        </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2">
+                    {/* Image Side */}
+                    <div className="relative h-64 md:h-auto">
+                      <img
+                        src={stackArticles[activeIndex].image}
+                        alt={stackArticles[activeIndex].imageAlt || stackArticles[activeIndex].title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <Badge variant="secondary" className="text-lg px-4 py-2">
+                          {stackArticles[activeIndex].category}
+                        </Badge>
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => setActiveIndex((prev) => (prev + 1) % stackArticles.length)}
-                      className="flex items-center gap-2 text-primary font-medium hover:gap-4 transition-all group"
-                    >
-                      <span>Berita Selanjutnya</span>
-                      <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    {/* Content Side */}
+                    <div className="p-8 md:p-12 flex flex-col justify-between">
+                      <div>
+                        <div className="text-sm text-muted-foreground mb-3">
+                          {new Date(stackArticles[activeIndex].publishedAt).toLocaleDateString('id-ID', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                          })}
+                        </div>
+
+                        <h3 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                          {stackArticles[activeIndex].title}
+                        </h3>
+
+                        <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                          {stackArticles[activeIndex].excerpt}
+                        </p>
+
+                        <div className="flex items-center gap-3 mb-8">
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-bold text-primary">
+                            {stackArticles[activeIndex].author[0]}
+                          </div>
+                          <div>
+                            <div className="font-medium">{stackArticles[activeIndex].author}</div>
+                            <div className="text-sm text-muted-foreground">Penulis</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setActiveIndex((prev) => (prev + 1) % stackArticles.length);
+                        }}
+                        className="flex items-center gap-2 text-primary font-medium hover:gap-4 transition-all group"
+                      >
+                        <span>Berita Selanjutnya</span>
+                        <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             )}
           </div>
         )}
@@ -149,36 +158,35 @@ export function CardStackLayout({ articles, isLoading }: CardStackLayoutProps) {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gridArticles.map((article) => (
-              <article
-                key={article.slug}
-                className="bg-background rounded-xl overflow-hidden shadow-lg hover-elevate group"
-              >
-                <div className="relative h-48">
-                  <img
-                    src={article.image}
-                    alt={article.imageAlt || article.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <Badge variant="secondary" className="absolute top-3 left-3">
-                    {article.category}
-                  </Badge>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{article.author}</span>
-                    <span>{new Date(article.publishedAt).toLocaleDateString('id-ID', {
-                      day: 'numeric',
-                      month: 'short'
-                    })}</span>
+              <Link key={article.slug} href={`/${channel?.id}/article/${article.slug}`}>
+                <article className="bg-background rounded-xl overflow-hidden shadow-lg hover-elevate group cursor-pointer">
+                  <div className="relative h-48">
+                    <img
+                      src={article.image}
+                      alt={article.imageAlt || article.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <Badge variant="secondary" className="absolute top-3 left-3">
+                      {article.category}
+                    </Badge>
                   </div>
-                </div>
-              </article>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                      {article.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground">
+                      <span>{article.author}</span>
+                      <span>{new Date(article.publishedAt).toLocaleDateString('id-ID', {
+                        day: 'numeric',
+                        month: 'short'
+                      })}</span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
             ))}
           </div>
         )}
