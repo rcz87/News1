@@ -138,10 +138,52 @@ export class ContentService {
   }
 
   /**
-   * Search articles by query (basic text search)
-   * Note: This will be replaced with full-text search in Phase 2
+   * Search articles using PostgreSQL full-text search
+   * Uses tsvector and tsquery for fast, ranked search results
    */
   async searchArticles(channelId: string, query: string): Promise<Article[]> {
+    try {
+      // Create tsquery from search terms
+      const searchQuery = query
+        .trim()
+        .split(/\s+/)
+        .filter(term => term.length > 0)
+        .join(' & ');
+
+      if (!searchQuery) {
+        return [];
+      }
+
+      // Use PostgreSQL full-text search with ranking
+      const searchResults = await db
+        .select()
+        .from(articles)
+        .where(
+          and(
+            eq(articles.channelId, channelId),
+            eq(articles.status, "published"),
+            sql`${articles.searchVector} @@ to_tsquery('english', ${searchQuery})`
+          )
+        )
+        .orderBy(
+          // Order by relevance rank (higher rank = better match)
+          desc(sql`ts_rank(${articles.searchVector}, to_tsquery('english', ${searchQuery}))`),
+          desc(articles.publishedAt)
+        )
+        .limit(100);
+
+      return searchResults.map(this.formatArticleForAPI);
+    } catch (error) {
+      console.error(`Error in full-text search:`, error);
+      // Fallback to basic ILIKE search if full-text search fails
+      return this.searchArticlesFallback(channelId, query);
+    }
+  }
+
+  /**
+   * Fallback search using ILIKE (in case full-text search fails)
+   */
+  private async searchArticlesFallback(channelId: string, query: string): Promise<Article[]> {
     try {
       const lowercaseQuery = `%${query.toLowerCase()}%`;
 
@@ -152,11 +194,7 @@ export class ContentService {
           or(
             ilike(articles.title, lowercaseQuery),
             ilike(articles.excerpt, lowercaseQuery),
-            ilike(articles.content, lowercaseQuery),
-            sql`EXISTS (
-              SELECT 1 FROM jsonb_array_elements_text(${articles.tags}) AS tag
-              WHERE LOWER(tag) LIKE ${lowercaseQuery}
-            )`
+            ilike(articles.content, lowercaseQuery)
           )
         ),
         orderBy: [desc(articles.publishedAt)],
@@ -165,7 +203,7 @@ export class ContentService {
 
       return searchResults.map(this.formatArticleForAPI);
     } catch (error) {
-      console.error(`Error searching articles:`, error);
+      console.error(`Error in fallback search:`, error);
       return [];
     }
   }
@@ -195,16 +233,19 @@ export class ContentService {
       // Status filter (always published for public)
       conditions.push(eq(articles.status, "published"));
 
-      // Text search
+      // Text search using full-text search
       if (params.query) {
-        const lowercaseQuery = `%${params.query.toLowerCase()}%`;
-        conditions.push(
-          or(
-            ilike(articles.title, lowercaseQuery),
-            ilike(articles.excerpt, lowercaseQuery),
-            ilike(articles.content, lowercaseQuery)
-          )
-        );
+        const searchQuery = params.query
+          .trim()
+          .split(/\s+/)
+          .filter(term => term.length > 0)
+          .join(' & ');
+
+        if (searchQuery) {
+          conditions.push(
+            sql`${articles.searchVector} @@ to_tsquery('english', ${searchQuery})`
+          );
+        }
       }
 
       // Category filter
