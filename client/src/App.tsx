@@ -13,6 +13,9 @@ import HomePage from "@/pages/HomePage";
 import ArticlePage from "@/pages/ArticlePage";
 import CategoryPage from "@/pages/CategoryPage";
 import SearchPage from "@/pages/SearchPage";
+import AboutPage from "@/pages/AboutPage";
+import PrivacyPage from "@/pages/PrivacyPage";
+import ContactPage from "@/pages/ContactPage";
 import AdminLogin from "@/pages/admin/AdminLogin";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import ArticleList from "@/pages/admin/ArticleList";
@@ -54,6 +57,9 @@ function Router({ channel }: { channel: ChannelConfig | null }) {
       <Route path="/:channelId/article/:slug" component={ArticlePage} />
       <Route path="/:channelId/category/:category" component={CategoryPage} />
       <Route path="/:channelId/search" component={SearchPage} />
+      <Route path="/:channelId/about" component={AboutPage} />
+      <Route path="/:channelId/privacy" component={PrivacyPage} />
+      <Route path="/:channelId/contact" component={ContactPage} />
 
       <Route component={NotFound} />
     </Switch>
