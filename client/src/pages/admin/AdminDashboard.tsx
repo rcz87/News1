@@ -7,15 +7,16 @@ import { FileText, Eye, PlusCircle, TrendingUp } from "lucide-react";
 import { getAuthHeaders } from "@/lib/auth-context";
 import { useChannel } from "@/lib/channel-context";
 import { Skeleton } from "@/components/ui/skeleton";
+import { buildApiUrl } from "@/lib/api";
 
 export default function AdminDashboard() {
   const { channel } = useChannel();
 
   const { data: articles, isLoading } = useQuery({
-    queryKey: [`/api/admin/articles`, channel?.id],
+    queryKey: [`/admin/articles`, channel?.id],
     queryFn: async () => {
       const response = await fetch(
-        `/api/admin/articles?channel=${channel?.id}`,
+        buildApiUrl(`/admin/articles?channel=${channel?.id}`),
         {
           headers: getAuthHeaders(),
         }

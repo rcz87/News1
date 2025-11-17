@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { buildApiUrl } from "@/lib/api";
 import {
   Select,
   SelectContent,
@@ -54,10 +55,10 @@ export default function ArticleEditor() {
 
   // Fetch existing article for edit mode
   const { data: existingArticle } = useQuery({
-    queryKey: [`/api/admin/articles/${slug}`, channelParam],
+    queryKey: [`/admin/articles/${slug}`, channelParam],
     queryFn: async () => {
       const response = await fetch(
-        `/api/admin/articles/${slug}?channel=${channelParam}`,
+        buildApiUrl(`/admin/articles/${slug}?channel=${channelParam}`),
         {
           headers: getAuthHeaders(),
         }
@@ -101,11 +102,11 @@ export default function ArticleEditor() {
   // Save mutation
   const saveMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      const url = isEditMode
-        ? `/api/admin/articles/${slug}?channel=${channelParam}`
-        : `/api/admin/articles`;
+      const path = isEditMode
+        ? `/admin/articles/${slug}?channel=${channelParam}`
+        : `/admin/articles`;
 
-      const response = await fetch(url, {
+      const response = await fetch(buildApiUrl(path), {
         method: isEditMode ? "PUT" : "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
@@ -122,7 +123,7 @@ export default function ArticleEditor() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/admin/articles`] });
+      queryClient.invalidateQueries({ queryKey: [`/admin/articles`] });
       toast({
         title: isEditMode ? "Article updated" : "Article created",
         description: `The article has been successfully ${isEditMode ? "updated" : "created"}.`,
