@@ -42,6 +42,12 @@ export class ContentService {
    * Get a single article by channel and slug
    */
   async getArticle(channelId: string, slug: string): Promise<Article | null> {
+    // Temporarily force file system fallback due to database issues
+    console.log(`Using file system fallback for article ${channelId}/${slug}`);
+    return this.getArticleFromFile(channelId, slug);
+
+    // Original database code (disabled for now)
+    /*
     try {
       const article = await db.query.articles.findFirst({
         where: and(
@@ -64,8 +70,11 @@ export class ContentService {
       return this.formatArticleForAPI(article);
     } catch (error) {
       console.error(`Error reading article ${channelId}/${slug}:`, error);
-      return null;
+      // Fallback to file system
+      console.log(`Falling back to file system for article ${channelId}/${slug}`);
+      return this.getArticleFromFile(channelId, slug);
     }
+    */
   }
 
   /**
@@ -410,6 +419,57 @@ export class ContentService {
     } catch (error) {
       console.error(`Error reading articles from files for channel ${channelId}:`, error);
       return [];
+    }
+  }
+
+  /**
+   * Fallback method to read a single article from file system
+   * Used when database is not available
+   */
+  private async getArticleFromFile(channelId: string, slug: string): Promise<Article | null> {
+    try {
+      const filePath = path.join(process.cwd(), 'content', channelId, `${slug}.md`);
+
+      try {
+        const content = await fs.readFile(filePath, 'utf-8');
+        const stats = await fs.stat(filePath);
+
+        // Parse frontmatter and content
+        const { data: frontmatter, content: articleContent } = this.parseMarkdownFrontmatter(content);
+
+        const article: Article = {
+          id: slug,
+          slug,
+          title: frontmatter.title || this.slugToTitle(slug),
+          excerpt: frontmatter.excerpt || this.generateExcerpt(articleContent),
+          content: articleContent,
+          author: frontmatter.author || 'Admin',
+          authorId: frontmatter.authorId || 'admin',
+          channelId,
+          category: frontmatter.category || 'Berita',
+          tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+          image: frontmatter.image || '',
+          imageAlt: frontmatter.imageAlt || frontmatter.title || this.slugToTitle(slug),
+          status: 'published',
+          featured: frontmatter.featured || false,
+          publishedAt: frontmatter.date ? new Date(frontmatter.date).toISOString() : stats.mtime.toISOString(),
+          scheduledFor: frontmatter.scheduledFor ? new Date(frontmatter.scheduledFor).toISOString() : undefined,
+          createdAt: stats.birthtime.toISOString(),
+          updatedAt: stats.mtime.toISOString(),
+          metaTitle: frontmatter.metaTitle,
+          metaDescription: frontmatter.metaDescription,
+          metaKeywords: Array.isArray(frontmatter.metaKeywords) ? frontmatter.metaKeywords : [],
+          viewCount: 0,
+        };
+
+        return article;
+      } catch (fileError) {
+        console.error(`Article file not found: ${filePath}`, fileError);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error reading article from file ${channelId}/${slug}:`, error);
+      return null;
     }
   }
 
