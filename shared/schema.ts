@@ -43,6 +43,7 @@ export const articleSchema = z.object({
   author: z.string(),
   authorId: z.string().optional().nullable(),
   channelId: z.string(),
+  channel: z.string().optional(),
   category: z.string(),
   tags: z.array(z.string()).default([]),
   image: z.string(),

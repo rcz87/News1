@@ -26,8 +26,11 @@ import NotFound from "@/pages/not-found";
 function Router({ channel }: { channel: ChannelConfig | null }) {
   return (
     <Switch>
-      {/* Root homepage - show channel selector */}
-      <Route path="/" component={() => <ChannelSelector />} />
+      {/* Root homepage - redirect to default channel */}
+      <Route path="/" component={() => {
+        window.location.href = '/cakranews';
+        return null;
+      }} />
 
       {/* Admin routes */}
       <Route path="/admin/login" component={AdminLogin} />
@@ -177,17 +180,17 @@ function App() {
     const detectChannel = () => {
       const path = location;
       let detectedChannel: ChannelConfig | null = null;
-      
+
       console.log('App.tsx - Detecting channel from path:', path);
-      
+
       // Detect channel from path (e.g., /ambal, /beritaangin, etc.)
       if (path !== '/' && path !== '') {
         // Extract channel ID from path
         const pathParts = path.split('/').filter(Boolean);
         const channelId = pathParts[0];
-        
+
         console.log('App.tsx - Path parts:', pathParts, 'Channel ID:', channelId);
-        
+
         if (channelId && CHANNELS[channelId]) {
           detectedChannel = CHANNELS[channelId];
           console.log('App.tsx - Detected channel:', detectedChannel.id);
@@ -197,7 +200,7 @@ function App() {
       } else {
         console.log('App.tsx - Root path, no channel detected');
       }
-      
+
       setChannel(detectedChannel);
       setLoading(false);
     };
