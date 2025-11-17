@@ -3,6 +3,7 @@ import { eq, and, desc, or, like, sql, ilike } from "drizzle-orm";
 import fs from "fs/promises";
 import path from "path";
 import { marked } from "marked";
+import { CHANNELS } from "../shared/channels";
 
 /**
  * Content Service - Database-backed article management
@@ -335,6 +336,7 @@ export class ContentService {
       author: article.author,
       authorId: article.authorId,
       channelId: article.channelId,
+      channel: CHANNELS[article.channelId]?.name,
       category: article.category,
       tags: article.tags || [],
       image: article.image,
@@ -387,6 +389,7 @@ export class ContentService {
               author: frontmatter.author || 'Admin',
               authorId: frontmatter.authorId || 'admin',
               channelId,
+              channel: CHANNELS[channelId]?.name,
               category: frontmatter.category || 'Berita',
               tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
               image: frontmatter.image || '',
@@ -446,6 +449,7 @@ export class ContentService {
           author: frontmatter.author || 'Admin',
           authorId: frontmatter.authorId || 'admin',
           channelId,
+          channel: CHANNELS[channelId]?.name,
           category: frontmatter.category || 'Berita',
           tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
           image: frontmatter.image || '',
