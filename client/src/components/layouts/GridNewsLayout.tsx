@@ -12,8 +12,11 @@ interface GridNewsLayoutProps {
 
 export function GridNewsLayout({ articles, isLoading }: GridNewsLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticle = articles?.find(a => a.featured);
-  const regularArticles = articles?.filter(a => !a.featured).slice(0, 20) || [];
+  // Use featured article if exists, otherwise use the first article as hero
+  const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
+  // Get remaining articles (excluding the one used as hero)
+  const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
+  const regularArticles = remainingArticles.slice(0, 20);
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

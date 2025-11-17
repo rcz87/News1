@@ -12,9 +12,15 @@ interface SplitScreenLayoutProps {
 
 export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticles = articles?.filter(a => a.featured).slice(0, 3) || [];
-  const portArticles = articles?.filter(a => !a.featured).slice(0, 6) || [];
-  const starboardArticles = articles?.slice(6, 12) || [];
+  // Use featured articles if exist, otherwise use first 3 articles
+  const featuredArticles = articles?.filter(a => a.featured).slice(0, 3);
+  const hasFeatured = featuredArticles && featuredArticles.length > 0;
+  const actualFeatured = hasFeatured ? featuredArticles : articles?.slice(0, 3) || [];
+  // Get remaining articles excluding those used as featured
+  const usedSlugs = actualFeatured.map(a => a.slug);
+  const remainingArticles = articles?.filter(a => !usedSlugs.includes(a.slug)) || [];
+  const portArticles = remainingArticles.slice(0, 6);
+  const starboardArticles = remainingArticles.slice(6, 12);
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {
@@ -55,12 +61,12 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
           <div className="relative overflow-hidden">
             <Skeleton className="w-full h-full" />
           </div>
-        ) : featuredArticles[0] ? (
-          <Link href={`/${channel?.id}/article/${featuredArticles[0].slug}`}>
+        ) : actualFeatured[0] ? (
+          <Link href={`/${channel?.id}/article/${actualFeatured[0].slug}`}>
             <div className="relative overflow-hidden group cursor-pointer h-full border-r-4 border-cyan-300">
               <img
-                src={featuredArticles[0].image}
-                alt={featuredArticles[0].imageAlt || featuredArticles[0].title}
+                src={actualFeatured[0].image}
+                alt={actualFeatured[0].imageAlt || actualFeatured[0].title}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/95 via-blue-900/60 to-transparent" />
@@ -77,24 +83,24 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
 
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
                 <Badge className="mb-4 bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg text-sm px-4 py-1.5">
-                  {featuredArticles[0].category}
+                  {actualFeatured[0].category}
                 </Badge>
                 <h2 className="text-3xl md:text-5xl font-bold mb-4 line-clamp-3 leading-tight group-hover:text-cyan-300 transition-colors">
-                  {featuredArticles[0].title}
+                  {actualFeatured[0].title}
                 </h2>
                 <div className="h-1 w-24 bg-cyan-400 mb-4"></div>
                 <p className="text-lg md:text-xl opacity-90 line-clamp-2 mb-6 leading-relaxed">
-                  {featuredArticles[0].excerpt}
+                  {actualFeatured[0].excerpt}
                 </p>
                 <div className="flex items-center gap-4 text-sm text-cyan-200 border-t border-cyan-700 pt-4">
                   <div className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    <span className="font-semibold">{featuredArticles[0].author}</span>
+                    <span className="font-semibold">{actualFeatured[0].author}</span>
                   </div>
                   <span>•</span>
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    <span>{formatDate(featuredArticles[0].publishedAt)}</span>
+                    <span>{formatDate(actualFeatured[0].publishedAt)}</span>
                   </div>
                 </div>
               </div>
@@ -111,12 +117,12 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
             </>
           ) : (
             <>
-              {featuredArticles[1] && (
-                <Link href={`/${channel?.id}/article/${featuredArticles[1].slug}`}>
+              {actualFeatured[1] && (
+                <Link href={`/${channel?.id}/article/${actualFeatured[1].slug}`}>
                   <div className="relative overflow-hidden group border-b-4 border-cyan-300 cursor-pointer h-full">
                     <img
-                      src={featuredArticles[1].image}
-                      alt={featuredArticles[1].imageAlt || featuredArticles[1].title}
+                      src={actualFeatured[1].image}
+                      alt={actualFeatured[1].imageAlt || actualFeatured[1].title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-cyan-900/50 to-transparent" />
@@ -130,24 +136,24 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
 
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                       <Badge className="mb-3 bg-blue-600 text-white hover:bg-blue-700 shadow-lg text-xs">
-                        {featuredArticles[1].category}
+                        {actualFeatured[1].category}
                       </Badge>
                       <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-3 leading-tight group-hover:text-cyan-300 transition-colors">
-                        {featuredArticles[1].title}
+                        {actualFeatured[1].title}
                       </h3>
                       <p className="text-sm opacity-90 line-clamp-2">
-                        {featuredArticles[1].excerpt}
+                        {actualFeatured[1].excerpt}
                       </p>
                     </div>
                   </div>
                 </Link>
               )}
-              {featuredArticles[2] && (
-                <Link href={`/${channel?.id}/article/${featuredArticles[2].slug}`}>
+              {actualFeatured[2] && (
+                <Link href={`/${channel?.id}/article/${actualFeatured[2].slug}`}>
                   <div className="relative overflow-hidden group cursor-pointer h-full">
                     <img
-                      src={featuredArticles[2].image}
-                      alt={featuredArticles[2].imageAlt || featuredArticles[2].title}
+                      src={actualFeatured[2].image}
+                      alt={actualFeatured[2].imageAlt || actualFeatured[2].title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-cyan-900/90 via-blue-900/50 to-transparent" />
@@ -161,13 +167,13 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
 
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 text-white">
                       <Badge className="mb-3 bg-cyan-600 text-white hover:bg-cyan-700 shadow-lg text-xs">
-                        {featuredArticles[2].category}
+                        {actualFeatured[2].category}
                       </Badge>
                       <h3 className="text-xl md:text-2xl font-bold line-clamp-2 mb-3 leading-tight group-hover:text-cyan-300 transition-colors">
-                        {featuredArticles[2].title}
+                        {actualFeatured[2].title}
                       </h3>
                       <p className="text-sm opacity-90 line-clamp-2">
-                        {featuredArticles[2].excerpt}
+                        {actualFeatured[2].excerpt}
                       </p>
                     </div>
                   </div>
