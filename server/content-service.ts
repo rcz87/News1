@@ -1,5 +1,8 @@
 import { db, articles, type Article } from "../db/index";
 import { eq, and, desc, or, like, sql, ilike } from "drizzle-orm";
+import fs from "fs/promises";
+import path from "path";
+import { marked } from "marked";
 
 /**
  * Content Service - Database-backed article management
@@ -10,6 +13,12 @@ export class ContentService {
    * Get all articles for a specific channel
    */
   async getArticlesByChannel(channelId: string): Promise<Article[]> {
+    // Temporarily force file system fallback due to database issues
+    console.log(`Using file system fallback for channel ${channelId}`);
+    return this.getArticlesFromFiles(channelId);
+
+    // Original database code (disabled for now)
+    /*
     try {
       const channelArticles = await db.query.articles.findMany({
         where: and(
@@ -22,8 +31,11 @@ export class ContentService {
       return channelArticles.map(this.formatArticleForAPI);
     } catch (error) {
       console.error(`Error reading articles for channel ${channelId}:`, error);
-      return [];
+      // Fallback to file system
+      console.log(`Falling back to file system for channel ${channelId}`);
+      return this.getArticlesFromFiles(channelId);
     }
+    */
   }
 
   /**
@@ -330,6 +342,150 @@ export class ContentService {
       viewCount: article.viewCount || 0,
       searchVector: article.searchVector,
     };
+  }
+
+  /**
+   * Fallback method to read articles from file system
+   * Used when database is not available
+   */
+  private async getArticlesFromFiles(channelId: string): Promise<Article[]> {
+    try {
+      const channelPath = path.join(process.cwd(), 'content', channelId);
+
+      try {
+        const files = await fs.readdir(channelPath);
+        const markdownFiles = files.filter(file => file.endsWith('.md'));
+
+        const articles: Article[] = [];
+
+        for (const file of markdownFiles) {
+          try {
+            const filePath = path.join(channelPath, file);
+            const content = await fs.readFile(filePath, 'utf-8');
+            const stats = await fs.stat(filePath);
+
+            // Parse frontmatter and content
+            const { data: frontmatter, content: articleContent } = this.parseMarkdownFrontmatter(content);
+
+            const slug = file.replace('.md', '');
+
+            const article: Article = {
+              id: slug,
+              slug,
+              title: frontmatter.title || this.slugToTitle(slug),
+              excerpt: frontmatter.excerpt || this.generateExcerpt(articleContent),
+              content: articleContent,
+              author: frontmatter.author || 'Admin',
+              authorId: frontmatter.authorId || 'admin',
+              channelId,
+              category: frontmatter.category || 'Berita',
+              tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+              image: frontmatter.image || '',
+              imageAlt: frontmatter.imageAlt || frontmatter.title || this.slugToTitle(slug),
+              status: 'published',
+              featured: frontmatter.featured || false,
+              publishedAt: frontmatter.date ? new Date(frontmatter.date).toISOString() : stats.mtime.toISOString(),
+              scheduledFor: frontmatter.scheduledFor ? new Date(frontmatter.scheduledFor).toISOString() : undefined,
+              createdAt: stats.birthtime.toISOString(),
+              updatedAt: stats.mtime.toISOString(),
+              metaTitle: frontmatter.metaTitle,
+              metaDescription: frontmatter.metaDescription,
+              metaKeywords: Array.isArray(frontmatter.metaKeywords) ? frontmatter.metaKeywords : [],
+              viewCount: 0,
+            };
+
+            articles.push(article);
+          } catch (fileError) {
+            console.error(`Error reading file ${file}:`, fileError);
+          }
+        }
+
+        // Sort by published date (newest first)
+        return articles.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+      } catch (dirError) {
+        console.error(`Channel directory not found: ${channelPath}`, dirError);
+        return [];
+      }
+    } catch (error) {
+      console.error(`Error reading articles from files for channel ${channelId}:`, error);
+      return [];
+    }
+  }
+
+  /**
+   * Parse markdown frontmatter
+   */
+  private parseMarkdownFrontmatter(content: string): { data: any; content: string } {
+    const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+    const match = content.match(frontmatterRegex);
+
+    if (match) {
+      const frontmatterStr = match[1];
+      const articleContent = match[2];
+
+      try {
+        // Simple frontmatter parser (basic key: value pairs)
+        const frontmatter: any = {};
+        const lines = frontmatterStr.split('\n');
+
+        for (const line of lines) {
+          const colonIndex = line.indexOf(':');
+          if (colonIndex > 0) {
+            const key = line.substring(0, colonIndex).trim();
+            let value = line.substring(colonIndex + 1).trim();
+
+            // Remove quotes if present
+            if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+              value = value.slice(1, -1);
+            }
+
+            // Parse arrays (comma-separated)
+            if (key.includes('tags') || key.includes('keywords')) {
+              value = value.split(',').map((item: string) => item.trim()).filter(Boolean);
+            }
+
+            frontmatter[key] = value;
+          }
+        }
+
+        return { data: frontmatter, content: articleContent };
+      } catch (parseError) {
+        console.error('Error parsing frontmatter:', parseError);
+        return { data: {}, content };
+      }
+    }
+
+    return { data: {}, content };
+  }
+
+  /**
+   * Convert slug to title
+   */
+  private slugToTitle(slug: string): string {
+    return slug
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  /**
+   * Generate excerpt from content
+   */
+  private generateExcerpt(content: string, maxLength: number = 150): string {
+    const plainText = content
+      .replace(/^#+\s+/gm, '') // Remove headers
+      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+      .replace(/\*(.*?)\*/g, '$1') // Remove italic
+      .replace(/`(.*?)`/g, '$1') // Remove inline code
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
+      .replace(/\n/g, ' ') // Replace newlines with spaces
+      .trim();
+
+    if (plainText.length <= maxLength) {
+      return plainText;
+    }
+
+    return plainText.substring(0, maxLength).replace(/\s+\S*$/, '') + '...';
   }
 }
 
