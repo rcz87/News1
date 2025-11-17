@@ -12,8 +12,10 @@ interface TimelineLayoutProps {
 
 export function TimelineLayout({ articles, isLoading }: TimelineLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticle = articles?.find(a => a.featured);
-  const timelineArticles = articles?.filter(a => !a.featured) || [];
+  // Use featured article if exists, otherwise use the first article as hero
+  const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
+  // Get remaining articles (excluding the one used as hero)
+  const timelineArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
 
   // Group articles by date
   const groupedByDate = timelineArticles.reduce((acc, article) => {

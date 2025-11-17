@@ -12,10 +12,13 @@ interface SportsPortalLayoutProps {
 
 export function SportsPortalLayout({ articles, isLoading }: SportsPortalLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticle = articles?.find(a => a.featured);
-  const topStories = articles?.filter(a => !a.featured).slice(0, 3) || [];
-  const recentNews = articles?.filter(a => !a.featured).slice(3, 9) || [];
-  const sidebarNews = articles?.slice(9, 13) || [];
+  // Use featured article if exists, otherwise use the first article as hero
+  const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
+  // Get remaining articles (excluding the one used as hero)
+  const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
+  const topStories = remainingArticles.slice(0, 3);
+  const recentNews = remainingArticles.slice(3, 9);
+  const sidebarNews = remainingArticles.slice(9, 13);
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

@@ -12,10 +12,13 @@ interface FeaturedSidebarLayoutProps {
 
 export function FeaturedSidebarLayout({ articles, isLoading }: FeaturedSidebarLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticle = articles?.find(a => a.featured);
-  const mainArticles = articles?.filter(a => !a.featured).slice(0, 4) || [];
-  const sidebarTrending = articles?.slice(4, 9) || [];
-  const bottomGrid = articles?.slice(9, 15) || [];
+  // Use featured article if exists, otherwise use the first article as hero
+  const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
+  // Get remaining articles (excluding the one used as hero)
+  const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
+  const mainArticles = remainingArticles.slice(0, 4);
+  const sidebarTrending = remainingArticles.slice(4, 9);
+  const bottomGrid = remainingArticles.slice(9, 15);
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

@@ -12,8 +12,10 @@ interface MasonryGridLayoutProps {
 
 export function MasonryGridLayout({ articles, isLoading }: MasonryGridLayoutProps) {
   const { channel } = useChannel();
-  const featuredArticle = articles?.find(a => a.featured);
-  const otherArticles = articles?.filter(a => !a.featured) || [];
+  // Use featured article if exists, otherwise use the first article as hero
+  const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
+  // Get remaining articles (excluding the one used as hero)
+  const otherArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {
