@@ -22,11 +22,13 @@ export default function HomePage() {
   const { data: articles = [], isLoading } = useQuery<Article[]>({
     queryKey: [`/api/channels/${channel?.id}/articles`],
     enabled: !!channel,
-    refetchInterval: 30000, // Auto refresh every 30 seconds
+    refetchInterval: false, // Disable auto-refresh for better performance
+    staleTime: 2 * 60 * 1000, // Cache for 2 minutes
+    gcTime: 5 * 60 * 1000, // Keep in cache for 5 minutes
   });
 
-  // Only log in development or when there's an actual issue
-  if (process.env.NODE_ENV === 'development' || articles.length === 0) {
+  // Only log in development
+  if (process.env.NODE_ENV === 'development') {
     console.log('HomePage Debug:', {
       channel: channel?.id,
       isLoading,
@@ -36,9 +38,14 @@ export default function HomePage() {
   }
 
   if (!channel) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <p>Loading channel...</p>
-    </div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-3"></div>
+          <p className="text-gray-600 text-sm">Memuat channel...</p>
+        </div>
+      </div>
+    );
   }
 
   // Render different layout based on channel's layoutType

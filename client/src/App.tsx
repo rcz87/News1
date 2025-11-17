@@ -26,11 +26,8 @@ import NotFound from "@/pages/not-found";
 function Router({ channel }: { channel: ChannelConfig | null }) {
   return (
     <Switch>
-      {/* Root homepage - redirect to default channel */}
-      <Route path="/" component={() => {
-        window.location.href = '/cakranews';
-        return null;
-      }} />
+      {/* Root homepage - show channel selector */}
+      <Route path="/" component={ChannelSelector} />
 
       {/* Admin routes */}
       <Route path="/admin/login" component={AdminLogin} />
