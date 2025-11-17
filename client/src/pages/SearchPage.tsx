@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useChannel } from "@/lib/channel-context";
 import { SEO } from "@/components/SEO";
 import { Search as SearchIcon } from "lucide-react";
+import { buildApiUrl } from "@/lib/api";
 
 export default function SearchPage() {
   const [, params] = useRoute("/:channelId/search");
@@ -18,11 +19,11 @@ export default function SearchPage() {
   const searchQuery = urlParams.get("q") || "";
 
   const { data: articles, isLoading } = useQuery<Article[]>({
-    queryKey: [`/api/channels/${channel?.id}/search`, searchQuery],
+    queryKey: [`/channels/${channel?.id}/search`, searchQuery],
     queryFn: async () => {
       if (!searchQuery || !channel) return [];
       const response = await fetch(
-        `/api/channels/${channel.id}/search?q=${encodeURIComponent(searchQuery)}`
+        buildApiUrl(`/channels/${channel.id}/search?q=${encodeURIComponent(searchQuery)}`)
       );
       if (!response.ok) throw new Error("Search failed");
       return response.json();

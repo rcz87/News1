@@ -4,6 +4,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
+import { buildApiUrl } from "@/lib/api";
 import {
   Table,
   TableBody,
@@ -32,10 +33,10 @@ export default function ArticleList() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { data: articles, isLoading } = useQuery({
-    queryKey: [`/api/admin/articles`, channel?.id],
+    queryKey: [`/admin/articles`, channel?.id],
     queryFn: async () => {
       const response = await fetch(
-        `/api/admin/articles?channel=${channel?.id}`,
+        buildApiUrl(`/admin/articles?channel=${channel?.id}`),
         {
           headers: getAuthHeaders(),
         }
@@ -49,7 +50,7 @@ export default function ArticleList() {
   const deleteMutation = useMutation({
     mutationFn: async (slug: string) => {
       const response = await fetch(
-        `/api/admin/articles/${slug}?channel=${channel?.id}`,
+        buildApiUrl(`/admin/articles/${slug}?channel=${channel?.id}`),
         {
           method: "DELETE",
           headers: getAuthHeaders(),
@@ -59,7 +60,7 @@ export default function ArticleList() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [`/api/admin/articles`] });
+      queryClient.invalidateQueries({ queryKey: [`/admin/articles`] });
       toast({
         title: "Article deleted",
         description: "The article has been successfully deleted.",

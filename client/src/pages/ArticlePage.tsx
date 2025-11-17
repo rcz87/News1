@@ -38,7 +38,7 @@ export default function ArticlePage() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const { data: article, isLoading, error } = useQuery<ArticleWithHTML>({
-    queryKey: [`/api/channels/${channelId || channel?.id}/articles/${slug}`],
+    queryKey: [`/channels/${channelId || channel?.id}/articles/${slug}`],
     enabled: !!slug && !!(channelId || channel?.id),
   });
 
@@ -54,7 +54,7 @@ export default function ArticlePage() {
   });
 
   const { data: relatedArticles } = useQuery<Article[]>({
-    queryKey: [`/api/channels/${channelId || channel?.id}/categories/${article?.category}/articles`],
+    queryKey: [`/channels/${channelId || channel?.id}/categories/${article?.category}/articles`],
     enabled: !!article && !!(channelId || channel?.id),
   });
 

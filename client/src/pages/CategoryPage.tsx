@@ -14,7 +14,7 @@ export default function CategoryPage() {
   const { channel } = useChannel();
 
   const { data: articles, isLoading } = useQuery<Article[]>({
-    queryKey: [`/api/channels/${channel?.id}/categories/${category}/articles`],
+    queryKey: [`/channels/${channel?.id}/categories/${category}/articles`],
     enabled: !!category && !!channel,
   });
 

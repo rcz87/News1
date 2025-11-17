@@ -20,7 +20,7 @@ export default function HomePage() {
   const { channel } = useChannel();
 
   const { data: articles = [], isLoading } = useQuery<Article[]>({
-    queryKey: [`/api/channels/${channel?.id}/articles`],
+    queryKey: [`/channels/${channel?.id}/articles`],
     enabled: !!channel,
     refetchInterval: false, // Disable auto-refresh for better performance
     staleTime: 2 * 60 * 1000, // Cache for 2 minutes
