@@ -19,8 +19,10 @@ export function SplitScreenLayout({ articles, isLoading }: SplitScreenLayoutProp
   // Get remaining articles excluding those used as featured
   const usedSlugs = actualFeatured.map(a => a.slug);
   const remainingArticles = articles?.filter(a => !usedSlugs.includes(a.slug)) || [];
-  const portArticles = remainingArticles.slice(0, 6);
-  const starboardArticles = remainingArticles.slice(6, 12);
+  // Split remaining articles into two columns
+  const midPoint = Math.ceil(remainingArticles.length / 2);
+  const portArticles = remainingArticles.slice(0, midPoint);
+  const starboardArticles = remainingArticles.slice(midPoint); // Show all remaining in second column
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

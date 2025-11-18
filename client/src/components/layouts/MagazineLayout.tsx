@@ -17,7 +17,7 @@ export function MagazineLayout({ articles, isLoading }: MagazineLayoutProps) {
   // Get remaining articles (excluding the one used as hero)
   const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
   const topStories = remainingArticles.slice(0, 3);
-  const gridArticles = remainingArticles.slice(3, 11);
+  const gridArticles = remainingArticles.slice(3); // Show all remaining articles
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

@@ -17,7 +17,7 @@ export function HeroCarouselLayout({ articles, isLoading }: HeroCarouselLayoutPr
   const { channel } = useChannel();
   const heroArticles = articles?.slice(0, 5) || [];
   const gridArticles = articles?.slice(5, 11) || [];
-  const listArticles = articles?.slice(11) || [];
+  const listArticles = articles?.slice(11) || []; // Show all remaining articles
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
