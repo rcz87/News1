@@ -17,8 +17,8 @@ export function SportsPortalLayout({ articles, isLoading }: SportsPortalLayoutPr
   // Get remaining articles (excluding the one used as hero)
   const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
   const topStories = remainingArticles.slice(0, 3);
-  const recentNews = remainingArticles.slice(3, 9);
-  const sidebarNews = remainingArticles.slice(9, 13);
+  const recentNews = remainingArticles.slice(3); // Show all remaining articles after top stories
+  const sidebarNews = remainingArticles.slice(0, 10); // Show latest 10 in sidebar for better UX
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

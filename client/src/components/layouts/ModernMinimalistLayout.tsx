@@ -16,7 +16,7 @@ export function ModernMinimalistLayout({ articles, isLoading }: ModernMinimalist
   const featuredArticle = articles?.find(a => a.featured) || articles?.[0];
   // Get remaining articles (excluding the one used as hero)
   const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
-  const latestArticles = remainingArticles.slice(0, 8);
+  const latestArticles = remainingArticles; // Show all remaining articles
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

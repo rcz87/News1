@@ -15,7 +15,7 @@ export function SimpleHeroLayout({ articles, isLoading }: SimpleHeroLayoutProps)
   const { channel } = useChannel();
   const [currentSlide, setCurrentSlide] = useState(0);
   const heroArticles = articles?.filter(a => a.featured).slice(0, 3) || articles?.slice(0, 3) || [];
-  const gridArticles = articles?.filter(a => !heroArticles.includes(a)).slice(0, 9) || [];
+  const gridArticles = articles?.filter(a => !heroArticles.includes(a)) || []; // Show all remaining articles
 
   // Auto-rotate slides
   useEffect(() => {

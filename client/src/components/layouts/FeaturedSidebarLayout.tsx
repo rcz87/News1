@@ -17,8 +17,8 @@ export function FeaturedSidebarLayout({ articles, isLoading }: FeaturedSidebarLa
   // Get remaining articles (excluding the one used as hero)
   const remainingArticles = articles?.filter(a => a.slug !== featuredArticle?.slug) || [];
   const mainArticles = remainingArticles.slice(0, 4);
-  const sidebarTrending = remainingArticles.slice(4, 9);
-  const bottomGrid = remainingArticles.slice(9, 15);
+  const sidebarTrending = remainingArticles.slice(0, 10); // Show latest 10 for sidebar
+  const bottomGrid = remainingArticles.slice(4); // Show all remaining articles from position 4
 
   const formatDate = (date: Date | string) => {
     return new Date(date).toLocaleDateString('id-ID', {

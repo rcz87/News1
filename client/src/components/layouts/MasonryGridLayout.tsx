@@ -117,7 +117,7 @@ export function MasonryGridLayout({ articles, isLoading }: MasonryGridLayoutProp
             )}
 
             {/* Dynamic Grid Cards - Various Sizes */}
-            {otherArticles.slice(0, 11).map((article, index) => {
+            {otherArticles.map((article, index) => {
               // Create dynamic sizing pattern
               const isWide = index === 2 || index === 7;
               const isTall = index === 5 || index === 9;
